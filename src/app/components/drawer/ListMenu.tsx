@@ -34,7 +34,7 @@ export default function ListMenu(): ReactElement {
       {/* =============================================================================== */}
 
       {/* =============================================================================== */}
-      <ListItem
+      {/* <ListItem
         button
         selected={location.pathname === "/WeatherForecast"}
         component={Link}
@@ -47,7 +47,7 @@ export default function ListMenu(): ReactElement {
           primary={"Подробно"}
           sx={{ color: isActiveFontColor("/WeatherForecast") }}
         />
-      </ListItem>
+      </ListItem> */}
 
       {/* =============================================================================== */}
       {/* =============================================================================== */}

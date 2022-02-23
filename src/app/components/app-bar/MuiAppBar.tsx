@@ -32,7 +32,7 @@ export default function MuiAppBar() {
     navigate("/");
   };
   const handleDaylyClick = () => {
-    navigate("/weather");
+    navigate("/weathertable");
   };
 
   return (

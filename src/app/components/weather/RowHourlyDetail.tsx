@@ -1,34 +1,37 @@
-import { TableRow } from '@mui/material';
+import Hidden from '@mui/material/Hidden';
 import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
 import React from 'react';
 
-type Props = {
+type PropsDetail = {
   time: string;
   icon: string;
   temp: number;
   pricip: number;
   wind: number;
+  relative_humidity: number;
 };
 
-export default function WeatherForecastHourlyTable({
+//Формируем одну строку с часовым прогнозом
+export default function RowHourlyDetail({
   time,
   icon,
   temp,
   pricip,
   wind,
-}: Props) {
+  relative_humidity,
+}: PropsDetail) {
   return (
     <TableRow>
-      <TableCell align="center" sx={{ width: 10 }}>
-        {time}
-      </TableCell>
+      <TableCell align="left">{time}</TableCell>
 
-      <TableCell align="center" sx={{ width: 30 }}>
+      <TableCell align="left">
         <img width={30} alt="icon" src={icon} />
       </TableCell>
+
       {temp > 0 ? (
         <TableCell
-          align="center"
+          align="left"
           sx={{
             color: "red",
           }}
@@ -37,7 +40,7 @@ export default function WeatherForecastHourlyTable({
         </TableCell>
       ) : (
         <TableCell
-          align="center"
+          align="left"
           sx={{
             color: "blue",
           }}
@@ -49,18 +52,29 @@ export default function WeatherForecastHourlyTable({
         sx={{
           color: "blue",
         }}
-        align="center"
+        align="left"
       >
-        {pricip === 0 ? "" : pricip}
+        {pricip === 0 ? "0.0" : pricip}
       </TableCell>
       <TableCell
         sx={{
           color: "blue",
         }}
-        align="center"
+        align="left"
       >
         {wind} м
       </TableCell>
+
+      <Hidden smDown={true}>
+        <TableCell
+          sx={{
+            color: "blue",
+          }}
+          align="left"
+        >
+          {relative_humidity} %
+        </TableCell>
+      </Hidden>
     </TableRow>
   );
 }
