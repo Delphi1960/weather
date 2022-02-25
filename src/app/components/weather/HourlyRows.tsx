@@ -36,11 +36,11 @@ export default function HourlyRows({ open, dtDaily }: PropsHourly) {
             <Typography variant="body1" gutterBottom component="div">
               Почасовой прогноз
             </Typography>
-            <Table size="small" aria-label="purchases" sx={{ ml: -2, mr: -2 }}>
+            <Table size="small" aria-label="purchases" sx={{ ml: -1, mr: -1 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">Время</TableCell>
-                  <TableCell align="left">Небо</TableCell>
+                  <TableCell align="left">T</TableCell>
+                  <TableCell align="left">Обл.</TableCell>
                   <TableCell align="left">C°</TableCell>
                   <TableCell align="left">Осадки</TableCell>
                   <TableCell align="left">Ветер</TableCell>

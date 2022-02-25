@@ -1,7 +1,27 @@
+import Box from '@mui/material/Box';
 import Hidden from '@mui/material/Hidden';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
+
+type CellProps = {
+  value: number | string;
+  unit?: string;
+  color?: string;
+};
+
+function CellStyle({ value, unit = "", color = "black" }: CellProps) {
+  return (
+    <TableCell align="left">
+      <Box component="span" sx={{ color: { color } }}>
+        {value}{" "}
+      </Box>
+      <Box component="span" sx={{ color: "black" }}>
+        {unit}
+      </Box>
+    </TableCell>
+  );
+}
 
 type PropsDetail = {
   time: string;
@@ -23,57 +43,27 @@ export default function RowHourlyDetail({
 }: PropsDetail) {
   return (
     <TableRow>
-      <TableCell align="left">{time}</TableCell>
+      <CellStyle value={time} />
 
       <TableCell align="left">
         <img width={30} alt="icon" src={icon} />
       </TableCell>
 
       {temp > 0 ? (
-        <TableCell
-          align="left"
-          sx={{
-            color: "red",
-          }}
-        >
-          {temp}°
-        </TableCell>
+        <CellStyle value={temp} unit={"°"} color={"red"} />
       ) : (
-        <TableCell
-          align="left"
-          sx={{
-            color: "blue",
-          }}
-        >
-          {temp}°
-        </TableCell>
+        <CellStyle value={temp} unit={"°"} color={"blue"} />
       )}
-      <TableCell
-        sx={{
-          color: "blue",
-        }}
-        align="left"
-      >
-        {pricip === 0 ? "0.0" : pricip}
-      </TableCell>
-      <TableCell
-        sx={{
-          color: "blue",
-        }}
-        align="left"
-      >
-        {wind} м
-      </TableCell>
+
+      <CellStyle
+        value={pricip === 0 ? "0.0" : pricip}
+        unit={"мм"}
+        color={"blue"}
+      />
+      <CellStyle value={wind} unit={"м/c"} color={"blue"} />
 
       <Hidden smDown={true}>
-        <TableCell
-          sx={{
-            color: "blue",
-          }}
-          align="left"
-        >
-          {relative_humidity} %
-        </TableCell>
+        <CellStyle value={relative_humidity} unit={"%"} color={"blue"} />
       </Hidden>
     </TableRow>
   );

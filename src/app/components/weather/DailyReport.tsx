@@ -97,16 +97,16 @@ export default function DailyReport() {
     //загружаем иконки в массив через каждые 6 часов
     let dt0 = loadWeather.properties.timeseries[0].time.slice(11, 13);
     if (dt0 > "06") {
-      ico00[0] = "null1";
+      ico00[0] = "noicon";
     }
     if (dt0 > "12") {
-      ico06[0] = "null1";
+      ico06[0] = "noicon";
     }
     if (dt0 > "18") {
-      ico12[0] = "null1";
+      ico12[0] = "noicon";
     }
     if (dt0 > "23") {
-      ico18[0] = "null1";
+      ico18[0] = "noicon";
     }
     let symbol1 =
       loadWeather?.properties?.timeseries[i]?.data.next_1_hours?.summary
@@ -116,31 +116,31 @@ export default function DailyReport() {
         ?.symbol_code;
 
     if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "00") {
-      ico00.push(symbol1 || symbol6 || "null1");
+      ico00.push(symbol1 || symbol6 || "noicon");
     }
     if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "06") {
-      ico06.push(symbol1 || symbol6 || "null1");
+      ico06.push(symbol1 || symbol6 || "noicon");
     }
     if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "12") {
-      ico12.push(symbol1 || symbol6 || "null1");
+      ico12.push(symbol1 || symbol6 || "noicon");
     }
     if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "18") {
-      ico18.push(symbol1 || symbol6 || "null1");
+      ico18.push(symbol1 || symbol6 || "noicon");
     }
     //============================================================================
   }
   //Добавим недостающие иконки пустым изображением
   if (ico00.length < 10) {
-    ico00.push("null1");
+    ico00.push("noicon");
   }
   if (ico06.length < 10) {
-    ico06.push("null1");
+    ico06.push("noicon");
   }
   if (ico12.length < 10) {
-    ico12.push("null1");
+    ico12.push("noicon");
   }
   if (ico18.length < 10) {
-    ico18.push("null1");
+    ico18.push("noicon");
   }
 
   minDayTemp.push(_.min(temp));

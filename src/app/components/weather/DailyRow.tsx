@@ -66,7 +66,7 @@ export default function DailyRow({
           </Hidden>
         ))}
 
-        <TableCell sx={{ width: 35 }}>
+        <TableCell>
           {tempMin > 0 ? (
             <Box component="span" sx={{ color: "red", fontWeight: "bold" }}>
               {tempMin}°
@@ -88,32 +88,23 @@ export default function DailyRow({
           )}
         </TableCell>
 
-        <TableCell sx={{ width: 20 }}>
+        <TableCell>
           <Box component="span" sx={{ color: "blue" }}>
             {pricip === 0 || pricip === undefined ? "0.0" : pricip.toFixed(1)}
           </Box>
         </TableCell>
 
-        <TableCell sx={{ width: "auto" }}>
-          {/* <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
-                  {windMin}
-                </Box>
-                / */}
+        <TableCell>
           <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
             {windMax}
-          </Box>{" "}
-          м
+          </Box>
         </TableCell>
 
         <Hidden smDown={true}>
-          <TableCell align="left" size="small" width={"auto"}>
-            {relative_humidity} %
-          </TableCell>
+          <TableCell align="left">{relative_humidity} %</TableCell>
         </Hidden>
         <Hidden smDown={true}>
-          <TableCell align="left" size="small" width={"auto"}>
-            {pres}мм
-          </TableCell>
+          <TableCell align="left">{pres}мм</TableCell>
         </Hidden>
       </TableRow>
 

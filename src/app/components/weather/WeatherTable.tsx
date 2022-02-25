@@ -53,14 +53,14 @@ export default function WeatherTable() {
             <Hidden smDown={true}>
               <TableCell align="left">Вечер</TableCell>
             </Hidden>
-            <TableCell align="left">Темп</TableCell>
-            <TableCell align="left">Дождь</TableCell>
-            <TableCell align="left">Ветер</TableCell>
+            <TableCell align="left">Темп C°</TableCell>
+            <TableCell align="left">Дождь мм</TableCell>
+            <TableCell align="left">Ветер м/с</TableCell>
             <Hidden smDown={true}>
-              <TableCell align="left">Влажность</TableCell>
+              <TableCell align="left">Влажность %</TableCell>
             </Hidden>
             <Hidden smDown={true}>
-              <TableCell align="left">Давление</TableCell>
+              <TableCell align="left">Давление мм</TableCell>
             </Hidden>
           </TableRow>
         </TableHead>

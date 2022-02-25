@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { drawerState } from '../../recoil/drawer.state';
-import CurrentСonditions from '../weather/CurrentСonditions';
+import WeatherNow from '../weather/WeatherNow';
 import WeatherTable from '../weather/WeatherTable';
 import ListMenu from './ListMenu';
 
@@ -39,7 +39,7 @@ export default function Drawer() {
         </SwipeableDrawer>
 
         <Routes>
-          <Route path="/" element={<CurrentСonditions />} />
+          <Route path="/" element={<WeatherNow />} />
           {/* <Route path="/weather" element={<WeatherDaily />} /> */}
           <Route path="/weathertable" element={<WeatherTable />} />
         </Routes>
