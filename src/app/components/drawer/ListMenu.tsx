@@ -26,7 +26,7 @@ export default function ListMenu(): ReactElement {
           <AccountBalance color={isActive("/")} />
         </ListItemIcon>
         <ListItemText
-          primary={"Кратко"}
+          primary={"Погода сейчас"}
           sx={{ color: isActiveFontColor("/") }}
         />
       </ListItem>
@@ -61,7 +61,7 @@ export default function ListMenu(): ReactElement {
           <AccountBalance color={isActive("/WeatherTable")} />
         </ListItemIcon>
         <ListItemText
-          primary={"Таблица"}
+          primary={"Прогноз погоды"}
           sx={{ color: isActiveFontColor("/WeatherTable") }}
         />
       </ListItem>

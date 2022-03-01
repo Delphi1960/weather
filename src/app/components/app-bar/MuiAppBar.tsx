@@ -52,10 +52,10 @@ export default function MuiAppBar() {
 
           <Box sx={{ flexGrow: 1 }}>
             <Button color="inherit" onClick={handleCurrentClick}>
-              кратко
+              сейчас
             </Button>
             <Button color="inherit" onClick={handleDaylyClick}>
-              подробно
+              прогноз
             </Button>
           </Box>
           <Box sx={{ flexGrow: 1 }}></Box>

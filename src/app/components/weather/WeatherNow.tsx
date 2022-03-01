@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
+import CircularProgress from '@mui/material/CircularProgress';
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 
+import { loadState } from '../../recoil/load.state';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 import GetWeatherApi from './GetWeatherApi';
 import { Icons } from './weathericon';
@@ -29,6 +31,7 @@ const Img = styled("img")({
 // });
 
 export default function WeatherNow() {
+  const isLoading = useRecoilValue(loadState);
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
 
@@ -42,211 +45,236 @@ export default function WeatherNow() {
   });
 
   return (
-    <Paper
-      sx={{
-        margin: "auto",
-        maxWidth: 800,
-        flexGrow: 1,
-        // backgroundColor: (theme) =>
-        //   theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-      }}
-    >
-      <Grid
-        container
-        spacing={0}
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-      >
-        <Grid item>
-          <Box>
-            <Img
-              alt="wether"
-              width={250}
-              src={
-                Icons[
-                  loadWeather.properties.timeseries[0].data.next_1_hours.summary
-                    .symbol_code as IconsKey
-                ]
-              }
-            />
+    <Box>
+      {isLoading ? (
+        <Box>
+          <CircularProgress />
+          <br />
+          <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
+            Загрузка...
           </Box>
-        </Grid>
-        <Grid item xs={12} sm container>
+        </Box>
+      ) : (
+        <Paper
+          sx={{
+            margin: "auto",
+            maxWidth: 800,
+            flexGrow: 1,
+            // backgroundColor: (theme) =>
+            //   theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+          }}
+        >
           <Grid
-            item
-            xs
             container
-            direction="column"
+            spacing={0}
+            direction="row"
             justifyContent="center"
             alignItems="center"
-            spacing={0}
           >
-            <Grid item xs>
-              <Typography variant="h6" gutterBottom>
-                {dt}
-              </Typography>
-            </Grid>
             <Grid item>
-              <Table size="small">
-                <TableBody>
-                  <TableRow>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        Облачность:
-                      </Box>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        {Math.round(
-                          loadWeather?.properties.timeseries[0].data.instant
-                            .details.cloud_area_fraction
-                        ) + " %"}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
+              <Box>
+                <Img
+                  alt="wether"
+                  width={250}
+                  src={
+                    Icons[
+                      loadWeather.properties.timeseries[0].data.next_1_hours
+                        .summary.symbol_code as IconsKey
+                    ]
+                  }
+                />
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm container>
+              <Grid
+                item
+                xs
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={0}
+              >
+                <Grid item xs>
+                  <Typography variant="h6" gutterBottom>
+                    {dt}
+                  </Typography>
+                </Grid>
+                <Grid item>
+                  <Table size="small">
+                    <TableBody>
+                      <TableRow>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            Облачность:
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            {Math.round(
+                              loadWeather?.properties.timeseries[0].data.instant
+                                .details.cloud_area_fraction
+                            ) + " %"}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
 
-                  <TableRow>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        Температура:
-                      </Box>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16, color: "red" }}
-                      >
-                        {Math.round(
-                          loadWeather?.properties.timeseries[0].data.instant
-                            .details.air_temperature
-                        ) + "°"}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
+                      <TableRow>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            Температура:
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{
+                              textAlign: "left",
+                              fontSize: 16,
+                              color: "red",
+                            }}
+                          >
+                            {Math.round(
+                              loadWeather?.properties.timeseries[0].data.instant
+                                .details.air_temperature
+                            ) + "°"}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
 
-                  <TableRow>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        Скорость ветра:
-                      </Box>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16, color: "blue" }}
-                      >
-                        {Math.round(
-                          loadWeather?.properties.timeseries[0].data.instant
-                            .details.wind_speed
-                        ) + " м/сек"}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
+                      <TableRow>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            Скорость ветра:
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{
+                              textAlign: "left",
+                              fontSize: 16,
+                              color: "blue",
+                            }}
+                          >
+                            {Math.round(
+                              loadWeather?.properties.timeseries[0].data.instant
+                                .details.wind_speed
+                            ) + " м/сек"}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
 
-                  <TableRow>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        Направление ветра:
-                      </Box>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        {Math.round(
-                          loadWeather?.properties.timeseries[0].data.instant
-                            .details.wind_from_direction
-                        ) + "°"}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
+                      <TableRow>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            Направление ветра:
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            {Math.round(
+                              loadWeather?.properties.timeseries[0].data.instant
+                                .details.wind_from_direction
+                            ) + "°"}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
 
-                  <TableRow>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        Осадки:
-                      </Box>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16, color: "blue" }}
-                      >
-                        {loadWeather?.properties.timeseries[0].data.next_1_hours
-                          .details.precipitation_amount + " мм"}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        Относительная влажность:
-                      </Box>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        {Math.round(
-                          loadWeather?.properties.timeseries[0].data.instant
-                            .details.relative_humidity
-                        ) + " %"}
-                      </Box>
-                    </TableCell>
-                  </TableRow>
+                      <TableRow>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            Осадки:
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{
+                              textAlign: "left",
+                              fontSize: 16,
+                              color: "blue",
+                            }}
+                          >
+                            {loadWeather?.properties.timeseries[0].data
+                              .next_1_hours.details.precipitation_amount +
+                              " мм"}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                      <TableRow>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            Относительная влажность:
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            {Math.round(
+                              loadWeather?.properties.timeseries[0].data.instant
+                                .details.relative_humidity
+                            ) + " %"}
+                          </Box>
+                        </TableCell>
+                      </TableRow>
 
-                  <TableRow>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        Давление:
-                      </Box>
-                    </TableCell>
-                    <TableCell align="left">
-                      <Box
-                        component="span"
-                        sx={{ textAlign: "left", fontSize: 16 }}
-                      >
-                        {Math.round(
-                          loadWeather?.properties.timeseries[0].data.instant
-                            .details.air_pressure_at_sea_level * 0.75
-                        )}{" "}
-                        мм
-                      </Box>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
+                      <TableRow>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            Давление:
+                          </Box>
+                        </TableCell>
+                        <TableCell align="left">
+                          <Box
+                            component="span"
+                            sx={{ textAlign: "left", fontSize: 16 }}
+                          >
+                            {Math.round(
+                              loadWeather?.properties.timeseries[0].data.instant
+                                .details.air_pressure_at_sea_level * 0.75
+                            )}{" "}
+                            мм
+                          </Box>
+                        </TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Grid>
-    </Paper>
+        </Paper>
+      )}
+    </Box>
   );
 }

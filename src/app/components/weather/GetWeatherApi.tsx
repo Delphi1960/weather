@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useSetRecoilState } from 'recoil';
 
+import { loadState } from '../../recoil/load.state';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 
 export default function GetWeatherApi() {
@@ -9,8 +10,10 @@ export default function GetWeatherApi() {
 
   // const setLoadWeather = useSetRecoilState(weatherState);
   const setLoadWeather = useSetRecoilState(yrWeatherState);
+  const setIsLoading = useSetRecoilState(loadState);
 
   const getWether = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(
         // `https://api.openweathermap.org/data/2.5/onecall?lat=46.41959&lon=30.75982&units=metric&appid=${API_KEY}&lang=ru`
@@ -22,10 +25,12 @@ export default function GetWeatherApi() {
     } catch (error) {
       console.log(error);
     } finally {
+      setIsLoading(false);
     }
   };
 
   useEffect(() => {
+    // setTimeout(getWether, 1000);
     getWether();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 }
