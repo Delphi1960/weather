@@ -51,7 +51,7 @@ export default function WeatherNow() {
           <CircularProgress />
           <br />
           <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
-            Загрузка...
+            Загрузка данных...
           </Box>
         </Box>
       ) : (

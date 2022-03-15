@@ -130,16 +130,16 @@ export default function DailyReport() {
     //============================================================================
   }
   //Добавим недостающие иконки пустым изображением
-  if (ico00.length < 10) {
+  if (ico00.length <= 10) {
     ico00.push("noicon");
   }
-  if (ico06.length < 10) {
+  if (ico06.length <= 10) {
     ico06.push("noicon");
   }
-  if (ico12.length < 10) {
+  if (ico12.length <= 10) {
     ico12.push("noicon");
   }
-  if (ico18.length < 10) {
+  if (ico18.length <= 10) {
     ico18.push("noicon");
   }
 

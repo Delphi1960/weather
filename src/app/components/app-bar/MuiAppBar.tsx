@@ -1,31 +1,21 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Button } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import Toolbar from '@mui/material/Toolbar';
-import Tooltip from '@mui/material/Tooltip';
 import * as React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { drawerState } from '../../recoil/drawer.state';
 import Drawer from '../drawer/Drawer';
+import SelectLocation from '../weather/SelectLocation';
 
 export default function MuiAppBar() {
   const [isDrawerOpen, setDrawerIsOpen] = useRecoilState(drawerState);
   const handleToggleDrawer = () => setDrawerIsOpen(!isDrawerOpen);
-
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleSearch = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
 
   const navigate = useNavigate();
   const handleCurrentClick = () => {
@@ -33,6 +23,26 @@ export default function MuiAppBar() {
   };
   const handleDaylyClick = () => {
     navigate("/weathertable");
+  };
+  const handleChartClick = () => {
+    navigate("/chart");
+  };
+
+  const location = useLocation();
+  const isActiveFontColor = (path: string) =>
+    location.pathname === path ? "yellow" : "white";
+
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = (
+    event: React.SyntheticEvent<unknown>,
+    reason?: string
+  ) => {
+    if (reason !== "backdropClick") {
+      setOpen(false);
+    }
   };
 
   return (
@@ -50,45 +60,56 @@ export default function MuiAppBar() {
             <MenuIcon />
           </IconButton>
 
-          <Box sx={{ flexGrow: 1 }}>
-            <Button color="inherit" onClick={handleCurrentClick}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
+            <Button
+              onClick={handleCurrentClick}
+              sx={{
+                color: isActiveFontColor("/"),
+                display: "block",
+              }}
+            >
               сейчас
             </Button>
-            <Button color="inherit" onClick={handleDaylyClick}>
+            <Button
+              onClick={handleDaylyClick}
+              sx={{
+                color: isActiveFontColor("/weathertable"),
+                display: "block",
+              }}
+            >
               прогноз
             </Button>
-          </Box>
-          <Box sx={{ flexGrow: 1 }}></Box>
-          <Box sx={{ flexGrow: 1 }}></Box>
-          <Tooltip title="Location search">
-            <IconButton
-              size="large"
-              aria-label="search"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleSearch}
-              color="inherit"
+            <Button
+              onClick={handleChartClick}
+              sx={{
+                color: isActiveFontColor("/chart"),
+                display: "block",
+              }}
             >
-              <SearchIcon />
-            </IconButton>
-          </Tooltip>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+              график
+            </Button>
+          </Box>
+          <IconButton
+            size="large"
+            aria-label="search"
+            color="inherit"
+            onClick={handleClickOpen}
           >
-            <MenuItem onClick={handleClose}>Поиск места</MenuItem>
-          </Menu>
+            <SearchIcon />
+          </IconButton>
+
+          <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
+            <DialogTitle>Find locations</DialogTitle>
+            <DialogContent>
+              <Box component="form" sx={{ display: "flex", flexWrap: "wrap" }}>
+                <SelectLocation />
+              </Box>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleClose}>Cancel</Button>
+              <Button onClick={handleClose}>Ok</Button>
+            </DialogActions>
+          </Dialog>
         </Toolbar>
       </AppBar>
       <Drawer />

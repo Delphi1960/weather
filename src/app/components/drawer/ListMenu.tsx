@@ -67,6 +67,23 @@ export default function ListMenu(): ReactElement {
       </ListItem>
 
       {/* =============================================================================== */}
+      {/* =============================================================================== */}
+      <ListItem
+        button
+        selected={location.pathname === "/chart"}
+        component={Link}
+        to="/chart"
+      >
+        <ListItemIcon>
+          <AccountBalance color={isActive("/chart")} />
+        </ListItemIcon>
+        <ListItemText
+          primary={"График температур"}
+          sx={{ color: isActiveFontColor("/chart") }}
+        />
+      </ListItem>
+
+      {/* =============================================================================== */}
 
       {/* =============================================================================== */}
     </List>

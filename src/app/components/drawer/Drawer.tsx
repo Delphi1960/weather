@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
 
 import { drawerState } from '../../recoil/drawer.state';
+import Chart from '../weather/Chart';
 import WeatherNow from '../weather/WeatherNow';
 import WeatherTable from '../weather/WeatherTable';
 import ListMenu from './ListMenu';
@@ -42,6 +43,7 @@ export default function Drawer() {
           <Route path="/" element={<WeatherNow />} />
           {/* <Route path="/weather" element={<WeatherDaily />} /> */}
           <Route path="/weathertable" element={<WeatherTable />} />
+          <Route path="/chart" element={<Chart />} />
         </Routes>
       </React.Fragment>
     </Box>

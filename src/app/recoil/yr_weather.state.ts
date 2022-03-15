@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-const yrWeatherState = atom({
+export const yrWeatherState = atom({
   key: "yrWeatherState",
   default: {
     type: "Feature",
@@ -62,4 +62,10 @@ const yrWeatherState = atom({
     },
   },
 });
-export { yrWeatherState };
+
+export const coordLocation = atom({
+  key: "coordLocation",
+  default: "",
+});
+
+// export { yrWeatherState };

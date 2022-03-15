@@ -45,7 +45,7 @@ export default function WeatherTable() {
           <CircularProgress />
           <br />
           <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
-            Загрузка...
+            Загрузка данных...
           </Box>
         </Box>
       ) : (
@@ -68,7 +68,7 @@ export default function WeatherTable() {
                   <TableCell align="left">Вечер</TableCell>
                 </Hidden>
                 <TableCell align="left">Темп C°</TableCell>
-                <TableCell align="left">Дождь мм</TableCell>
+                <TableCell align="left">Осадки мм</TableCell>
                 <TableCell align="left">Ветер м/с</TableCell>
                 <Hidden smDown={true}>
                   <TableCell align="left">Влажность %</TableCell>
@@ -106,11 +106,11 @@ export default function WeatherTable() {
                       Icons[ico12[ind] as IconsKey],
                       Icons[ico18[ind] as IconsKey],
                     ]}
-                    tempMin={minDayTemp[ind]}
-                    tempMax={maxDayTemp[ind]}
+                    tempMin={minDayTemp[ind] || "-"}
+                    tempMax={maxDayTemp[ind] || "-"}
                     pricip={maxDayPrecip[ind]}
-                    windMax={Math.round(maxDayWind[ind])}
-                    relative_humidity={Math.round(averageHumidity[ind])}
+                    windMax={Math.round(maxDayWind[ind]) || 0}
+                    relative_humidity={Math.round(averageHumidity[ind]) || 0}
                     pres={Math.round(
                       daily.data.instant.details.air_pressure_at_sea_level *
                         0.75
