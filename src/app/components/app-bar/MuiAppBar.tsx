@@ -1,20 +1,23 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Toolbar from '@mui/material/Toolbar';
 import * as React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 
 import { drawerState } from '../../recoil/drawer.state';
+import { buttonOkLocation, coordLocation } from '../../recoil/yr_weather.state';
 import Drawer from '../drawer/Drawer';
 import SelectLocation from '../weather/SelectLocation';
 
 export default function MuiAppBar() {
   const [isDrawerOpen, setDrawerIsOpen] = useRecoilState(drawerState);
+  const buttonOkState = useRecoilValue(buttonOkLocation);
+  const coord = useRecoilValue(coordLocation);
   const handleToggleDrawer = () => setDrawerIsOpen(!isDrawerOpen);
 
   const navigate = useNavigate();
@@ -40,6 +43,12 @@ export default function MuiAppBar() {
     event: React.SyntheticEvent<unknown>,
     reason?: string
   ) => {
+    if (reason !== "backdropClick") {
+      setOpen(false);
+    }
+  };
+
+  const handleOk = (event: React.SyntheticEvent<unknown>, reason?: string) => {
     if (reason !== "backdropClick") {
       setOpen(false);
     }
@@ -104,10 +113,13 @@ export default function MuiAppBar() {
               <Box component="form" sx={{ display: "flex", flexWrap: "wrap" }}>
                 <SelectLocation />
               </Box>
+              <Typography variant="body2">{coord}</Typography>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleClose}>Cancel</Button>
-              <Button onClick={handleClose}>Ok</Button>
+              <Button onClick={handleOk} disabled={buttonOkState}>
+                Ok
+              </Button>
             </DialogActions>
           </Dialog>
         </Toolbar>

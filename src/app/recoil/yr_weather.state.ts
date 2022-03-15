@@ -67,5 +67,9 @@ export const coordLocation = atom({
   key: "coordLocation",
   default: "",
 });
+export const buttonOkLocation = atom({
+  key: "buttonOkLocation",
+  default: true,
+});
 
 // export { yrWeatherState };
