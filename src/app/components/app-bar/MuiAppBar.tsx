@@ -1,6 +1,6 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tooltip, Typography } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -45,6 +45,7 @@ export default function MuiAppBar() {
   ) => {
     if (reason !== "backdropClick") {
       setOpen(false);
+      navigate("/");
     }
   };
 
@@ -98,15 +99,16 @@ export default function MuiAppBar() {
               график
             </Button>
           </Box>
-          <IconButton
-            size="large"
-            aria-label="search"
-            color="inherit"
-            onClick={handleClickOpen}
-          >
-            <SearchIcon />
-          </IconButton>
-
+          <Tooltip title="Find location">
+            <IconButton
+              size="large"
+              aria-label="search"
+              color="inherit"
+              onClick={handleClickOpen}
+            >
+              <SearchIcon />
+            </IconButton>
+          </Tooltip>
           <Dialog disableEscapeKeyDown open={open} onClose={handleClose}>
             <DialogTitle>Find locations</DialogTitle>
             <DialogContent>

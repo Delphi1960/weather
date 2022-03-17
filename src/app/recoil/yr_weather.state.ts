@@ -65,7 +65,11 @@ export const yrWeatherState = atom({
 
 export const coordLocation = atom({
   key: "coordLocation",
-  default: "",
+  default: "lat=46.4725&lon=30.74136&altitude=42",
+});
+export const nameLocation = atom({
+  key: "nameLocation",
+  default: "Одесса (home)",
 });
 export const buttonOkLocation = atom({
   key: "buttonOkLocation",

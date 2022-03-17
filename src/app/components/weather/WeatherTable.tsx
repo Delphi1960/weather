@@ -8,11 +8,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { loadState } from '../../recoil/load.state';
-import { yrWeatherState } from '../../recoil/yr_weather.state';
+import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
 import DailyReport from './DailyReport';
 import DailyRow from './DailyRow';
 import GetWeatherApi from './GetWeatherApi';
@@ -23,6 +24,7 @@ type IconsKey = keyof typeof Icons;
 //============================================================================
 
 export default function WeatherTable() {
+  const place = useRecoilValue(nameLocation);
   const isLoading = useRecoilValue(loadState);
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
@@ -50,6 +52,9 @@ export default function WeatherTable() {
         </Box>
       ) : (
         <TableContainer component={Paper}>
+          <Typography variant="body1" align="left" sx={{ ml: 1 }}>
+            Location: {place}
+          </Typography>
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>

@@ -5,7 +5,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { loadState } from '../../recoil/load.state';
-import { yrWeatherState } from '../../recoil/yr_weather.state';
+import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
 import GetWeatherApi from './GetWeatherApi';
 import { Icons } from './weathericon';
 
@@ -32,6 +32,7 @@ const Img = styled("img")({
 
 export default function WeatherNow() {
   const isLoading = useRecoilValue(loadState);
+  const place = useRecoilValue(nameLocation);
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
 
@@ -64,6 +65,9 @@ export default function WeatherNow() {
             //   theme.palette.mode === "dark" ? "#1A2027" : "#fff",
           }}
         >
+          <Typography variant="body1" align="left" sx={{ ml: 1 }}>
+            Location: {place}
+          </Typography>
           <Grid
             container
             spacing={0}

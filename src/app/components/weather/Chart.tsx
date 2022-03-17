@@ -4,11 +4,12 @@ import Typography from '@mui/material/Typography';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 import { useRecoilValue } from 'recoil';
 
-import { yrWeatherState } from '../../recoil/yr_weather.state';
+import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
 import DailyReport from './DailyReport';
 import GetWeatherApi from './GetWeatherApi';
 
 export default function Chart() {
+  const place = useRecoilValue(nameLocation);
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
   const { minDayTemp, maxDayTemp } = DailyReport();
@@ -58,6 +59,8 @@ export default function Chart() {
     <ThemeProvider theme={theme}>
       <Box>
         <Typography variant="body1" align="center">
+          Location: {place}
+          <br />
           Минимальная и максимальная суточная температура С°
         </Typography>
         <ResponsiveContainer width="100%" aspect={3}>

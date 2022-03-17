@@ -1,10 +1,10 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import React, { useState } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { buttonOkLocation, coordLocation } from '../../recoil/yr_weather.state';
+import { buttonOkLocation, coordLocation, nameLocation } from '../../recoil/yr_weather.state';
+import GetWeatherApi from './GetWeatherApi';
 
 // import JsonPlace from './data_ua.json';
 
@@ -16,11 +16,11 @@ interface LocationType {
 
 export default function SelectLocation() {
   // const searchLocation = JsonPlace;
-
-  const [inputValue, setInputValue] = useState("");
+  const place = useRecoilValue(nameLocation);
+  const setInputValue = useSetRecoilState(nameLocation);
   const setCoord = useSetRecoilState(coordLocation);
   const setBtState = useSetRecoilState(buttonOkLocation);
-
+  GetWeatherApi();
   const defaultProps = {
     options: searchLocation,
     getOptionLabel: (option: LocationType) => option.location,
@@ -29,13 +29,12 @@ export default function SelectLocation() {
   const handleChange = (event: any, newInputValue: any) => {
     setInputValue(newInputValue);
     const coord = searchLocation.find(
-      (city) => city.location === inputValue
+      (city) => city.location === newInputValue
     )?.coord;
     if (coord !== undefined) {
       setCoord(coord);
     }
     setBtState(false);
-    console.log(coord);
   };
 
   return (
@@ -45,7 +44,12 @@ export default function SelectLocation() {
         id="auto-select"
         autoSelect
         renderInput={(params) => (
-          <TextField {...params} label="Location" variant="standard" />
+          <TextField
+            {...params}
+            label="Location"
+            variant="standard"
+            value={place}
+          />
         )}
         onInputChange={handleChange}
       />
@@ -58,6 +62,11 @@ export default function SelectLocation() {
 // }}
 
 const searchLocation = [
+  {
+    location: "Одесса (home)",
+    coord: "lat=46.4725&lon=30.74136&altitude=42",
+    url: "",
+  },
   {
     location: "Одесса",
     coord: "lat=46.4577&lon=30.7484&altitude=37",
