@@ -5,7 +5,10 @@ import IconButton from '@mui/material/IconButton';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
+import { useRecoilValue } from 'recoil';
 
+import { yrSunriseState } from '../../recoil/yr_sunrise.state';
+import GetSunriseApi from './GetSunriseApi';
 import HourlyRows from './HourlyRows';
 
 type PropsDaily = {
@@ -54,6 +57,12 @@ export default function DailyRow({
   // const loadSunrise = useRecoilValue(yrSunriseState);
   // const sunRise = loadSunrise?.location?.time[0]?.sunrise?.time;
   // console.log(sunRise);
+
+  GetSunriseApi();
+  const astroData = useRecoilValue(yrSunriseState);
+  if (!astroData) return <div></div>;
+  console.log(astroData);
+
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>

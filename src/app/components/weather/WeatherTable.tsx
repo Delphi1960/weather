@@ -15,7 +15,6 @@ import { loadState } from '../../recoil/load.state';
 import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
 import DailyReport from './DailyReport';
 import DailyRow from './DailyRow';
-import GetWeatherApi from './GetWeatherApi';
 import { Icons } from './weathericon';
 
 type IconsKey = keyof typeof Icons;
@@ -23,10 +22,6 @@ type IconsKey = keyof typeof Icons;
 //============================================================================
 
 export default function WeatherTable() {
-  const place = useRecoilValue(nameLocation);
-  const isLoading = useRecoilValue(loadState);
-  GetWeatherApi();
-  const loadWeather = useRecoilValue(yrWeatherState);
   const {
     minDayTemp,
     maxDayTemp,
@@ -38,7 +33,12 @@ export default function WeatherTable() {
     ico06,
     ico12,
     ico18,
-  } = DailyReport();
+  }: any = DailyReport();
+
+  const loadWeather = useRecoilValue(yrWeatherState);
+  const place = useRecoilValue(nameLocation);
+  const isLoading = useRecoilValue(loadState);
+
   return (
     <Box>
       {isLoading ? (

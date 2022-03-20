@@ -7,8 +7,9 @@ import GetWeatherApi from './GetWeatherApi';
 export default function DailyReport() {
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
+  if (!loadWeather) return <div></div>;
 
-  const minDayTemp: any = [];
+  const minDayTemp: any[] = [];
   const maxDayTemp: any = [];
   const maxDayWind: any = [];
   const averageHumidity: any = [];

@@ -5,9 +5,7 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { loadState } from '../../recoil/load.state';
-import { yrSunriseState } from '../../recoil/yr_sunrise.state';
 import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
-import GetSunriseApi from './GetSunriseApi';
 import GetWeatherApi from './GetWeatherApi';
 import { Icons } from './weathericon';
 
@@ -33,16 +31,13 @@ const Img = styled("img")({
 // });
 
 export default function WeatherNow() {
-  const isLoading = useRecoilValue(loadState);
-  const place = useRecoilValue(nameLocation);
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
+  const place = useRecoilValue(nameLocation);
+  const isLoading = useRecoilValue(loadState);
+  if (!loadWeather) return <div></div>;
 
-  GetSunriseApi(loadWeather?.properties?.timeseries[0]?.time);
-  const astroData = useRecoilValue(yrSunriseState);
-  console.log(astroData);
-
-  let date = new Date(loadWeather?.properties.timeseries[0].time);
+  let date = new Date(loadWeather!.properties.timeseries[0].time);
   let dt = date.toLocaleString("ru-RU", {
     day: "numeric",
     month: "long",
@@ -103,7 +98,7 @@ export default function WeatherNow() {
                   width={250}
                   src={
                     Icons[
-                      loadWeather.properties.timeseries[0].data.next_1_hours
+                      loadWeather!.properties.timeseries[0].data.next_1_hours
                         .summary.symbol_code as IconsKey
                     ]
                   }
@@ -143,7 +138,7 @@ export default function WeatherNow() {
                             sx={{ textAlign: "left", fontSize: 16 }}
                           >
                             {Math.round(
-                              loadWeather?.properties.timeseries[0].data.instant
+                              loadWeather!.properties.timeseries[0].data.instant
                                 .details.cloud_area_fraction
                             ) + " %"}
                           </Box>
@@ -169,7 +164,7 @@ export default function WeatherNow() {
                             }}
                           >
                             {Math.round(
-                              loadWeather?.properties.timeseries[0].data.instant
+                              loadWeather!.properties.timeseries[0].data.instant
                                 .details.air_temperature
                             ) + "°"}
                           </Box>
@@ -195,7 +190,7 @@ export default function WeatherNow() {
                             }}
                           >
                             {Math.round(
-                              loadWeather?.properties.timeseries[0].data.instant
+                              loadWeather!.properties.timeseries[0].data.instant
                                 .details.wind_speed
                             ) + " м/сек"}
                           </Box>
@@ -217,7 +212,7 @@ export default function WeatherNow() {
                             sx={{ textAlign: "left", fontSize: 16 }}
                           >
                             {Math.round(
-                              loadWeather?.properties.timeseries[0].data.instant
+                              loadWeather!.properties.timeseries[0].data.instant
                                 .details.wind_from_direction
                             ) + "°"}
                           </Box>
@@ -263,7 +258,7 @@ export default function WeatherNow() {
                             sx={{ textAlign: "left", fontSize: 16 }}
                           >
                             {Math.round(
-                              loadWeather?.properties.timeseries[0].data.instant
+                              loadWeather!.properties.timeseries[0].data.instant
                                 .details.relative_humidity
                             ) + " %"}
                           </Box>
@@ -285,7 +280,7 @@ export default function WeatherNow() {
                             sx={{ textAlign: "left", fontSize: 16 }}
                           >
                             {Math.round(
-                              loadWeather?.properties.timeseries[0].data.instant
+                              loadWeather!.properties.timeseries[0].data.instant
                                 .details.air_pressure_at_sea_level * 0.75
                             )}{" "}
                             мм

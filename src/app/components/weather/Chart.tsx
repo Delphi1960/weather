@@ -12,7 +12,7 @@ export default function Chart() {
   const place = useRecoilValue(nameLocation);
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
-  const { minDayTemp, maxDayTemp } = DailyReport();
+  const { minDayTemp, maxDayTemp }: any = DailyReport();
   const data: any = [];
   loadWeather?.properties.timeseries
     .filter(function (item, ind) {
