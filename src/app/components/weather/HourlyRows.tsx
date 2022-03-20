@@ -33,19 +33,49 @@ export default function HourlyRows({ open, dtDaily }: PropsHourly) {
       <TableCell colSpan={10}>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Box sx={{ mt: 1 }}>
-            <Typography variant="body1" gutterBottom component="div">
+            <Typography variant="body2" gutterBottom component="div">
               Почасовой прогноз
             </Typography>
             <Table size="small" aria-label="purchases" sx={{ ml: -1, mr: -1 }}>
               <TableHead>
                 <TableRow>
-                  <TableCell align="left">T</TableCell>
-                  <TableCell align="left">Обл.</TableCell>
-                  <TableCell align="left">C°</TableCell>
-                  <TableCell align="left">Осадки</TableCell>
-                  <TableCell align="left">Ветер</TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    T
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Обл.
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    C°
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Осадки
+                  </TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Ветер
+                  </TableCell>
                   <Hidden smDown={true}>
-                    <TableCell align="left">Влажность</TableCell>
+                    <TableCell
+                      align="left"
+                      sx={{ fontSize: 12, fontWeight: "bold" }}
+                    >
+                      Влажность
+                    </TableCell>
                   </Hidden>
                 </TableRow>
               </TableHead>

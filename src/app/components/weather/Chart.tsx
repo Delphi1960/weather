@@ -58,9 +58,23 @@ export default function Chart() {
   return (
     <ThemeProvider theme={theme}>
       <Box>
+        <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
+          <Box component="span" sx={{ textAlign: "left", color: "black" }}>
+            Location:{" "}
+          </Box>
+          <Box
+            component="span"
+            sx={{
+              textAlign: "left",
+              color: "blue",
+              fontWeight: "bold",
+              fontStyle: "italic",
+            }}
+          >
+            {place}
+          </Box>
+        </Box>{" "}
         <Typography variant="body1" align="center">
-          Location: {place}
-          <br />
           Минимальная и максимальная суточная температура С°
         </Typography>
         <ResponsiveContainer width="100%" aspect={3}>

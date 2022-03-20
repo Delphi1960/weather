@@ -19,9 +19,10 @@ export default function GetWeatherApi() {
         `https://api.met.no/weatherapi/locationforecast/2.0/compact?${coord}`
 
         // `https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=46.4725&lon=30.74136&altitude=42`
+        //https://api.met.no/weatherapi/sunrise/2.0/.json?lat=46.4725&lon=30.74136&date=2022-03-17&offset=+02:00
       );
       setLoadWeather(response.data);
-      //console.log(response.data);
+      // console.log(response.data);
     } catch (error) {
       console.log(error);
     } finally {

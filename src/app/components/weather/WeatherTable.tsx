@@ -8,7 +8,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
 import * as React from 'react';
 import { useRecoilValue } from 'recoil';
 
@@ -52,34 +51,98 @@ export default function WeatherTable() {
         </Box>
       ) : (
         <TableContainer component={Paper}>
-          <Typography variant="body1" align="left" sx={{ ml: 1 }}>
-            Location: {place}
-          </Typography>
+          <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
+            <Box component="span" sx={{ textAlign: "left", color: "black" }}>
+              Location:{" "}
+            </Box>
+            <Box
+              component="span"
+              sx={{
+                textAlign: "left",
+                color: "blue",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            >
+              {place}
+            </Box>
+          </Box>
+
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell align="left">Дата</TableCell>
+                <TableCell
+                  align="left"
+                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                >
+                  Дата
+                </TableCell>
                 <Hidden smDown={true}>
-                  <TableCell align="left">Ночь</TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Ночь
+                  </TableCell>
                 </Hidden>
                 <Hidden smDown={true}>
-                  <TableCell align="left">Утро</TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Утро
+                  </TableCell>
                 </Hidden>
                 <Hidden smDown={true}>
-                  <TableCell align="left">День</TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    День
+                  </TableCell>
                 </Hidden>
                 <Hidden smDown={true}>
-                  <TableCell align="left">Вечер</TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Вечер
+                  </TableCell>
                 </Hidden>
-                <TableCell align="left">Темп C°</TableCell>
-                <TableCell align="left">Осадки мм</TableCell>
-                <TableCell align="left">Ветер м/с</TableCell>
+                <TableCell
+                  align="left"
+                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                >
+                  Темп C°
+                </TableCell>
+                <TableCell
+                  align="left"
+                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                >
+                  Осадки мм
+                </TableCell>
+                <TableCell
+                  align="left"
+                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                >
+                  Ветер м/с
+                </TableCell>
                 <Hidden smDown={true}>
-                  <TableCell align="left">Влажность %</TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Влажность %
+                  </TableCell>
                 </Hidden>
                 <Hidden smDown={true}>
-                  <TableCell align="left">Давление мм</TableCell>
+                  <TableCell
+                    align="left"
+                    sx={{ fontSize: 12, fontWeight: "bold" }}
+                  >
+                    Давление мм
+                  </TableCell>
                 </Hidden>
               </TableRow>
             </TableHead>
@@ -101,27 +164,30 @@ export default function WeatherTable() {
                   dt2 = new Date(loadWeather?.properties.timeseries[ind].time);
                   return dt1.toLocaleDateString() !== dt2.toLocaleDateString();
                 })
-                .map((daily, ind) => (
-                  <DailyRow
-                    key={ind}
-                    date={daily.time}
-                    icon={[
-                      Icons[ico00[ind] as IconsKey],
-                      Icons[ico06[ind] as IconsKey],
-                      Icons[ico12[ind] as IconsKey],
-                      Icons[ico18[ind] as IconsKey],
-                    ]}
-                    tempMin={minDayTemp[ind] || "-"}
-                    tempMax={maxDayTemp[ind] || "-"}
-                    pricip={maxDayPrecip[ind]}
-                    windMax={Math.round(maxDayWind[ind]) || 0}
-                    relative_humidity={Math.round(averageHumidity[ind]) || 0}
-                    pres={Math.round(
-                      daily.data.instant.details.air_pressure_at_sea_level *
-                        0.75
-                    )}
-                  />
-                ))}
+                .map((daily, ind) =>
+                  //прогноз на 9 дней. 10-й день отсекаем. Приходят не полные данные
+                  ind < 10 ? (
+                    <DailyRow
+                      key={ind}
+                      date={daily.time}
+                      icon={[
+                        Icons[ico00[ind] as IconsKey],
+                        Icons[ico06[ind] as IconsKey],
+                        Icons[ico12[ind] as IconsKey],
+                        Icons[ico18[ind] as IconsKey],
+                      ]}
+                      tempMin={minDayTemp[ind]}
+                      tempMax={maxDayTemp[ind]}
+                      pricip={maxDayPrecip[ind]}
+                      windMax={Math.round(maxDayWind[ind]) || 0}
+                      relative_humidity={Math.round(averageHumidity[ind]) || 0}
+                      pres={Math.round(
+                        daily.data.instant.details.air_pressure_at_sea_level *
+                          0.75
+                      )}
+                    />
+                  ) : null
+                )}
             </TableBody>
           </Table>
         </TableContainer>

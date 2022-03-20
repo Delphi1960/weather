@@ -5,7 +5,9 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { loadState } from '../../recoil/load.state';
+import { yrSunriseState } from '../../recoil/yr_sunrise.state';
 import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
+import GetSunriseApi from './GetSunriseApi';
 import GetWeatherApi from './GetWeatherApi';
 import { Icons } from './weathericon';
 
@@ -36,13 +38,16 @@ export default function WeatherNow() {
   GetWeatherApi();
   const loadWeather = useRecoilValue(yrWeatherState);
 
+  GetSunriseApi(loadWeather?.properties?.timeseries[0]?.time);
+  const astroData = useRecoilValue(yrSunriseState);
+  console.log(astroData);
+
   let date = new Date(loadWeather?.properties.timeseries[0].time);
   let dt = date.toLocaleString("ru-RU", {
     day: "numeric",
     month: "long",
     year: "numeric",
     weekday: "long",
-    // era: "long",
   });
 
   return (
@@ -65,9 +70,25 @@ export default function WeatherNow() {
             //   theme.palette.mode === "dark" ? "#1A2027" : "#fff",
           }}
         >
-          <Typography variant="body1" align="left" sx={{ ml: 1 }}>
-            Location: {place}
-          </Typography>
+          <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
+            <Box component="span" sx={{ textAlign: "left", color: "black" }}>
+              Location:{" "}
+            </Box>
+            <Box
+              component="span"
+              sx={{
+                textAlign: "left",
+                color: "blue",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            >
+              {place}
+            </Box>
+          </Box>
+          {/* <Typography variant="body1" align="left" sx={{ ml: 1 }}>
+             {place}
+          </Typography> */}
           <Grid
             container
             spacing={0}

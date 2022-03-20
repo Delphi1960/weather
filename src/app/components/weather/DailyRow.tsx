@@ -36,6 +36,24 @@ export default function DailyRow({
 }: PropsDaily) {
   const [open, setOpen] = React.useState(false);
 
+  const day = new Date(date).toLocaleString("ru-RU", {
+    day: "numeric",
+  });
+  const weekday = new Date(date).toLocaleString("ru-RU", {
+    weekday: "short",
+  });
+  let month = new Date(date).toLocaleString("ru-RU", {
+    month: "numeric",
+  });
+  if (month.length < 2) {
+    month = "0" + month;
+  }
+
+  // console.log(date);
+  // GetSunriseApi(date);
+  // const loadSunrise = useRecoilValue(yrSunriseState);
+  // const sunRise = loadSunrise?.location?.time[0]?.sunrise?.time;
+  // console.log(sunRise);
   return (
     <React.Fragment>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
@@ -50,12 +68,9 @@ export default function DailyRow({
           </IconButton>
         </TableCell>
 
-        <TableCell sx={{ width: 50 }}>
-          {new Date(date).toLocaleString("ru-RU", {
-            day: "numeric",
-            month: "short",
-            weekday: "short",
-          })}
+        <TableCell>
+          {weekday}.{day}.{month}
+          {/* {console.log(new Date(date), date)} */}
         </TableCell>
 
         {icon.map((ico, i) => (
@@ -106,6 +121,15 @@ export default function DailyRow({
         <Hidden smDown={true}>
           <TableCell align="left">{pres}мм</TableCell>
         </Hidden>
+      </TableRow>
+
+      <TableRow>
+        <TableCell colSpan={4} sx={{ fontSize: 12, fontWeight: "bold" }}>
+          Восход Солнца
+        </TableCell>
+        <TableCell colSpan={4} sx={{ fontSize: 12, fontWeight: "bold" }}>
+          Заход Солнца
+        </TableCell>
       </TableRow>
 
       {/* формируем раскрывающуюся таблицу с часовыми прогнозами */}

@@ -23,7 +23,7 @@ export const yrWeatherState = atom({
       },
       timeseries: [
         {
-          time: "",
+          time: "2022-03-18",
           data: {
             instant: {
               details: {
@@ -69,7 +69,7 @@ export const coordLocation = atom({
 });
 export const nameLocation = atom({
   key: "nameLocation",
-  default: "Одесса (home)",
+  default: "Одесса",
 });
 export const buttonOkLocation = atom({
   key: "buttonOkLocation",
