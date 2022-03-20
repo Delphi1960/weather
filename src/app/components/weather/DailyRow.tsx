@@ -5,11 +5,11 @@ import IconButton from '@mui/material/IconButton';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 
-import { yrSunriseState } from '../../recoil/yr_sunrise.state';
-import GetSunriseApi from './GetSunriseApi';
 import HourlyRows from './HourlyRows';
+import { Icons } from './weathericon';
+
+type IconsKey = keyof typeof Icons;
 
 type PropsDaily = {
   date: string;
@@ -21,6 +21,8 @@ type PropsDaily = {
   windMax: number;
   relative_humidity: number;
   pres: number;
+  sunrise: string;
+  sunset: string;
 };
 
 //Формируем одну строку с дневным прогнозом
@@ -36,6 +38,8 @@ export default function DailyRow({
   windMax,
   relative_humidity,
   pres,
+  sunrise,
+  sunset,
 }: PropsDaily) {
   const [open, setOpen] = React.useState(false);
 
@@ -48,20 +52,7 @@ export default function DailyRow({
   let month = new Date(date).toLocaleString("ru-RU", {
     month: "numeric",
   });
-  if (month.length < 2) {
-    month = "0" + month;
-  }
-
-  // console.log(date);
-  // GetSunriseApi(date);
-  // const loadSunrise = useRecoilValue(yrSunriseState);
-  // const sunRise = loadSunrise?.location?.time[0]?.sunrise?.time;
-  // console.log(sunRise);
-
-  GetSunriseApi();
-  const astroData = useRecoilValue(yrSunriseState);
-  if (!astroData) return <div></div>;
-  console.log(astroData);
+  if (month.length < 2) month = "0" + month;
 
   return (
     <React.Fragment>
@@ -133,11 +124,19 @@ export default function DailyRow({
       </TableRow>
 
       <TableRow>
-        <TableCell colSpan={4} sx={{ fontSize: 12, fontWeight: "bold" }}>
-          Восход Солнца
-        </TableCell>
-        <TableCell colSpan={4} sx={{ fontSize: 12, fontWeight: "bold" }}>
-          Заход Солнца
+        <TableCell colSpan={10} sx={{ fontSize: 12, fontWeight: "bold" }}>
+          Восход <img width={30} alt="icon" src={Icons.sunrise as IconsKey} />
+          <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
+            {sunrise}
+          </Box>{" "}
+          <Box component="span" sx={{ width: 150 }}>
+            ..........
+          </Box>
+          . Заход <img width={30} alt="icon" src={Icons.sunset as IconsKey} />
+          <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
+            {" "}
+            {sunset}
+          </Box>
         </TableCell>
       </TableRow>
 

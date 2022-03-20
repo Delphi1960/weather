@@ -16,6 +16,7 @@ export const yrSunriseState = atom<YrSunrise[] | null>({
   //         {
   //           date: "2022-03-19T19:00:00Z",
   //           high_moon: {
+  //                    МЕСТНАЯ СУТОЧНАЯ МАКСИМАЛЬНАЯ ВЫСОТА ЛУНЫ
   //             desc: "LOCAL DIURNAL MAXIMUM MOON ELEVATION ( 50.33111)",
   //             elevation: "50.331108924",
   //             time: "2022-03-18T00:00:00+02:00",
@@ -26,6 +27,7 @@ export const yrSunriseState = atom<YrSunrise[] | null>({
   //             time: "2022-03-18T12:22:12+02:00",
   //           },
   //           moonphase: {
+  //                    МЕСТНОЕ СОСТОЯНИЕ ЛУНЫ * ФАЗА ЛУНЫ
   //             desc: "LOCAL MOON STATE * MOON PHASE= 48.7 (waxing gibbous)",
   //             time: "2022-03-18T00:00:00+02:00",
   //             value: "48.679939364",

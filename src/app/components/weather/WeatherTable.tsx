@@ -12,9 +12,11 @@ import * as React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { loadState } from '../../recoil/load.state';
+import { yrSunriseState } from '../../recoil/yr_sunrise.state';
 import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
 import DailyReport from './DailyReport';
 import DailyRow from './DailyRow';
+import GetSunriseApi from './GetSunriseApi';
 import { Icons } from './weathericon';
 
 type IconsKey = keyof typeof Icons;
@@ -38,6 +40,11 @@ export default function WeatherTable() {
   const loadWeather = useRecoilValue(yrWeatherState);
   const place = useRecoilValue(nameLocation);
   const isLoading = useRecoilValue(loadState);
+
+  GetSunriseApi();
+  const astroData = useRecoilValue(yrSunriseState);
+  if (!astroData) return <Box></Box>;
+  console.log(astroData);
 
   return (
     <Box>
@@ -184,6 +191,13 @@ export default function WeatherTable() {
                       pres={Math.round(
                         daily.data.instant.details.air_pressure_at_sea_level *
                           0.75
+                      )}
+                      sunrise={astroData[
+                        ind
+                      ].location.time[0].sunrise.time.slice(11, -6)}
+                      sunset={astroData[ind].location.time[0].sunset.time.slice(
+                        11,
+                        -6
                       )}
                     />
                   ) : null
