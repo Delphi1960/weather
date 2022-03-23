@@ -1,18 +1,17 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import { Button, Tooltip } from '@mui/material';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import * as React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import MenuIcon from '@mui/icons-material/Menu'
+import SearchIcon from '@mui/icons-material/Search'
+import { Button, Tooltip } from '@mui/material'
+import MuiAppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 
-import { drawerState } from '../../recoil/drawer.state';
-import Drawer from '../drawer/Drawer';
+import { drawerState } from '../../recoil/drawer.state'
+import Drawer from '../drawer/Drawer'
 
-export default function MuiAppBar() {
+export default function AppBar() {
   const [isDrawerOpen, setDrawerIsOpen] = useRecoilState(drawerState);
   const handleToggleDrawer = () => setDrawerIsOpen(!isDrawerOpen);
 
@@ -37,7 +36,7 @@ export default function MuiAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+      <MuiAppBar position="static">
         <Toolbar>
           <IconButton
             onClick={handleToggleDrawer}
@@ -90,7 +89,7 @@ export default function MuiAppBar() {
             </IconButton>
           </Tooltip>
         </Toolbar>
-      </AppBar>
+      </MuiAppBar>
       <Drawer />
     </Box>
   );

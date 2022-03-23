@@ -1,1 +1,1 @@
-export * from "./MuiAppBar";
+export * from "./AppBar";

@@ -1,28 +1,21 @@
-import './index.css';
+import './index.css'
 
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import { RecoilRoot } from 'recoil'
 
-import App from './App';
-import { initApi } from './app/api/api';
-
-// const createMyTheme = () =>
-//   createTheme({
-//     palette: {
-//       primary: blue,
-//       secondary: green,
-//     },
-//   });
+import { initApi } from './app/api/api'
+import App from './app/App'
 
 initApi();
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <ThemeProvider theme={createMyTheme()}> */}
-      <App />
-      {/* </ThemeProvider> */}
+      <RecoilRoot>
+        <App />
+      </RecoilRoot>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
