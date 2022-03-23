@@ -1,13 +1,12 @@
-import styled from '@emotion/styled';
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
-import CircularProgress from '@mui/material/CircularProgress';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled'
+import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
+import { useRecoilValue } from 'recoil'
 
-import { loadState } from '../../recoil/load.state';
-import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state';
-import GetWeatherApi from './GetWeatherApi';
-import { Icons } from './weathericon';
+import { loadState } from '../../recoil/load.state'
+import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state'
+import GetWeatherApi from './GetWeatherApi'
+import { Icons } from './weathericon'
 
 type IconsKey = keyof typeof Icons;
 

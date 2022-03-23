@@ -1,6 +1,6 @@
-import { atom } from 'recoil';
+import { atom } from 'recoil'
 
-import { YrWeatherType } from '../types/yr_weather.type';
+import { YrWeatherType } from '../types/yr_weather.type'
 
 export const yrWeatherState = atom<YrWeatherType | null>({
   key: "yrWeatherState",
