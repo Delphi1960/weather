@@ -3,8 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 
 import Bootstrap from './Bootstrap'
 import AppBar from './components/app-bar/AppBar'
-import Chart from './components/chart/Chart'
-import SelectLocation from './components/weather/SelectLocation'
+import Chart from './components/chart'
+import SelectLocation from './components/select-location'
 import WeatherNow from './components/weather/WeatherNow'
 import WeatherTable from './components/weather/WeatherTable'
 

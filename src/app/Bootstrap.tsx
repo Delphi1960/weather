@@ -1,5 +1,6 @@
 import { Box, LinearProgress } from '@mui/material'
 import React, { useEffect, useState } from 'react'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 import { WeatherApi } from './api/weather'
@@ -47,5 +48,11 @@ export default function Bootstrap({ children }: Props) {
     );
   }
 
-  return <>{children}</>;
+  return (
+    <TransitionGroup>
+      <CSSTransition key={"key"} classNames="fade" timeout={300}>
+        <div>{children}</div>
+      </CSSTransition>
+    </TransitionGroup>
+  );
 }

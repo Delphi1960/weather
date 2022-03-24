@@ -26,7 +26,7 @@ export const searchLocation = [
     url: "2-702550/Ukraine/Lviv/Lviv",
   },
   {
-    location: "Днепропетровск",
+    location: "Днепр",
     coord: "lat=48.46664&lon=35.04066&altitude=120",
     url: "2-709930/Ukraine/Dnipropetrovsk_Oblast/DnipropetrovsтАЩka_MisтАЩkrada/Dnipropetrovsk",
   },

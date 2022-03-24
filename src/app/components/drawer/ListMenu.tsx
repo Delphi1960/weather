@@ -1,10 +1,10 @@
-import { AccountBalance } from '@mui/icons-material';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import React, { ReactElement } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { AccountBalance } from '@mui/icons-material'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemIcon from '@mui/material/ListItemIcon'
+import ListItemText from '@mui/material/ListItemText'
+import React, { ReactElement } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function ListMenu(): ReactElement {
   const location = useLocation();
@@ -15,7 +15,6 @@ export default function ListMenu(): ReactElement {
 
   return (
     <List>
-      {/* =============================================================================== */}
       <ListItem
         button
         selected={location.pathname === "/"}

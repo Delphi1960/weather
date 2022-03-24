@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
 import { buttonOkLocation, coordLocation, nameLocation } from '../../recoil/yr_weather.state'
-import { searchLocation } from './ua_place'
+import { searchLocation } from './ua_cities'
 
 interface LocationType {
   location: string;
