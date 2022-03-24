@@ -81,9 +81,7 @@ export default function WeatherNow() {
               {place}
             </Box>
           </Box>
-          {/* <Typography variant="body1" align="left" sx={{ ml: 1 }}>
-             {place}
-          </Typography> */}
+
           <Grid
             container
             spacing={0}

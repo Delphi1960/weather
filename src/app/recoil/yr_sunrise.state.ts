@@ -41,11 +41,11 @@ export const yrSunriseState = atom<YrSunrise[] | null>({
   //             time: "2022-03-18T00:00:00+02:00",
   //           },
   //           moonrise: {
-  //             desc: "LOCAL DIURNAL MOON RISE",
+  //             desc: "МЕСТНЫЙ ДНЕВНОЙ ВОСХОД ЛУНЫ",
   //             time: "2022-03-18T18:18:54+02:00",
   //           },
   //           moonset: {
-  //             desc: "LOCAL DIURNAL MOON SET",
+  //             desc: "МЕСТНЫЙ ДНЕВНОЙ ЗАХОД ЛУНЫ",
   //             time: "2022-03-18T06:29:19+02:00",
   //           },
   //           moonshadow: {
@@ -97,3 +97,5 @@ export const yrSunriseState = atom<YrSunrise[] | null>({
 //   key: "dataSunrise",
 //   default: "2022-03-19T19:00:00Z",
 // });
+
+// 🌒 🌓

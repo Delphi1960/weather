@@ -41,10 +41,10 @@ export default function WeatherTable() {
   const place = useRecoilValue(nameLocation);
   const isLoading = useRecoilValue(loadState);
 
-  GetSunriseApi();
+  GetSunriseApi(10);
   const astroData = useRecoilValue(yrSunriseState);
   if (!astroData) return <Box></Box>;
-  console.log(astroData);
+  // console.log(astroData);
 
   return (
     <Box>

@@ -125,14 +125,14 @@ export default function DailyRow({
 
       <TableRow>
         <TableCell colSpan={10} sx={{ fontSize: 12, fontWeight: "bold" }}>
-          Восход <img width={30} alt="icon" src={Icons.sunrise as IconsKey} />
+          Восход <img width={25} alt="icon" src={Icons.sunrise as IconsKey} />
           <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
             {sunrise}
           </Box>{" "}
           <Box component="span" sx={{ width: 150 }}>
             ..........
           </Box>
-          . Заход <img width={30} alt="icon" src={Icons.sunset as IconsKey} />
+          . Заход <img width={25} alt="icon" src={Icons.sunset as IconsKey} />
           <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
             {" "}
             {sunset}
