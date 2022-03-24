@@ -1,4 +1,4 @@
-export interface YrWeatherType {
+export interface YrWeather {
   type: string;
   geometry: {
     type: string;

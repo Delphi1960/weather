@@ -5,26 +5,24 @@ import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, X
 import { useRecoilValue } from 'recoil'
 
 import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state'
-import DailyReport from '../../utils/dailyReport'
-import GetWeatherApi from './GetWeatherApi'
+import dailyReport from '../../utils/dailyReport'
 
 export default function Chart() {
   const place = useRecoilValue(nameLocation);
-  GetWeatherApi();
-  const loadWeather = useRecoilValue(yrWeatherState);
-  const { minDayTemp, maxDayTemp }: any = DailyReport();
+  const weatherData = useRecoilValue(yrWeatherState)!;
+  const { minDayTemp, maxDayTemp } = dailyReport(weatherData);
   const data: any = [];
-  loadWeather?.properties.timeseries
+  weatherData?.properties.timeseries
     .filter(function (item, ind) {
       let dt1;
       let dt2;
       if (ind === 0) {
-        dt1 = new Date(loadWeather?.properties.timeseries[ind].time);
+        dt1 = new Date(weatherData?.properties.timeseries[ind].time);
         return dt1.toLocaleDateString();
       } else {
-        dt1 = new Date(loadWeather?.properties.timeseries[ind - 1].time);
+        dt1 = new Date(weatherData?.properties.timeseries[ind - 1].time);
       }
-      dt2 = new Date(loadWeather?.properties.timeseries[ind].time);
+      dt2 = new Date(weatherData?.properties.timeseries[ind].time);
       return dt1.toLocaleDateString() !== dt2.toLocaleDateString();
     })
     .map((daily, ind) =>

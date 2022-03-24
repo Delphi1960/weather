@@ -1,19 +1,12 @@
-import _ from 'lodash';
-import { useRecoilValue } from 'recoil';
+import _ from 'lodash'
 
-import { yrWeatherState } from '../../recoil/yr_weather.state';
-import GetWeatherApi from './GetWeatherApi';
+import { YrWeather } from '../types/yr_weather.type'
 
-export default function DailyReport() {
-  GetWeatherApi();
-  const loadWeather = useRecoilValue(yrWeatherState);
-  if (!loadWeather) return <div></div>;
-
+export default function dailyReport(weatherData: YrWeather) {
   const minDayTemp: any[] = [];
   const maxDayTemp: any = [];
   const maxDayWind: any = [];
   const averageHumidity: any = [];
-  // const minDayWind: any = [];
   const maxDayPrecip: any = [];
   let ico00: any = [];
   let ico06: any = [];
@@ -24,26 +17,26 @@ export default function DailyReport() {
   let humidity = [];
   let precip = 0;
 
-  let dt = loadWeather.properties.timeseries[0].time.slice(0, 10);
+  let dt = weatherData.properties.timeseries[0].time.slice(0, 10);
 
-  for (let i = 0; i < loadWeather.properties.timeseries.length; i++) {
+  for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
     //============================================================================
     //определим переменные отвечающие за осадки
     let precip_next_1_hours =
-      loadWeather?.properties?.timeseries[i]?.data.next_1_hours?.details
+      weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
         ?.precipitation_amount;
     let precip_next_6_hours =
-      loadWeather?.properties?.timeseries[i]?.data.next_6_hours?.details
+      weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
         ?.precipitation_amount;
     //============================================================================
 
-    let dt1 = loadWeather.properties.timeseries[i].time.slice(0, 10);
+    let dt1 = weatherData.properties.timeseries[i].time.slice(0, 10);
     if (dt === dt1) {
       //============================================================================
       //температура
       temp.push(
         Math.round(
-          loadWeather.properties.timeseries[i].data.instant.details
+          weatherData.properties.timeseries[i].data.instant.details
             .air_temperature
         )
       );
@@ -51,7 +44,7 @@ export default function DailyReport() {
       //скорость ветра
       wind.push(
         Math.round(
-          loadWeather.properties.timeseries[i].data.instant.details.wind_speed
+          weatherData.properties.timeseries[i].data.instant.details.wind_speed
         )
       );
       //============================================================================
@@ -64,7 +57,7 @@ export default function DailyReport() {
       //============================================================================
       //относительная влажность
       humidity.push(
-        loadWeather.properties.timeseries[i].data.instant.details
+        weatherData.properties.timeseries[i].data.instant.details
           .relative_humidity
       );
     } else {
@@ -91,12 +84,12 @@ export default function DailyReport() {
       temp = [];
       wind = [];
       humidity = [];
-      dt = loadWeather.properties.timeseries[i].time.slice(0, 10);
+      dt = weatherData.properties.timeseries[i].time.slice(0, 10);
     }
 
     //============================================================================
     //загружаем иконки в массив через каждые 6 часов
-    let dt0 = loadWeather.properties.timeseries[0].time.slice(11, 13);
+    let dt0 = weatherData.properties.timeseries[0].time.slice(11, 13);
     if (dt0 > "06") {
       ico00[0] = "noicon";
     }
@@ -110,22 +103,22 @@ export default function DailyReport() {
       ico18[0] = "noicon";
     }
     let symbol1 =
-      loadWeather?.properties?.timeseries[i]?.data.next_1_hours?.summary
+      weatherData?.properties?.timeseries[i]?.data.next_1_hours?.summary
         ?.symbol_code;
     let symbol6 =
-      loadWeather?.properties?.timeseries[i]?.data.next_6_hours?.summary
+      weatherData?.properties?.timeseries[i]?.data.next_6_hours?.summary
         ?.symbol_code;
 
-    if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "00") {
+    if (weatherData.properties.timeseries[i].time.slice(11, 13) === "00") {
       ico00.push(symbol1 || symbol6 || "noicon");
     }
-    if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "06") {
+    if (weatherData.properties.timeseries[i].time.slice(11, 13) === "06") {
       ico06.push(symbol1 || symbol6 || "noicon");
     }
-    if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "12") {
+    if (weatherData.properties.timeseries[i].time.slice(11, 13) === "12") {
       ico12.push(symbol1 || symbol6 || "noicon");
     }
-    if (loadWeather.properties.timeseries[i].time.slice(11, 13) === "18") {
+    if (weatherData.properties.timeseries[i].time.slice(11, 13) === "18") {
       ico18.push(symbol1 || symbol6 || "noicon");
     }
     //============================================================================
