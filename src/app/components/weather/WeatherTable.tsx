@@ -134,7 +134,7 @@ export default function WeatherTable() {
                 return dt1.toLocaleDateString() !== dt2.toLocaleDateString();
               })
               .map((daily, ind) =>
-                //прогноз на 9 дней. 10-й день отсекаем. Приходят не полные данные
+                // Прогноз на 9 дней. 10-й день отсекаем. Приходят неполные данные.
                 ind < 10 ? (
                   <DailyRow
                     key={ind}

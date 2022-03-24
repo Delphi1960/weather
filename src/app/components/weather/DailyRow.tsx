@@ -69,7 +69,6 @@ export default function DailyRow({
 
         <TableCell>
           {weekday}.{day}.{month}
-          {/* {console.log(new Date(date), date)} */}
         </TableCell>
 
         {icon.map((ico, i) => (
