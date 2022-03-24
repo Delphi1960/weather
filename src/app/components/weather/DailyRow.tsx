@@ -6,10 +6,9 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import React from 'react'
 
+import { Icons } from '../../assets/icons'
+import { IconsKey } from '../../types/icon.type'
 import HourlyRows from './HourlyRows'
-import { Icons } from './weathericon'
-
-type IconsKey = keyof typeof Icons;
 
 type PropsDaily = {
   date: string;
@@ -25,8 +24,8 @@ type PropsDaily = {
   sunset: string;
 };
 
-//Формируем одну строку с дневным прогнозом
-//Вызываем   <HourlyRows open={open} dtDaily={date} /> - таблица с часовыми прогнозами
+// Формируем одну строку с дневным прогнозом
+// Вызываем   <HourlyRows open={open} dtDaily={date} /> - таблица с часовыми прогнозами
 
 export default function DailyRow({
   date,

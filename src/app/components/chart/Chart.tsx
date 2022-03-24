@@ -36,20 +36,6 @@ export default function Chart() {
       })
     );
 
-  // const data = [
-  //   { day: "10", min: -5, max: 0 },
-  //   { day: "11", min: -6, max: -2 },
-  //   { day: "12", min: -6, max: 3 },
-  //   { day: "13", min: -1, max: 4 },
-  //   { day: "14", min: -1, max: 5 },
-  //   { day: "15", min: 1, max: 10 },
-  //   { day: "16", min: 2, max: 8 },
-  //   { day: "17", min: -2, max: 3 },
-  //   { day: "18", min: -5, max: 2 },
-  //   { day: "19", min: -1, max: 6 },
-  // ];
-
-  // console.log(data);
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
 

@@ -32,7 +32,7 @@ export default function WeatherTable() {
     ico18,
   }: any = dailyReport(weatherData);
   return (
-    <Box>
+    <Box sx={{ p: 4 }}>
       <TableContainer component={Paper}>
         <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
           <Box component="span" sx={{ textAlign: "left", color: "black" }}>

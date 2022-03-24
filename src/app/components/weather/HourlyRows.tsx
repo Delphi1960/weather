@@ -1,29 +1,26 @@
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import Hidden from '@mui/material/Hidden';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Typography from '@mui/material/Typography';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import Box from '@mui/material/Box'
+import Collapse from '@mui/material/Collapse'
+import Hidden from '@mui/material/Hidden'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import Typography from '@mui/material/Typography'
+import { useRecoilValue } from 'recoil'
 
-import { yrWeatherState } from '../../recoil/yr_weather.state';
-import RowHourlyDetail from './RowHourlyDetail';
-import { Icons } from './weathericon';
-
-type IconsKey = keyof typeof Icons;
+import { Icons } from '../../assets/icons'
+import { yrWeatherState } from '../../recoil/yr_weather.state'
+import { IconsKey } from '../../types/icon.type'
+import RowHourlyDetail from './RowHourlyDetail'
 
 type PropsHourly = {
   open: boolean;
   dtDaily: string;
 };
 
-//============================================================================
-//Формируем строки с часовым прогнозом
-//и формируем раскрывающуюся таблицу с часовыми прогнозами
+// Формируем строки с часовым прогнозом
+// и формируем раскрывающуюся таблицу с часовыми прогнозами
 
 export default function HourlyRows({ open, dtDaily }: PropsHourly) {
   const loadWeather = useRecoilValue(yrWeatherState);

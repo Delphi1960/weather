@@ -14,10 +14,10 @@ export default function Bootstrap({ children }: Props) {
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);
   const setWeatherData = useSetRecoilState(yrWeatherState);
   const setSunriseData = useSetRecoilState(yrSunriseState);
-
   const coord = useRecoilValue(coordLocation);
 
   useEffect(() => {
+    console.clear();
     console.info("🌐 Requesting initial data from the API");
     const loadInitialData = async () => {
       setIsWeatherLoading(true);

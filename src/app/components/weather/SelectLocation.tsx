@@ -1,13 +1,12 @@
-import { Typography } from '@mui/material';
-import Autocomplete from '@mui/material/Autocomplete';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { Typography } from '@mui/material'
+import Autocomplete from '@mui/material/Autocomplete'
+import Box from '@mui/material/Box'
+import TextField from '@mui/material/TextField'
+import { useNavigate } from 'react-router-dom'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 
-import { buttonOkLocation, coordLocation, nameLocation } from '../../recoil/yr_weather.state';
-import GetWeatherApi from './GetWeatherApi';
-import { searchLocation } from './ua_place';
+import { buttonOkLocation, coordLocation, nameLocation } from '../../recoil/yr_weather.state'
+import { searchLocation } from './ua_place'
 
 interface LocationType {
   location: string;
@@ -22,7 +21,6 @@ export default function SelectLocation() {
   const setInputValue = useSetRecoilState(nameLocation);
   const setCoord = useSetRecoilState(coordLocation);
   const setBtState = useSetRecoilState(buttonOkLocation);
-  GetWeatherApi();
   const defaultProps = {
     options: searchLocation,
     getOptionLabel: (option: LocationType) => option.location,

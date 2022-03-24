@@ -28,9 +28,7 @@ export default function Drawer() {
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
-          {/* ================================/ */}
           <ListMenu />
-          {/* ================================/ */}
         </Box>
       </SwipeableDrawer>
     </Box>

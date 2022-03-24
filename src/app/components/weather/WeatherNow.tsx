@@ -2,10 +2,9 @@ import styled from '@emotion/styled'
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
 import { useRecoilValue } from 'recoil'
 
+import { Icons } from '../../assets/icons'
 import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state'
-import { Icons } from './weathericon'
-
-type IconsKey = keyof typeof Icons;
+import { IconsKey } from '../../types/icon.type'
 
 const Img = styled("img")({
   margin: "auto",
