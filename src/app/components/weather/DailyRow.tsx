@@ -1,13 +1,13 @@
-import { Expand, ExpandCircleDown } from '@mui/icons-material';
-import Box from '@mui/material/Box';
-import Hidden from '@mui/material/Hidden';
-import IconButton from '@mui/material/IconButton';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import React from 'react';
+import { Expand, ExpandCircleDown } from '@mui/icons-material'
+import Box from '@mui/material/Box'
+import Hidden from '@mui/material/Hidden'
+import IconButton from '@mui/material/IconButton'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import React from 'react'
 
-import HourlyRows from './HourlyRows';
-import { Icons } from './weathericon';
+import HourlyRows from './HourlyRows'
+import { Icons } from './weathericon'
 
 type IconsKey = keyof typeof Icons;
 
