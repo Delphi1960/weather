@@ -5,7 +5,9 @@ import TextField from '@mui/material/TextField'
 import { useNavigate } from 'react-router-dom'
 import { useRecoilValue, useSetRecoilState } from 'recoil'
 
-import { buttonOkLocation, coordLocation, nameLocation } from '../../recoil/yr_weather.state'
+import { nameLocation } from '../../recoil/location.state'
+import { buttonOkLocation, coordLocation } from '../../recoil/yr_weather.state'
+import { LocalStorageManager } from '../../utils'
 import { searchLocation } from './ua_cities'
 
 interface LocationType {
@@ -28,6 +30,7 @@ export default function SelectLocation() {
 
   const handleChange = (event: any, newInputValue: any) => {
     setInputValue(newInputValue);
+    LocalStorageManager.setItem("location", newInputValue);
     const coord = searchLocation.find(
       (city) => city.location === newInputValue
     )?.coord;

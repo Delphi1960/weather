@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import { YrSunrise } from '../types/yr_sunrise.type'
 import { YrWeather } from '../types/yr_weather.type'
+import { LocalStorageManager } from '../utils'
 
 export namespace WeatherApi {
   export async function loadWeather(coord: string): Promise<YrWeather> {
@@ -9,7 +10,10 @@ export namespace WeatherApi {
       const response = await axios.get(
         `https://api.met.no/weatherapi/locationforecast/2.0/compact?${coord}`
       );
-      return response.data;
+      const weather = response.data;
+      LocalStorageManager.setItem("weather", weather);
+      LocalStorageManager.setItem("lastUpdated", Date.now());
+      return weather;
     } catch (error) {
       throw error;
     }

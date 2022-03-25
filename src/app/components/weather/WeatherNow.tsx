@@ -3,7 +3,8 @@ import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } f
 import { useRecoilValue } from 'recoil'
 
 import { Icons } from '../../assets/icons'
-import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state'
+import { nameLocation } from '../../recoil/location.state'
+import { yrWeatherState } from '../../recoil/yr_weather.state'
 import { IconsKey } from '../../types/icon.type'
 
 const Img = styled("img")({
@@ -26,10 +27,10 @@ const Img = styled("img")({
 // });
 
 export default function WeatherNow() {
-  const weatherData = useRecoilValue(yrWeatherState);
+  const weatherData = useRecoilValue(yrWeatherState)!;
   const place = useRecoilValue(nameLocation);
 
-  let date = new Date(weatherData!.properties.timeseries[0].time);
+  let date = new Date(weatherData.properties.timeseries[0].time);
   let dt = date.toLocaleString("ru-RU", {
     day: "numeric",
     month: "long",
@@ -69,6 +70,7 @@ export default function WeatherNow() {
           justifyContent="center"
           alignItems="center"
         >
+          
           <Grid item>
             <Box>
               <Img

@@ -1,7 +1,6 @@
 import { Box, LinearProgress } from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
 
 import { WeatherApi } from './api/weather'
 import { yrSunriseState } from './recoil/yr_sunrise.state'
@@ -13,26 +12,28 @@ type Props = {
 
 export default function Bootstrap({ children }: Props) {
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);
-  const setWeatherData = useSetRecoilState(yrWeatherState);
+  const [currentWeather, setWeatherData] = useRecoilState(yrWeatherState);
   const setSunriseData = useSetRecoilState(yrSunriseState);
   const coord = useRecoilValue(coordLocation);
 
   useEffect(() => {
-    console.clear();
-    console.info("🌐 Requesting initial data from the API");
+    // console.clear();
+    // console.info("🌐 Requesting initial data from the API");
     const loadInitialData = async () => {
       setIsWeatherLoading(true);
       try {
-        const weather = await WeatherApi.loadWeather(coord);
-        setWeatherData(weather);
-        console.info("⛅ Weather data loaded");
+        if (currentWeather === null) {
+          const weather = await WeatherApi.loadWeather(coord);
+          setWeatherData(weather);
+          // console.info("⛅ Weather data loaded");
+        }
         const sunrise = await WeatherApi.loadSunrise(coord);
         setSunriseData(sunrise);
-        console.info("🌅 Astro data loaded");
+        // console.info("🌅 Astro data loaded");
       } catch (error) {
         console.log(error);
       } finally {
-        console.info("🚀 All data loaded, starting the application");
+        // console.info("🚀 All data loaded, starting the application");
         setIsWeatherLoading(false);
       }
     };
@@ -48,11 +49,5 @@ export default function Bootstrap({ children }: Props) {
     );
   }
 
-  return (
-    <TransitionGroup>
-      <CSSTransition key={"key"} classNames="fade" timeout={300}>
-        <div>{children}</div>
-      </CSSTransition>
-    </TransitionGroup>
-  );
+  return <div>{children}</div>;
 }

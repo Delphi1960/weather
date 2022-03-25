@@ -4,7 +4,8 @@ import Typography from '@mui/material/Typography'
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { useRecoilValue } from 'recoil'
 
-import { nameLocation, yrWeatherState } from '../../recoil/yr_weather.state'
+import { nameLocation } from '../../recoil/location.state'
+import { yrWeatherState } from '../../recoil/yr_weather.state'
 import dailyReport from '../../utils/dailyReport'
 
 export default function Chart() {

@@ -1,6 +1,6 @@
 export const searchLocation = [
   {
-    location: "Одесса ",
+    location: "Одесса",
     coord: "lat=46.4725&lon=30.74136&altitude=42",
     url: "",
   },

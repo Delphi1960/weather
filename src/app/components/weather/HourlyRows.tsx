@@ -23,7 +23,7 @@ type PropsHourly = {
 // и формируем раскрывающуюся таблицу с часовыми прогнозами
 
 export default function HourlyRows({ open, dtDaily }: PropsHourly) {
-  const loadWeather = useRecoilValue(yrWeatherState);
+  const weatherData = useRecoilValue(yrWeatherState);
   let dt = new Date(dtDaily);
   return (
     <TableRow>
@@ -78,13 +78,13 @@ export default function HourlyRows({ open, dtDaily }: PropsHourly) {
               </TableHead>
               <TableBody>
                 {/* Формируем одну строки с часовым прогнозом для даты dt = new Date(dtDaily) */}
-                {loadWeather?.properties.timeseries
+                {weatherData?.properties.timeseries
                   .filter((item) => {
                     let dt1 = new Date(item.time);
                     return dt1.toLocaleDateString() === dt.toLocaleDateString();
                   })
                   .map((hourly, ind) => (
-                    //Формируем одну строку с часовым прогнозом
+                    // Формируем одну строку с часовым прогнозом
                     <RowHourlyDetail
                       key={ind}
                       time={new Date(hourly.time).toLocaleString("ru-RU", {
