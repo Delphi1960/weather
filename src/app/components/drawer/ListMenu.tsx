@@ -1,4 +1,8 @@
-import { AccountBalance } from '@mui/icons-material'
+import LocationOn from '@mui/icons-material/LocationOn'
+import ModeNight from '@mui/icons-material/ModeNight'
+import StackedLineChart from '@mui/icons-material/StackedLineChart'
+import Thermostat from '@mui/icons-material/Thermostat'
+import WbSunny from '@mui/icons-material/WbSunny'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemIcon from '@mui/material/ListItemIcon'
@@ -22,7 +26,7 @@ export default function ListMenu(): ReactElement {
         to="/"
       >
         <ListItemIcon>
-          <AccountBalance color={isActive("/")} />
+          <WbSunny color={isActive("/")} />
         </ListItemIcon>
         <ListItemText
           primary={"Погода сейчас"}
@@ -31,37 +35,19 @@ export default function ListMenu(): ReactElement {
       </ListItem>
 
       {/* =============================================================================== */}
-
-      {/* =============================================================================== */}
-      {/* <ListItem
-        button
-        selected={location.pathname === "/WeatherForecast"}
-        component={Link}
-        to="/weather"
-      >
-        <ListItemIcon>
-          <AccountBalance color={isActive("/WeatherForecast")} />
-        </ListItemIcon>
-        <ListItemText
-          primary={"Подробно"}
-          sx={{ color: isActiveFontColor("/WeatherForecast") }}
-        />
-      </ListItem> */}
-
-      {/* =============================================================================== */}
       {/* =============================================================================== */}
       <ListItem
         button
-        selected={location.pathname === "/WeatherTable"}
+        selected={location.pathname === "/weathertable"}
         component={Link}
         to="/weathertable"
       >
         <ListItemIcon>
-          <AccountBalance color={isActive("/WeatherTable")} />
+          <Thermostat color={isActive("/weathertable")} />
         </ListItemIcon>
         <ListItemText
           primary={"Прогноз погоды"}
-          sx={{ color: isActiveFontColor("/WeatherTable") }}
+          sx={{ color: isActiveFontColor("/weathertable") }}
         />
       </ListItem>
 
@@ -74,11 +60,26 @@ export default function ListMenu(): ReactElement {
         to="/chart"
       >
         <ListItemIcon>
-          <AccountBalance color={isActive("/chart")} />
+          <StackedLineChart color={isActive("/chart")} />
         </ListItemIcon>
         <ListItemText
           primary={"График температур"}
           sx={{ color: isActiveFontColor("/chart") }}
+        />
+      </ListItem>
+      {/* =============================================================================== */}
+      <ListItem
+        button
+        selected={location.pathname === "/moonphase"}
+        component={Link}
+        to="/moonphase"
+      >
+        <ListItemIcon>
+          <ModeNight color={isActive("/moonphase")} />
+        </ListItemIcon>
+        <ListItemText
+          primary={"Фазы Луны"}
+          sx={{ color: isActiveFontColor("/moonphase") }}
         />
       </ListItem>
 
@@ -91,7 +92,7 @@ export default function ListMenu(): ReactElement {
         to="/selectlocation"
       >
         <ListItemIcon>
-          <AccountBalance color={isActive("/selectlocation")} />
+          <LocationOn color={isActive("/selectlocation")} />
         </ListItemIcon>
         <ListItemText
           primary={"Выбор места"}
