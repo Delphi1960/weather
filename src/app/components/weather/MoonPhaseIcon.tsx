@@ -1,10 +1,8 @@
-import { styled } from '@mui/material/styles';
-import { toNumber } from 'lodash';
-import React from 'react';
+import { styled } from '@mui/material/styles'
+import { toNumber } from 'lodash'
 
-import { Icons } from './weathericon';
-
-type IconsKey = keyof typeof Icons;
+import { Icons } from '../../../assets/icons'
+import { IconsKey } from '../../types/icon.type'
 
 type phaseProps = { moonPhase: string; sizeIcon: number };
 

@@ -9,7 +9,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import { useRecoilValue } from 'recoil'
 
-import { Icons } from '../../assets/icons'
+import { Icons } from '../../../assets/icons'
 import { nameLocation } from '../../recoil/location.state'
 import { yrSunriseState } from '../../recoil/yr_sunrise.state'
 import { yrWeatherState } from '../../recoil/yr_weather.state'

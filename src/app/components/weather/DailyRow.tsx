@@ -6,7 +6,7 @@ import TableCell from '@mui/material/TableCell'
 import TableRow from '@mui/material/TableRow'
 import React from 'react'
 
-import { Icons } from '../../assets/icons'
+import { Icons } from '../../../assets/icons'
 import { IconsKey } from '../../types/icon.type'
 import HourlyRows from './HourlyRows'
 

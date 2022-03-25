@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
 import { useRecoilValue } from 'recoil'
 
-import { Icons } from '../../assets/icons'
+import { Icons } from '../../../assets/icons'
 import { yrWeatherState } from '../../recoil/yr_weather.state'
 import { IconsKey } from '../../types/icon.type'
 import RowHourlyDetail from './RowHourlyDetail'

@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
 import { useRecoilValue } from 'recoil'
 
-import { Icons } from '../../assets/icons'
+import { Icons } from '../../../assets/icons'
 import { nameLocation } from '../../recoil/location.state'
 import { yrWeatherState } from '../../recoil/yr_weather.state'
 import { IconsKey } from '../../types/icon.type'
@@ -58,33 +58,6 @@ export default function WeatherNow() {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item>
-            <Box>
-              <Img
-                alt="wether"
-                width={250}
-                src={
-                  Icons[
-                    weatherData!.properties.timeseries[0].data.next_1_hours
-                      .summary.symbol_code as IconsKey
-                  ]
-                }
-              />
-            </Box>
-          </Grid>
-          <Grid item xs={12} sm container>
-            <Grid
-              item
-              xs
-              container
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={0}
-            >
-              {place}
-            </Grid>
-          </Grid>
           <Grid
             container
             spacing={0}
