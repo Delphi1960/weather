@@ -51,7 +51,7 @@ export const yrSunriseState = atom<YrSunrise[] | null>({
   //           moonshadow: {
   //             azimuth: "27.732576649",
   //             desc: "LOCAL MOON STATE * SHADOW ANGLES (azi=27.7,ele=84.0)",
-  //             elevation: "83.993985389",
+  //             elevation: "83.993985389",//высота
   //             time: "2022-03-18T00:00:00+02:00",
   //           },
   //           solarmidnight: {

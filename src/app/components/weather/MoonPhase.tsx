@@ -1,4 +1,4 @@
-import { CircularProgress, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
+import { Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -10,6 +10,7 @@ import { loadState } from '../../recoil/load.state';
 import { yrSunriseState } from '../../recoil/yr_sunrise.state';
 import { nameLocation } from '../../recoil/yr_weather.state';
 import GetSunriseApi from './GetSunriseApi';
+import Loading from './Loading';
 import MoonPhaseIcon from './MoonPhaseIcon';
 import MoonPhaseState from './MoonPhaseState';
 import MoonCalendar from './MoonСalendar';
@@ -20,7 +21,7 @@ export default function MoonPhase() {
   GetSunriseApi(30);
   const isLoading = useRecoilValue(loadState);
   const astroData = useRecoilValue(yrSunriseState);
-  if (!astroData) return <Box>Нет данных</Box>;
+  if (!astroData) return <Loading />;
   // for (let i = 0; i < 50; i++) {
   //   console.log(
   //     astroData[i].location.time[0].moonphase.desc,
@@ -41,13 +42,7 @@ export default function MoonPhase() {
   return (
     <Box>
       {isLoading ? (
-        <Box>
-          <CircularProgress />
-          <br />
-          <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
-            Загрузка данных...
-          </Box>
-        </Box>
+        <Loading />
       ) : (
         <Paper
           sx={{

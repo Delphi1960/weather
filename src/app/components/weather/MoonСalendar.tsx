@@ -1,5 +1,5 @@
 import { Expand, ExpandCircleDown } from '@mui/icons-material';
-import { Collapse, IconButton, TableBody, TableCell } from '@mui/material';
+import { Collapse, Hidden, IconButton, TableBody, TableCell, TableHead } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/system/Box';
@@ -42,18 +42,69 @@ export default function MoonСalendar() {
                   {open ? <Expand /> : <ExpandCircleDown />}
                 </IconButton>
               </TableCell>
-              <TableCell colSpan={4}>Лунный календарь</TableCell>
+              <TableCell
+                colSpan={4}
+                align="left"
+                sx={{ fontSize: 14, fontWeight: "bold" }}
+              >
+                Лунный календарь
+              </TableCell>
             </TableRow>
             <TableRow>
               <TableCell colSpan={10}>
                 <Collapse in={open} timeout="auto" unmountOnExit>
-                  {astroData.map((item, i) => (
-                    <MoonCalendarTable
-                      key={i}
-                      date={dt(item.location.time[0].moonphase.time)}
-                      phase={item.location.time[0].moonphase.value}
-                    />
-                  ))}
+                  <Table
+                    size="small"
+                    aria-label="purchases"
+                    sx={{ ml: -1, mr: -1 }}
+                  >
+                    <TableHead>
+                      <TableRow>
+                        <TableCell
+                          align="left"
+                          sx={{ fontSize: 14, fontWeight: "bold" }}
+                        >
+                          Дата
+                        </TableCell>
+                        <TableCell
+                          align="left"
+                          sx={{ fontSize: 14, fontWeight: "bold" }}
+                        >
+                          Вид
+                        </TableCell>
+                        <TableCell
+                          align="left"
+                          sx={{ fontSize: 14, fontWeight: "bold" }}
+                        >
+                          Фаза
+                        </TableCell>
+                        <TableCell
+                          align="left"
+                          sx={{ fontSize: 14, fontWeight: "bold" }}
+                        >
+                          Состояние
+                        </TableCell>
+                        <Hidden smDown={true}>
+                          <TableCell
+                            align="left"
+                            sx={{ fontSize: 14, fontWeight: "bold" }}
+                          >
+                            Расстояние
+                          </TableCell>
+                        </Hidden>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {astroData.map((item, i) => (
+                        <MoonCalendarTable
+                          key={i}
+                          date={dt(item.location.time[0].moonposition.time)}
+                          phase={item.location.time[0].moonposition.phase}
+                          range={item.location.time[0].moonposition.range}
+                        />
+                      ))}
+                    </TableBody>
+                  </Table>
                 </Collapse>
               </TableCell>
             </TableRow>
