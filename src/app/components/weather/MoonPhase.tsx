@@ -1,15 +1,15 @@
-import { Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Paper from '@mui/material/Paper'
-import { toNumber } from 'lodash'
-import { useRecoilValue } from 'recoil'
+import { Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import { toNumber } from 'lodash';
+import { useRecoilValue } from 'recoil';
 
-import { nameLocation } from '../../recoil/location.state'
-import { yrSunriseState } from '../../recoil/yr_sunrise.state'
-import MoonPhaseIcon from './MoonPhaseIcon'
-import MoonPhaseState from './MoonPhaseState'
-import MoonCalendar from './MoonСalendar'
+import { nameLocation } from '../../recoil/location.state';
+import { yrSunriseState } from '../../recoil/yr_sunrise.state';
+import MoonPhaseIcon from './MoonPhaseIcon';
+import MoonPhaseState from './MoonPhaseState';
+import MoonCalendar from './MoonСalendar';
 
 export default function MoonPhase() {
   // const navigate = useNavigate();

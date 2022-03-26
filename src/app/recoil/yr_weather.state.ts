@@ -1,8 +1,8 @@
-import { differenceInMinutes } from 'date-fns'
-import { atom } from 'recoil'
+import { differenceInMinutes } from 'date-fns';
+import { atom } from 'recoil';
 
-import { YrWeather } from '../types/yr_weather.type'
-import { LocalStorageManager } from '../utils'
+import { YrWeather } from '../types/yr_weather.type';
+import { LocalStorageManager } from '../utils';
 
 function getDefaultWeatherState() {
   const weather = LocalStorageManager.getItem("weather");
@@ -26,7 +26,7 @@ export const coordLocation = atom({
   default: "lat=46.4725&lon=30.74136&altitude=42",
 });
 
-export const buttonOkLocation = atom({
-  key: "buttonOkLocation",
-  default: true,
-});
+// export const buttonOkLocation = atom({
+//   key: "buttonOkLocation",
+//   default: true,
+// });

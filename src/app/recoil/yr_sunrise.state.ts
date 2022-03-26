@@ -1,19 +1,33 @@
-import { atom } from 'recoil'
+import { differenceInMinutes } from 'date-fns';
+import { atom } from 'recoil';
 
-import { YrSunrise } from '../types/yr_sunrise.type'
+import { YrSunrise } from '../types/yr_sunrise.type';
+import { LocalStorageManager } from '../utils/localStorage';
 
+function getDefaultAstroDataState() {
+  const astroData = LocalStorageManager.getItem("astroData");
+  const lastUpdated = LocalStorageManager.getItem("lastUpdated");
+  if (
+    lastUpdated !== null &&
+    differenceInMinutes(Date.now(), lastUpdated) < 60
+  ) {
+    return astroData;
+  }
+  return null;
+}
 export const yrSunriseState = atom<YrSunrise[] | null>({
   key: "yrSunriseState",
-  default: null,
+  default: getDefaultAstroDataState(),
 });
 
-// !Investigate architecture based around selectors
-// export const yrSunriseState = selector({
-//   key: "yrSunriseState",
-//   get: async ({ get }) => {
-//     const data = await WeatherApi.loadWeather(get(coordLocation));
-//     return data;
-//   },
+export const astroForecastCount = atom({
+  key: "astroForecastCount",
+  default: 30,
+});
+
+// export const dataSunrise = atom({
+//   key: "dataSunrise",
+//   default: "2022-03-19T19:00:00Z",
 // });
 
 // 🌒 🌓

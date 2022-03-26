@@ -1,10 +1,10 @@
-import { Box, LinearProgress } from '@mui/material'
-import React, { useEffect, useState } from 'react'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
+import React, { useEffect, useState } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { WeatherApi } from './api/weather'
-import { yrSunriseState } from './recoil/yr_sunrise.state'
-import { coordLocation, yrWeatherState } from './recoil/yr_weather.state'
+import { WeatherApi } from './api/weather';
+import Loading from './components/load/Loading';
+import { astroForecastCount, yrSunriseState } from './recoil/yr_sunrise.state';
+import { coordLocation, yrWeatherState } from './recoil/yr_weather.state';
 
 type Props = {
   children: React.ReactNode;
@@ -15,6 +15,7 @@ export default function Bootstrap({ children }: Props) {
   const [currentWeather, setWeatherData] = useRecoilState(yrWeatherState);
   const setSunriseData = useSetRecoilState(yrSunriseState);
   const coord = useRecoilValue(coordLocation);
+  const dayCount = useRecoilValue(astroForecastCount);
 
   useEffect(() => {
     // console.clear();
@@ -27,7 +28,7 @@ export default function Bootstrap({ children }: Props) {
           setWeatherData(weather);
           // console.info("⛅ Weather data loaded");
         }
-        const sunrise = await WeatherApi.loadSunrise(coord);
+        const sunrise = await WeatherApi.loadSunrise(coord, dayCount);
         setSunriseData(sunrise);
         // console.info("🌅 Astro data loaded");
       } catch (error) {
@@ -42,11 +43,7 @@ export default function Bootstrap({ children }: Props) {
   }, [coord, setWeatherData, setSunriseData]);
 
   if (isWeatherLoading) {
-    return (
-      <Box sx={{ mt: 10, p: 10 }}>
-        <LinearProgress />
-      </Box>
-    );
+    return <Loading />;
   }
 
   return <div>{children}</div>;

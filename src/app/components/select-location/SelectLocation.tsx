@@ -1,14 +1,14 @@
-import { Typography } from '@mui/material'
-import Autocomplete from '@mui/material/Autocomplete'
-import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import { useNavigate } from 'react-router-dom'
-import { useRecoilValue, useSetRecoilState } from 'recoil'
+import { Typography } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { useNavigate } from 'react-router-dom';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 
-import { nameLocation } from '../../recoil/location.state'
-import { buttonOkLocation, coordLocation } from '../../recoil/yr_weather.state'
-import { LocalStorageManager } from '../../utils'
-import { searchLocation } from './ua_cities'
+import { nameLocation } from '../../recoil/location.state';
+import { coordLocation } from '../../recoil/yr_weather.state';
+import { LocalStorageManager } from '../../utils';
+import { searchLocation } from './ua_cities';
 
 interface LocationType {
   location: string;
@@ -22,7 +22,7 @@ export default function SelectLocation() {
   const place = useRecoilValue(nameLocation);
   const setInputValue = useSetRecoilState(nameLocation);
   const setCoord = useSetRecoilState(coordLocation);
-  const setBtState = useSetRecoilState(buttonOkLocation);
+  // const setBtState = useSetRecoilState(buttonOkLocation);
   const defaultProps = {
     options: searchLocation,
     getOptionLabel: (option: LocationType) => option.location,
@@ -38,7 +38,7 @@ export default function SelectLocation() {
       setCoord(coord);
       navigate("/");
     }
-    setBtState(false);
+    // setBtState(false);
   };
 
   return (

@@ -7,24 +7,22 @@ import React from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { yrSunriseState } from '../../recoil/yr_sunrise.state';
+import Loading from '../load/Loading';
 import MoonCalendarTable from './MoonCalendarTable';
-
-// type PropsCalendar = {
-//   date: string;
-//   icon: string;
-//   phase: string;
-//   state: string;
-// };
 
 export default function MoonСalendar() {
   const [open, setOpen] = React.useState(false);
   const astroData = useRecoilValue(yrSunriseState);
-  if (!astroData) return <Box>Нет данных</Box>;
-  // const date = astroData[0].location.time[0].date.slice(0, 10);
+  if (!astroData)
+    return (
+      <Box>
+        <Loading />
+      </Box>
+    );
+
   function dt(date: string) {
     return date.slice(8, 10) + "." + date.slice(5, 7);
   }
-  // const phase = astroData[0].location.time[0].moonphase.value;
 
   return (
     <Box>
