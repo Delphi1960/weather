@@ -59,17 +59,27 @@ export default function WeatherNow() {
           justifyContent="center"
           alignItems="center"
         >
-          <Grid item>
-            <Img
-              alt="wether"
-              width={250}
-              src={
-                Icons[
-                  weatherData!.properties.timeseries[0].data.next_1_hours
-                    .summary.symbol_code as IconsKey
-                ]
-              }
-            />
+          <Grid item xs={12} sm container>
+            <Grid
+              item
+              xs
+              container
+              direction="column"
+              justifyContent="center"
+              alignItems="center"
+              spacing={0}
+            >
+              <Img
+                alt="wether"
+                width={250}
+                src={
+                  Icons[
+                    weatherData!.properties.timeseries[0].data.next_1_hours
+                      .summary.symbol_code as IconsKey
+                  ]
+                }
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12} sm container>
             <Grid
@@ -89,7 +99,7 @@ export default function WeatherNow() {
               <Grid item>
                 <Table size="small">
                   <TableBody>
-                    <TableRow>
+                    <TableRow style={{ backgroundColor: "aliceblue" }}>
                       <TableCell align="left">
                         <Box
                           component="span"
@@ -137,7 +147,7 @@ export default function WeatherNow() {
                       </TableCell>
                     </TableRow>
 
-                    <TableRow>
+                    <TableRow style={{ backgroundColor: "aliceblue" }}>
                       <TableCell align="left">
                         <Box
                           component="span"
@@ -185,7 +195,7 @@ export default function WeatherNow() {
                       </TableCell>
                     </TableRow>
 
-                    <TableRow>
+                    <TableRow style={{ backgroundColor: "aliceblue" }}>
                       <TableCell align="left">
                         <Box
                           component="span"
@@ -230,7 +240,7 @@ export default function WeatherNow() {
                       </TableCell>
                     </TableRow>
 
-                    <TableRow>
+                    <TableRow style={{ backgroundColor: "aliceblue" }}>
                       <TableCell align="left">
                         <Box
                           component="span"

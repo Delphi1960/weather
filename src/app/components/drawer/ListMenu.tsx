@@ -1,14 +1,14 @@
-import LocationOn from '@mui/icons-material/LocationOn'
-import ModeNight from '@mui/icons-material/ModeNight'
-import StackedLineChart from '@mui/icons-material/StackedLineChart'
-import Thermostat from '@mui/icons-material/Thermostat'
-import WbSunny from '@mui/icons-material/WbSunny'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemIcon from '@mui/material/ListItemIcon'
-import ListItemText from '@mui/material/ListItemText'
-import React, { ReactElement } from 'react'
-import { Link, useLocation } from 'react-router-dom'
+import LocationOn from '@mui/icons-material/LocationOn';
+import ModeNight from '@mui/icons-material/ModeNight';
+import StackedLineChart from '@mui/icons-material/StackedLineChart';
+import Thermostat from '@mui/icons-material/Thermostat';
+import WbSunny from '@mui/icons-material/WbSunny';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import React, { ReactElement } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function ListMenu(): ReactElement {
   const location = useLocation();
@@ -78,7 +78,7 @@ export default function ListMenu(): ReactElement {
           <ModeNight color={isActive("/moonphase")} />
         </ListItemIcon>
         <ListItemText
-          primary={"Фазы Луны"}
+          primary={"Лунный календарь"}
           sx={{ color: isActiveFontColor("/moonphase") }}
         />
       </ListItem>

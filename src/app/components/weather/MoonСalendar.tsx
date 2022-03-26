@@ -4,25 +4,11 @@ import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/system/Box';
 import React from 'react';
-import { useRecoilValue } from 'recoil';
 
-import { yrSunriseState } from '../../recoil/yr_sunrise.state';
-import Loading from '../load/Loading';
 import MoonCalendarTable from './MoonCalendarTable';
 
 export default function MoonСalendar() {
   const [open, setOpen] = React.useState(false);
-  const astroData = useRecoilValue(yrSunriseState);
-  if (!astroData)
-    return (
-      <Box>
-        <Loading />
-      </Box>
-    );
-
-  function dt(date: string) {
-    return date.slice(8, 10) + "." + date.slice(5, 7);
-  }
 
   return (
     <Box>
@@ -45,7 +31,7 @@ export default function MoonСalendar() {
                 align="left"
                 sx={{ fontSize: 14, fontWeight: "bold" }}
               >
-                Лунный календарь
+                Лунный календарь (для 00h 00m 00s)
               </TableCell>
             </TableRow>
             <TableRow>
@@ -87,21 +73,29 @@ export default function MoonСalendar() {
                             align="left"
                             sx={{ fontSize: 14, fontWeight: "bold" }}
                           >
+                            Восход
+                          </TableCell>
+                        </Hidden>
+                        <Hidden smDown={true}>
+                          <TableCell
+                            align="left"
+                            sx={{ fontSize: 14, fontWeight: "bold" }}
+                          >
+                            Заход
+                          </TableCell>
+                        </Hidden>
+                        <Hidden smDown={true}>
+                          <TableCell
+                            align="left"
+                            sx={{ fontSize: 14, fontWeight: "bold" }}
+                          >
                             Расстояние
                           </TableCell>
                         </Hidden>
                       </TableRow>
                     </TableHead>
-                    <TableBody>
-                      {astroData.map((item, i) => (
-                        <MoonCalendarTable
-                          key={i}
-                          date={dt(item.location.time[0].moonposition.time)}
-                          phase={item.location.time[0].moonposition.phase}
-                          range={item.location.time[0].moonposition.range}
-                        />
-                      ))}
-                    </TableBody>
+
+                    <MoonCalendarTable />
                   </Table>
                 </Collapse>
               </TableCell>

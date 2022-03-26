@@ -30,6 +30,7 @@ export default function Bootstrap({ children }: Props) {
         }
         const sunrise = await WeatherApi.loadSunrise(coord, dayCount);
         setSunriseData(sunrise);
+        // console.log(sunrise);
         // console.info("🌅 Astro data loaded");
       } catch (error) {
         console.log(error);
