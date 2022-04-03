@@ -1,6 +1,6 @@
-import _ from 'lodash'
+import _ from 'lodash';
 
-import { YrWeather } from '../types/yr_weather.type'
+import { YrWeather } from '../types/yr_weather.type';
 
 export default function dailyReport(weatherData: YrWeather) {
   const minDayTemp: any[] = [];

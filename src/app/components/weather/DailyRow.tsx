@@ -1,14 +1,12 @@
-import { Expand, ExpandCircleDown } from '@mui/icons-material'
-import Box from '@mui/material/Box'
-import Hidden from '@mui/material/Hidden'
-import IconButton from '@mui/material/IconButton'
-import TableCell from '@mui/material/TableCell'
-import TableRow from '@mui/material/TableRow'
-import React from 'react'
+import { Expand, ExpandMore } from '@mui/icons-material';
+import { IconButton, Link } from '@mui/material';
+import Box from '@mui/material/Box';
+import Hidden from '@mui/material/Hidden';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import React from 'react';
 
-import { Icons } from '../../../assets/icons'
-import { IconsKey } from '../../types/icon.type'
-import HourlyRows from './HourlyRows'
+import HourlyRows from './HourlyRows';
 
 type PropsDaily = {
   date: string;
@@ -41,36 +39,38 @@ export default function DailyRow({
   sunset,
 }: PropsDaily) {
   const [open, setOpen] = React.useState(false);
+  const [header, setHeader] = React.useState("Почасовой прогноз");
+  const handleClick = () => {
+    setOpen(!open);
+    if (open !== true) {
+      setHeader("Закрыть прогноз");
+    } else {
+      setHeader("Почасовой прогноз");
+    }
+  };
 
-  const day = new Date(date).toLocaleString("ru-RU", {
-    day: "numeric",
-  });
-  const weekday = new Date(date).toLocaleString("ru-RU", {
-    weekday: "short",
-  });
-  let month = new Date(date).toLocaleString("ru-RU", {
-    month: "numeric",
-  });
-  if (month.length < 2) month = "0" + month;
+  // console.log(new Date(date).toLocaleDateString("ru-RU"));
 
   return (
     <React.Fragment>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>
-          <IconButton
-            sx={{ width: 30 }}
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <Expand /> : <ExpandCircleDown />}
-          </IconButton>
+      <TableRow>
+        <TableCell colSpan={6}>
+          {/* <Link
+            underline="none"
+            component="button"
+            variant="body2"
+            onClick={handleClick}
+          > */}
+          {new Date(date).toLocaleString("ru-RU", {
+            weekday: "long",
+            day: "numeric",
+            month: "long",
+          })}{" "}
+          {/* </Link> */}
         </TableCell>
+      </TableRow>
 
-        <TableCell>
-          {weekday}.{day}.{month}
-        </TableCell>
-
+      <TableRow>
         {icon.map((ico, i) => (
           <Hidden smDown={true} key={i}>
             <TableCell align="left" sx={{ width: 30 }}>
@@ -79,6 +79,7 @@ export default function DailyRow({
           </Hidden>
         ))}
 
+        {/* Температура min/mx */}
         <TableCell>
           {tempMin > 0 ? (
             <Box component="span" sx={{ color: "red", fontWeight: "bold" }}>
@@ -100,46 +101,62 @@ export default function DailyRow({
             </Box>
           )}
         </TableCell>
+        {/* Температура min/mx */}
 
+        {/* Осадки мм */}
         <TableCell>
           <Box component="span" sx={{ color: "blue" }}>
             {pricip === 0 || pricip === undefined ? "0.0" : pricip.toFixed(1)}
           </Box>
         </TableCell>
 
+        {/* Скорость ветра м */}
         <TableCell>
           <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
             {windMax}
           </Box>
         </TableCell>
 
+        {/* Влажность % */}
         <Hidden smDown={true}>
           <TableCell align="left">{relative_humidity} %</TableCell>
         </Hidden>
+
+        {/* Давление мм */}
         <Hidden smDown={true}>
           <TableCell align="left">{pres}мм</TableCell>
         </Hidden>
       </TableRow>
 
+      {/* Показать таблицу почасового прогноза */}
       <TableRow>
-        <TableCell colSpan={10} sx={{ fontSize: 12, fontWeight: "bold" }}>
-          Восход <img width={25} alt="icon" src={Icons.sunrise as IconsKey} />
-          <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
-            {sunrise}
-          </Box>{" "}
-          <Box component="span" sx={{ width: 150 }}>
-            ..........
-          </Box>
-          . Заход <img width={25} alt="icon" src={Icons.sunset as IconsKey} />
-          <Box component="span" sx={{ color: "blue", fontWeight: "bold" }}>
-            {" "}
-            {sunset}
-          </Box>
+        <TableCell colSpan={10} align="center">
+          <Link
+            underline="none"
+            component="button"
+            variant="body2"
+            onClick={handleClick}
+          >
+            {header}
+          </Link>
+          <IconButton
+            sx={{ width: 20 }}
+            aria-label="expand row"
+            size="small"
+            onClick={handleClick}
+          >
+            {open ? <Expand /> : <ExpandMore />}
+          </IconButton>{" "}
         </TableCell>
       </TableRow>
 
       {/* формируем раскрывающуюся таблицу с часовыми прогнозами */}
-      <HourlyRows open={open} dtDaily={date} />
+      <HourlyRows
+        open={open}
+        dtDaily={date}
+        sunrise={sunrise}
+        sunset={sunset}
+      />
       {/* формируем раскрывающуюся таблицу с часовыми прогнозами */}
     </React.Fragment>
   );

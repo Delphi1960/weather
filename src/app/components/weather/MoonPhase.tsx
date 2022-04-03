@@ -1,5 +1,4 @@
 import { Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { toNumber } from 'lodash';
@@ -7,6 +6,7 @@ import { useRecoilValue } from 'recoil';
 
 import { nameLocation } from '../../recoil/location.state';
 import { yrSunriseState } from '../../recoil/yr_sunrise.state';
+import DisplayLocation from './DisplayLocation';
 import MoonPhaseIcon from './MoonPhaseIcon';
 import MoonPhaseState from './MoonPhaseState';
 import MoonCalendar from './MoonСalendar';
@@ -34,22 +34,7 @@ export default function MoonPhase() {
         flexGrow: 1,
       }}
     >
-      <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
-        <Box component="span" sx={{ textAlign: "left", color: "black" }}>
-          Location:{" "}
-        </Box>
-        <Box
-          component="span"
-          sx={{
-            textAlign: "left",
-            color: "blue",
-            fontWeight: "bold",
-            fontStyle: "italic",
-          }}
-        >
-          {place}
-        </Box>
-      </Box>
+      <DisplayLocation />
 
       <Grid
         container

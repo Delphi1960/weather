@@ -3,9 +3,10 @@ import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } f
 import { useRecoilValue } from 'recoil';
 
 import { Icons } from '../../../assets/icons';
-import { nameLocation } from '../../recoil/location.state';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 import { IconsKey } from '../../types/icon.type';
+import DisplayLocation from './DisplayLocation';
+import GetDirectionOfTheWind from './GetDirectionOfTheWind';
 
 const Img = styled("img")({
   margin: "auto",
@@ -17,7 +18,6 @@ const Img = styled("img")({
 
 export default function WeatherNow() {
   const weatherData = useRecoilValue(yrWeatherState)!;
-  const place = useRecoilValue(nameLocation);
 
   let date = new Date(weatherData.properties.timeseries[0].time);
   let dt = date.toLocaleString("ru-RU", {
@@ -36,22 +36,7 @@ export default function WeatherNow() {
           flexGrow: 1,
         }}
       >
-        <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
-          <Box component="span" sx={{ textAlign: "left", color: "black" }}>
-            Location:{" "}
-          </Box>
-          <Box
-            component="span"
-            sx={{
-              textAlign: "left",
-              color: "blue",
-              fontWeight: "bold",
-              fontStyle: "italic",
-            }}
-          >
-            {place}
-          </Box>
-        </Box>
+        <DisplayLocation />
         <Grid
           container
           spacing={0}
@@ -191,6 +176,14 @@ export default function WeatherNow() {
                             weatherData!.properties.timeseries[0].data.instant
                               .details.wind_from_direction
                           ) + "°"}
+                          <Box sx={{ ml: 5, mt: -2.7 }}>
+                            <GetDirectionOfTheWind
+                              windDirection={Math.round(
+                                weatherData!.properties.timeseries[0].data
+                                  .instant.details.wind_from_direction
+                              )}
+                            />
+                          </Box>
                         </Box>
                       </TableCell>
                     </TableRow>

@@ -1,24 +1,20 @@
-import Box from '@mui/material/Box'
-import Hidden from '@mui/material/Hidden'
-import Paper from '@mui/material/Paper'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import { useRecoilValue } from 'recoil'
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableContainer from '@mui/material/TableContainer';
+import { useRecoilValue } from 'recoil';
 
-import { Icons } from '../../../assets/icons'
-import { nameLocation } from '../../recoil/location.state'
-import { yrSunriseState } from '../../recoil/yr_sunrise.state'
-import { yrWeatherState } from '../../recoil/yr_weather.state'
-import { IconsKey } from '../../types/icon.type'
-import dailyReport from '../../utils/dailyReport'
-import DailyRow from './DailyRow'
+import { Icons } from '../../../assets/icons';
+import { yrSunriseState } from '../../recoil/yr_sunrise.state';
+import { yrWeatherState } from '../../recoil/yr_weather.state';
+import { IconsKey } from '../../types/icon.type';
+import dailyReport from '../../utils/dailyReport';
+import getRangeHourForecast from '../../utils/getRangeHourForecast';
+import DailyRow from './DailyRow';
+import DisplayLocation from './DisplayLocation';
 
 export default function WeatherTable() {
-  const place = useRecoilValue(nameLocation);
   const weatherData = useRecoilValue(yrWeatherState)!;
   const astroData = useRecoilValue(yrSunriseState)!;
   const {
@@ -32,37 +28,23 @@ export default function WeatherTable() {
     ico12,
     ico18,
   }: any = dailyReport(weatherData);
+  //
+  console.log(getRangeHourForecast(weatherData));
+  //
   return (
-    <Box sx={{ p: 4 }}>
+    <Box sx={{ mt: -2 }}>
       <TableContainer component={Paper}>
-        <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
-          <Box component="span" sx={{ textAlign: "left", color: "black" }}>
-            Location:{" "}
-          </Box>
-          <Box
-            component="span"
-            sx={{
-              textAlign: "left",
-              color: "blue",
-              fontWeight: "bold",
-              fontStyle: "italic",
-            }}
-          >
-            {place}
-          </Box>
-        </Box>
+        {/* Отрисуем location */}
+        <DisplayLocation />
 
         <Table aria-label="collapsible table">
+          {/*
           <TableHead>
             <TableRow>
-              <TableCell />
-              <TableCell align="left" sx={{ fontSize: 12, fontWeight: "bold" }}>
-                Дата
-              </TableCell>
               <Hidden smDown={true}>
                 <TableCell
                   align="left"
-                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                  sx={{ fontSize: 14, fontWeight: "bold" }}
                 >
                   Ночь
                 </TableCell>
@@ -70,7 +52,7 @@ export default function WeatherTable() {
               <Hidden smDown={true}>
                 <TableCell
                   align="left"
-                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                  sx={{ fontSize: 14, fontWeight: "bold" }}
                 >
                   Утро
                 </TableCell>
@@ -78,7 +60,7 @@ export default function WeatherTable() {
               <Hidden smDown={true}>
                 <TableCell
                   align="left"
-                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                  sx={{ fontSize: 14, fontWeight: "bold" }}
                 >
                   День
                 </TableCell>
@@ -86,24 +68,24 @@ export default function WeatherTable() {
               <Hidden smDown={true}>
                 <TableCell
                   align="left"
-                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                  sx={{ fontSize: 14, fontWeight: "bold" }}
                 >
                   Вечер
                 </TableCell>
               </Hidden>
-              <TableCell align="left" sx={{ fontSize: 12, fontWeight: "bold" }}>
+              <TableCell align="left" sx={{ fontSize: 14, fontWeight: "bold" }}>
                 Темп C°
               </TableCell>
-              <TableCell align="left" sx={{ fontSize: 12, fontWeight: "bold" }}>
+              <TableCell align="left" sx={{ fontSize: 14, fontWeight: "bold" }}>
                 Осадки мм
               </TableCell>
-              <TableCell align="left" sx={{ fontSize: 12, fontWeight: "bold" }}>
+              <TableCell align="left" sx={{ fontSize: 14, fontWeight: "bold" }}>
                 Ветер м/с
               </TableCell>
               <Hidden smDown={true}>
                 <TableCell
                   align="left"
-                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                  sx={{ fontSize: 14, fontWeight: "bold" }}
                 >
                   Влажность %
                 </TableCell>
@@ -111,32 +93,40 @@ export default function WeatherTable() {
               <Hidden smDown={true}>
                 <TableCell
                   align="left"
-                  sx={{ fontSize: 12, fontWeight: "bold" }}
+                  sx={{ fontSize: 14, fontWeight: "bold" }}
                 >
                   Давление мм
                 </TableCell>
               </Hidden>
             </TableRow>
           </TableHead>
+ */}
           <TableBody>
             {weatherData?.properties.timeseries
               .filter(function (item, ind) {
                 let dt1;
                 let dt2;
                 if (ind === 0) {
-                  dt1 = new Date(weatherData?.properties.timeseries[ind].time);
-                  return dt1.toLocaleDateString();
+                  dt1 = new Date(
+                    weatherData?.properties.timeseries[ind].time
+                  ).toLocaleDateString("ru-RU");
+                  return dt1;
                 } else {
                   dt1 = new Date(
                     weatherData?.properties.timeseries[ind - 1].time
-                  );
+                  ).toLocaleDateString("ru-RU");
                 }
-                dt2 = new Date(weatherData?.properties.timeseries[ind].time);
-                return dt1.toLocaleDateString() !== dt2.toLocaleDateString();
+                dt2 = new Date(
+                  weatherData?.properties.timeseries[ind].time
+                ).toLocaleDateString("ru-RU");
+                return dt1 !== dt2;
               })
               .map((daily, ind) =>
                 // Прогноз на 9 дней. 10-й день отсекаем. Приходят неполные данные.
+
                 ind < 10 ? (
+                  // ind < 4 ? (
+
                   <DailyRow
                     key={ind}
                     date={daily.time}
@@ -164,7 +154,21 @@ export default function WeatherTable() {
                       -6
                     )}
                   />
-                ) : null
+                ) : // ) : (
+                //   <HourlyRows
+                //     key={ind}
+                //     open={true}
+                //     dtDaily={daily.time}
+                //     sunrise={astroData[
+                //       ind
+                //     ].location.time[0].sunrise.time.slice(11, -6)}
+                //     sunset={astroData[ind].location.time[0].sunset.time.slice(
+                //       11,
+                //       -6
+                //     )}
+                //   />
+                // )
+                null
               )}
           </TableBody>
         </Table>

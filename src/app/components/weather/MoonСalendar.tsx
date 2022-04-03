@@ -1,5 +1,5 @@
-import { Expand, ExpandCircleDown } from '@mui/icons-material';
-import { Collapse, Hidden, IconButton, TableBody, TableCell, TableHead } from '@mui/material';
+import { Expand, ExpandMore } from '@mui/icons-material';
+import { Collapse, Hidden, IconButton, Link, TableBody, TableCell, TableHead } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
 import Box from '@mui/system/Box';
@@ -9,6 +9,17 @@ import MoonCalendarTable from './MoonCalendarTable';
 
 export default function MoonСalendar() {
   const [open, setOpen] = React.useState(false);
+  const [header, setHeader] = React.useState(
+    "Лунный календарь (для 00h 00m 00s)"
+  );
+  const handleClick = () => {
+    setOpen(!open);
+    if (open !== true) {
+      setHeader("Закрыть календарь");
+    } else {
+      setHeader("Лунный календарь (для 00h 00m 00s)");
+    }
+  };
 
   return (
     <Box>
@@ -16,22 +27,23 @@ export default function MoonСalendar() {
         <TableBody>
           <React.Fragment>
             <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-              <TableCell>
+              <TableCell align="center">
+                <Link
+                  underline="none"
+                  component="button"
+                  variant="body1"
+                  onClick={handleClick}
+                >
+                  {header}
+                </Link>
                 <IconButton
                   sx={{ width: 30 }}
                   aria-label="expand row"
                   size="small"
-                  onClick={() => setOpen(!open)}
+                  onClick={handleClick}
                 >
-                  {open ? <Expand /> : <ExpandCircleDown />}
+                  {open ? <Expand /> : <ExpandMore />}
                 </IconButton>
-              </TableCell>
-              <TableCell
-                colSpan={4}
-                align="left"
-                sx={{ fontSize: 14, fontWeight: "bold" }}
-              >
-                Лунный календарь (для 00h 00m 00s)
               </TableCell>
             </TableRow>
             <TableRow>
@@ -43,7 +55,7 @@ export default function MoonСalendar() {
                     sx={{ ml: -1, mr: -1 }}
                   >
                     <TableHead>
-                      <TableRow>
+                      <TableRow style={{ backgroundColor: "lightcyan" }}>
                         <TableCell
                           align="left"
                           sx={{ fontSize: 14, fontWeight: "bold" }}

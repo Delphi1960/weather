@@ -11,6 +11,7 @@ export namespace WeatherApi {
         `https://api.met.no/weatherapi/locationforecast/2.0/compact?${coord}`
       );
       const weather = response.data;
+      // console.log(weather);
       LocalStorageManager.setItem("weather", weather);
       LocalStorageManager.setItem("lastUpdated", Date.now());
       return weather;
