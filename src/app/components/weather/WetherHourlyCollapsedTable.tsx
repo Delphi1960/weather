@@ -9,87 +9,33 @@ import { useRecoilValue } from 'recoil';
 import { Icons } from '../../../assets/icons';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 import { IconsKey } from '../../types/icon.type';
-import RowHourlyDetail from './RowHourlyDetail';
+import WeatherHourlyDetail from './WeatherHourlyDetail';
 
 type PropsHourly = {
   open: boolean;
   dtDaily: string;
-  sunrise: string;
-  sunset: string;
+  // sunrise: string;
+  // sunset: string;
 };
 
 // Формируем строки с часовым прогнозом
 // и формируем раскрывающуюся таблицу с часовыми прогнозами
 
-export default function HourlyRows({
+export default function WetherHourlyCollapsedTable({
   open,
   dtDaily,
-  sunrise,
-  sunset,
-}: PropsHourly) {
+}: // sunrise,
+// sunset,
+PropsHourly) {
   const weatherData = useRecoilValue(yrWeatherState);
   let dt = new Date(dtDaily);
   return (
     <TableRow>
-      <TableCell colSpan={10}>
+      <TableCell colSpan={7}>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Box sx={{ mt: 1 }}>
-            <Table size="small" aria-label="purchases" sx={{ ml: -1, mr: -1 }}>
-              {/*               
-              <TableHead>
-                <TableRow>
-                  <TableCell
-                    align="left"
-                    sx={{ fontSize: 12, fontWeight: "bold" }}
-                  >
-                    T
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{ fontSize: 12, fontWeight: "bold" }}
-                  >
-                    Обл.
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{ fontSize: 12, fontWeight: "bold" }}
-                  >
-                    C°
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{ fontSize: 12, fontWeight: "bold" }}
-                  >
-                    Осадки
-                  </TableCell>
-                  <TableCell
-                    align="left"
-                    sx={{ fontSize: 12, fontWeight: "bold" }}
-                  >
-                    Ветер
-                  </TableCell>
-                  <Hidden smDown={true}>
-                    <TableCell
-                      align="left"
-                      sx={{ fontSize: 12, fontWeight: "bold" }}
-                    >
-                      Влажность
-                    </TableCell>
-                  </Hidden>
-                </TableRow>
-              </TableHead>
- */}
+            <Table size="small" aria-label="purchases">
               <TableBody>
-                <TableRow>
-                  <TableCell colSpan={4}>
-                    {new Date(dtDaily).toLocaleString("ru-RU", {
-                      weekday: "long",
-                      day: "numeric",
-                      month: "long",
-                    })}
-                  </TableCell>
-                </TableRow>
-
                 {/* Формируем строки с часовым прогнозом для даты dt = new Date(dtDaily) */}
                 {weatherData?.properties.timeseries
                   .filter((item) => {
@@ -98,7 +44,7 @@ export default function HourlyRows({
                   })
                   .map((hourly, ind) => (
                     // Формируем одну строку с часовым прогнозом
-                    <RowHourlyDetail
+                    <WeatherHourlyDetail
                       key={ind}
                       time={new Date(hourly.time).toLocaleString("ru-RU", {
                         hour: "numeric",
@@ -132,12 +78,16 @@ export default function HourlyRows({
                       relative_humidity={Math.round(
                         hourly.data.instant.details.relative_humidity
                       )}
+                      pres={Math.round(
+                        hourly.data.instant.details.air_pressure_at_sea_level *
+                          0.75
+                      )}
                       nRow={ind}
                     />
                   ))}
 
                 {/* Восход и заход Солнца */}
-                <TableRow>
+                {/* <TableRow>
                   <TableCell
                     colSpan={3}
                     align="center"
@@ -171,7 +121,7 @@ export default function HourlyRows({
                       {sunset}
                     </Box>
                   </TableCell>
-                </TableRow>
+                </TableRow> */}
                 {/* Восход и заход Солнца */}
               </TableBody>
             </Table>

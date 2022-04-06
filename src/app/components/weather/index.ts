@@ -1,1 +1,1 @@
-export * from "./DailyRow";
+export * from "./WeatherMainTable";

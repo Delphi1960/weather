@@ -52,12 +52,13 @@ export default function GetDirectionOfTheWind({ windDirection }: WindProps) {
     if (direction > 320 && direction <= 330) return Icons.w330;
     if (direction > 330 && direction <= 340) return Icons.w340;
     if (direction > 340 && direction <= 350) return Icons.w350;
+    if (direction > 350 && direction <= 360) return Icons.w0;
   }
 
   return (
     <Img
       alt="wind"
-      width={20}
+      width={15}
       src={GetDirection(windDirection) as IconsKey}
       // src={Icons.moon50 as IconsKey}
     />

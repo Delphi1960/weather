@@ -2,69 +2,6 @@
 import { YrWeather } from '../types/yr_weather.type';
 
 export default function getRangeHourForecast(weatherData: YrWeather) {
-  const res: any[] = [];
-
-  function getDayForecast(weatherData: YrWeather, dtISO: string) {
-    let data;
-    for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
-      if (weatherData.properties.timeseries[i].time === dtISO) {
-        data = weatherData.properties.timeseries[i].data.instant.details;
-      }
-    }
-    return {
-      cloud_area_fraction: data?.cloud_area_fraction,
-      air_temperature: data?.air_temperature,
-      wind_speed: data?.wind_speed,
-      wind_from_direction: data?.wind_from_direction,
-      relative_humidity: data?.relative_humidity,
-      air_pressure_at_sea_level: data?.air_pressure_at_sea_level,
-    };
-  }
-
-  function convertDate(dt: string) {
-    let year = dt.slice(6);
-    let month = dt.slice(3, 5);
-    let day = dt.slice(0, 2);
-    return year + "-" + month + "-" + day;
-  }
-
-  const getRange = getRangeHours(expandedTime(weatherData));
-  let dateISO;
-  let arDateTime: any = [];
-
-  for (let i = 0; i < getRange.length; i++) {
-    let dt = convertDate(getRange[i][0]);
-
-    for (let j = 1; j < getRange[i].length; j++) {
-      let tm = getRange[i][j].slice(0, 2);
-      let date = new Date(dt + " " + tm + ":00:00");
-
-      dateISO = date.toISOString().slice(0, 19) + "Z";
-      let data = getDayForecast(weatherData, dateISO);
-      let dataWeather = {
-        time: getRange[i][j],
-        cloud_area_fraction: data?.cloud_area_fraction,
-        air_temperature: data?.air_temperature,
-        wind_speed: data?.wind_speed,
-        wind_from_direction: data?.wind_from_direction,
-        relative_humidity: data?.relative_humidity,
-        air_pressure_at_sea_level: data?.air_pressure_at_sea_level,
-      };
-
-      arDateTime.push(dataWeather);
-    }
-    let forecast = {
-      date:
-        new Date(convertDate(getRange[i][0]) + " 00:00:00")
-          .toISOString()
-          .slice(0, 19) + "Z",
-      dataTime: arDateTime,
-    };
-    arDateTime = [];
-    res.push(forecast);
-  }
-
-  return res;
   // ===================================================
   function expandedTime(weatherData: YrWeather) {
     let tmp: any = [];
@@ -95,16 +32,18 @@ export default function getRangeHourForecast(weatherData: YrWeather) {
       let hour = dt.slice(12, 14);
       tmp.push(hour);
     }
+    // console.log(arDateTime);
     return arDateTime;
   }
-
   // ===================================================
   function getRangeHours(arHours: any[]) {
     let hours: any[] = [];
     const days: any[] = [];
+    const hoursCount: any[] = [];
 
     for (let i = 0; i < arHours.length; i++) {
       let tmp = arHours[i].time;
+      hoursCount.push(tmp.length);
       hours = [];
 
       if (i === 0 || i === 1 || i === 2) {
@@ -152,9 +91,96 @@ export default function getRangeHourForecast(weatherData: YrWeather) {
         hours.push(tmp[2] + "-" + tmp[3]);
         hours.push(tmp[3] + "-" + tmp[0]);
       }
+      // hoursCount.push(hours.length)
       hours.unshift(arHours[i].date);
       days.push(hours);
     }
-    return days;
+    let getRange = days;
+    return { getRange, hoursCount };
   }
+  // ===================================================
+  function getDayForecast(weatherData: YrWeather, dtISO: string) {
+    let data;
+    for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
+      if (weatherData.properties.timeseries[i].time === dtISO) {
+        data = weatherData.properties.timeseries[i].data.instant.details;
+        let precip_next_1_hours =
+          weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+            ?.precipitation_amount;
+        let precip_next_6_hours =
+          weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
+            ?.precipitation_amount;
+
+        return {
+          icon:
+            weatherData?.properties?.timeseries[i]?.data.next_1_hours?.summary
+              ?.symbol_code ||
+            weatherData?.properties?.timeseries[i]?.data.next_6_hours?.summary
+              ?.symbol_code ||
+            "noicon",
+
+          cloud_area_fraction: Math.round(data?.cloud_area_fraction),
+          air_temperature: Math.round(data?.air_temperature),
+          wind_speed: Math.round(data?.wind_speed),
+          wind_from_direction: Math.round(data?.wind_from_direction),
+          relative_humidity: Math.round(data?.relative_humidity),
+          air_pressure_at_sea_level: Math.round(
+            data?.air_pressure_at_sea_level * 0.75
+          ),
+
+          pricip:
+            precip_next_1_hours !== undefined
+              ? precip_next_1_hours
+              : precip_next_6_hours,
+        };
+      }
+    }
+  }
+  // ===================================================
+  function convertDate(dt: string) {
+    let year = dt.slice(6);
+    let month = dt.slice(3, 5);
+    let day = dt.slice(0, 2);
+    return year + "-" + month + "-" + day;
+  }
+  // ===================================================
+  const resultWeather: any[] = [];
+  const { getRange, hoursCount } = getRangeHours(expandedTime(weatherData));
+  let dateISO;
+  let arDateTime: any = [];
+
+  for (let i = 0; i < getRange.length; i++) {
+    let dt = convertDate(getRange[i][0]);
+
+    for (let j = 1; j < getRange[i].length; j++) {
+      let tm = getRange[i][j].slice(0, 2);
+      let date = new Date(dt + " " + tm + ":00:00");
+
+      dateISO = date.toISOString().slice(0, 19) + "Z";
+      let data = getDayForecast(weatherData, dateISO);
+      let dataWeather = {
+        time: getRange[i][j],
+        icon: data?.icon,
+        cloud_area_fraction: data?.cloud_area_fraction,
+        air_temperature: data?.air_temperature,
+        wind_speed: data?.wind_speed,
+        wind_from_direction: data?.wind_from_direction,
+        relative_humidity: data?.relative_humidity,
+        air_pressure_at_sea_level: data?.air_pressure_at_sea_level,
+        pricip: data?.pricip,
+      };
+
+      arDateTime.push(dataWeather);
+    }
+    let forecast = {
+      date:
+        new Date(convertDate(getRange[i][0])).toISOString().slice(0, 19) + "Z",
+      dataTime: arDateTime,
+      hoursCount: hoursCount[i],
+    };
+    arDateTime = [];
+    resultWeather.push(forecast);
+  }
+  // console.log(resultWeather);
+  return resultWeather;
 }
