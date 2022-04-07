@@ -19,15 +19,6 @@ export default function WeatherMainTable() {
 
   const dataForecast = getRangeHourForecast(weatherData);
 
-  // const handleClick = () => {
-  //   setOpen(!open);
-  //   if (open !== true) {
-  //     setHeader("Закрыть прогноз");
-  //   } else {
-  //     setHeader("Почасовой прогноз");
-  //   }
-  // };
-
   // console.log(dataForecast);
   return (
     <Box>

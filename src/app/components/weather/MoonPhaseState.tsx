@@ -14,7 +14,7 @@ export default function MoonPhaseState(moonPhase: string) {
     if (phase > 72 && phase <= 75) return "последняя четверть";
     if (phase > 75 && phase < 98) return "убывающая";
 
-    if ((phase > 0 && phase <= 1) || (phase > 98 && phase <= 100))
+    if ((phase >= 0 && phase <= 1) || (phase > 98 && phase <= 100))
       return "новолуние";
   }
   const state = moonState(toNumber(toNumber(moonPhase).toFixed()));

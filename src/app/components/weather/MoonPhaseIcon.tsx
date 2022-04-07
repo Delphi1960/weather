@@ -46,7 +46,7 @@ export default function MoonPhaseIcon({ moonPhase, sizeIcon }: phaseProps) {
     if (phase > 83 && phase <= 87) return Icons.moon87;
     if (phase > 87 && phase <= 91) return Icons.moon91;
     if (phase > 91 && phase <= 98) return Icons.moon95;
-    if ((phase > 0 && phase <= 1) || (phase > 98 && phase <= 100))
+    if ((phase >= 0 && phase <= 1) || (phase > 98 && phase <= 100))
       return Icons.moon0; //новолунье
   }
 

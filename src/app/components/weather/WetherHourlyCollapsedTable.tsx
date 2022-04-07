@@ -6,10 +6,8 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import { useRecoilValue } from 'recoil';
 
-import { Icons } from '../../../assets/icons';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
-import { IconsKey } from '../../types/icon.type';
-import WeatherHourlyDetail from './WeatherHourlyDetail';
+import WeatherDataTable from './WeatherDataTable';
 
 type PropsHourly = {
   open: boolean;
@@ -24,11 +22,50 @@ type PropsHourly = {
 export default function WetherHourlyCollapsedTable({
   open,
   dtDaily,
-}: // sunrise,
-// sunset,
-PropsHourly) {
+}: PropsHourly) {
   const weatherData = useRecoilValue(yrWeatherState);
   let dt = new Date(dtDaily);
+
+  const dataHourlyForecast: any = weatherData?.properties.timeseries
+    .filter((item) => {
+      let dt1 = new Date(item.time);
+      return dt1.toLocaleDateString() === dt.toLocaleDateString();
+    })
+    .map((hourly, ind) => ({
+      time: new Date(hourly.time).toLocaleString("ru-RU", {
+        hour: "numeric",
+      }),
+
+      icon:
+        hourly?.data.next_1_hours?.summary?.symbol_code ||
+        hourly?.data.next_6_hours?.summary?.symbol_code ||
+        hourly?.data.next_12_hours?.summary?.symbol_code ||
+        "null1",
+
+      air_temperature: Math.round(hourly.data.instant.details.air_temperature),
+
+      pricip:
+        hourly?.data.next_1_hours?.details?.precipitation_amount !== undefined
+          ? hourly?.data.next_1_hours?.details?.precipitation_amount
+          : hourly?.data.next_6_hours?.details?.precipitation_amount,
+
+      wind_speed: Math.round(hourly.data.instant.details.wind_speed),
+
+      wind_from_direction: Math.round(
+        hourly.data.instant.details.wind_from_direction
+      ),
+
+      relative_humidity: Math.round(
+        hourly.data.instant.details.relative_humidity
+      ),
+
+      air_pressure_at_sea_level: Math.round(
+        hourly.data.instant.details.air_pressure_at_sea_level * 0.75
+      ),
+    }));
+
+  // console.log(dataHourlyForecast);
+
   return (
     <TableRow>
       <TableCell colSpan={7}>
@@ -37,92 +74,7 @@ PropsHourly) {
             <Table size="small" aria-label="purchases">
               <TableBody>
                 {/* Формируем строки с часовым прогнозом для даты dt = new Date(dtDaily) */}
-                {weatherData?.properties.timeseries
-                  .filter((item) => {
-                    let dt1 = new Date(item.time);
-                    return dt1.toLocaleDateString() === dt.toLocaleDateString();
-                  })
-                  .map((hourly, ind) => (
-                    // Формируем одну строку с часовым прогнозом
-                    <WeatherHourlyDetail
-                      key={ind}
-                      time={new Date(hourly.time).toLocaleString("ru-RU", {
-                        hour: "numeric",
-                      })}
-                      icon={
-                        Icons[
-                          (hourly?.data.next_1_hours?.summary
-                            ?.symbol_code as IconsKey) ||
-                            (hourly?.data.next_6_hours?.summary
-                              ?.symbol_code as IconsKey) ||
-                            (hourly?.data.next_12_hours?.summary
-                              ?.symbol_code as IconsKey) ||
-                            "null1"
-                        ]
-                      }
-                      temp={Math.round(
-                        hourly.data.instant.details.air_temperature
-                      )}
-                      pricip={
-                        hourly?.data.next_1_hours?.details
-                          ?.precipitation_amount !== undefined
-                          ? hourly?.data.next_1_hours?.details
-                              ?.precipitation_amount
-                          : hourly?.data.next_6_hours?.details
-                              ?.precipitation_amount
-                      }
-                      wind={Math.round(hourly.data.instant.details.wind_speed)}
-                      windDirection={Math.round(
-                        hourly.data.instant.details.wind_from_direction
-                      )}
-                      relative_humidity={Math.round(
-                        hourly.data.instant.details.relative_humidity
-                      )}
-                      pres={Math.round(
-                        hourly.data.instant.details.air_pressure_at_sea_level *
-                          0.75
-                      )}
-                      nRow={ind}
-                    />
-                  ))}
-
-                {/* Восход и заход Солнца */}
-                {/* <TableRow>
-                  <TableCell
-                    colSpan={3}
-                    align="center"
-                    sx={{ fontSize: 12, fontWeight: "bold" }}
-                  >
-                    Восход{" "}
-                    <img
-                      width={25}
-                      alt="icon"
-                      src={Icons.sunrise as IconsKey}
-                    />
-                    <Box
-                      component="span"
-                      sx={{ color: "blue", fontWeight: "bold" }}
-                    >
-                      {sunrise}
-                    </Box>{" "}
-                  </TableCell>
-                  <TableCell
-                    colSpan={3}
-                    align="center"
-                    sx={{ fontSize: 12, fontWeight: "bold" }}
-                  >
-                    Заход{" "}
-                    <img width={25} alt="icon" src={Icons.sunset as IconsKey} />
-                    <Box
-                      component="span"
-                      sx={{ color: "blue", fontWeight: "bold" }}
-                    >
-                      {" "}
-                      {sunset}
-                    </Box>
-                  </TableCell>
-                </TableRow> */}
-                {/* Восход и заход Солнца */}
+                <WeatherDataTable dataForecast={dataHourlyForecast} />
               </TableBody>
             </Table>
           </Box>

@@ -1,3 +1,4 @@
+import air_pressure from './air_pressure.png';
 import belka from './belka.png';
 import clearsky_day from './clearsky_day.png';
 import clearsky_night from './clearsky_night.png';
@@ -90,6 +91,7 @@ import snowshowersandthunder_day from './snowshowersandthunder_day.png';
 import snowshowersandthunder_night from './snowshowersandthunder_night.png';
 import sunrise from './sunrise.png';
 import sunset from './sunset.png';
+import time from './time.png';
 import tminus from './tminus.png';
 import tplus from './tplus.png';
 import wind from './wind.png';
@@ -167,6 +169,8 @@ export const Icons = {
   w330,
   w340,
   w350,
+  air_pressure,
+  time,
   sunrise,
   sunset,
   noicon,
