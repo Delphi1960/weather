@@ -8,6 +8,7 @@ export default function dailyReport(weatherData: YrWeather) {
   const maxDayWind: any = [];
   const averageHumidity: any = [];
   const maxDayPrecip: any = [];
+  const averagePres: any = [];
   let ico00: any = [];
   let ico06: any = [];
   let ico12: any = [];
@@ -15,6 +16,7 @@ export default function dailyReport(weatherData: YrWeather) {
   let temp = [];
   let wind = [];
   let humidity = [];
+  let pres = [];
   let precip = 0;
 
   let dt = weatherData.properties.timeseries[0].time.slice(0, 10);
@@ -33,7 +35,7 @@ export default function dailyReport(weatherData: YrWeather) {
     let dt1 = weatherData.properties.timeseries[i].time.slice(0, 10);
     if (dt === dt1) {
       //============================================================================
-      //температура
+      // температура
       temp.push(
         Math.round(
           weatherData.properties.timeseries[i].data.instant.details
@@ -41,14 +43,14 @@ export default function dailyReport(weatherData: YrWeather) {
         )
       );
       //============================================================================
-      //скорость ветра
+      // скорость ветра
       wind.push(
         Math.round(
           weatherData.properties.timeseries[i].data.instant.details.wind_speed
         )
       );
       //============================================================================
-      //Подсчитаем количество осадков за день
+      // Подсчитаем количество осадков за день
       precip +=
         precip_next_1_hours !== undefined
           ? precip_next_1_hours
@@ -59,6 +61,12 @@ export default function dailyReport(weatherData: YrWeather) {
       humidity.push(
         weatherData.properties.timeseries[i].data.instant.details
           .relative_humidity
+      );
+      //============================================================================
+      // давление
+      pres.push(
+        weatherData.properties.timeseries[i].data.instant.details
+          .air_pressure_at_sea_level
       );
     } else {
       //============================================================================
@@ -71,6 +79,7 @@ export default function dailyReport(weatherData: YrWeather) {
       maxDayPrecip.push(precip);
 
       averageHumidity.push(_.mean(humidity));
+      averagePres.push(_.mean(pres));
 
       //============================================================================
       //Подсчитаем количество осадков за день - начало нового дня
@@ -84,6 +93,7 @@ export default function dailyReport(weatherData: YrWeather) {
       temp = [];
       wind = [];
       humidity = [];
+      pres = [];
       dt = weatherData.properties.timeseries[i].time.slice(0, 10);
     }
 
@@ -142,6 +152,7 @@ export default function dailyReport(weatherData: YrWeather) {
   maxDayWind.push(_.max(wind));
   // minDayWind.push(_.min(wind));
   averageHumidity.push(_.mean(humidity));
+  averagePres.push(_.mean(pres));
 
   return {
     minDayTemp,
@@ -150,6 +161,7 @@ export default function dailyReport(weatherData: YrWeather) {
     // minDayWind,
     maxDayPrecip,
     averageHumidity,
+    averagePres,
     ico00,
     ico06,
     ico12,
