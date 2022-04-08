@@ -5,15 +5,13 @@ import { useRecoilValue } from 'recoil';
 import { nameLocation } from '../../recoil/location.state';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 import dailyReport from '../../utils/dailyReport';
+import ChartAirPressure from './ChartAirPressure';
 import ChartTemperature from './ChartTemperature';
 
 export default function Chart() {
   const place = useRecoilValue(nameLocation);
   const weatherData = useRecoilValue(yrWeatherState)!;
-  const { minDayTemp, maxDayTemp } = dailyReport(weatherData);
-
-  // const dataTemp: any = [];
-  const dataAirPressure: any = [];
+  const { minDayTemp, maxDayTemp, averagePres } = dailyReport(weatherData);
 
   function getDate() {
     let dat = weatherData.properties.timeseries[0].time.slice(0, 10);
@@ -31,12 +29,13 @@ export default function Chart() {
     return result;
   }
   const arDate = getDate();
-  console.log(arDate);
+  // console.log(arDate);
 
   function setDataForChart() {
-    let temp = [];
-    for (let i = 0; i < arDate.length; i++) {
-      temp.push({
+    let dataTemperature = [];
+    let dataAirPressure = [];
+    for (let i = 0; i < arDate.length - 1; i++) {
+      dataTemperature.push({
         day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
           day: "numeric",
           month: "short",
@@ -44,35 +43,19 @@ export default function Chart() {
         t_min: minDayTemp[i],
         t_max: maxDayTemp[i],
       });
+
+      dataAirPressure.push({
+        day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
+          day: "numeric",
+          month: "short",
+        })}`,
+        pres: Math.round(averagePres[i]),
+      });
     }
-    return temp;
+    return { dataTemperature, dataAirPressure };
   }
   console.log(setDataForChart());
-  let dataTemp = setDataForChart();
-
-  // weatherData?.properties.timeseries
-  //   .filter(function (item, ind) {
-  //     let dt1;
-  //     let dt2;
-  //     if (ind === 0) {
-  //       dt1 = new Date(weatherData?.properties.timeseries[ind].time);
-  //       return dt1.toLocaleDateString();
-  //     } else {
-  //       dt1 = new Date(weatherData?.properties.timeseries[ind - 1].time);
-  //     }
-  //     dt2 = new Date(weatherData?.properties.timeseries[ind].time);
-  //     return dt1.toLocaleDateString() !== dt2.toLocaleDateString();
-  //   })
-  //   .map((daily, ind) =>
-  //     dataTemp.push({
-  //       day: `${new Date(daily.time).toLocaleString("ru-RU", {
-  //         day: "numeric",
-  //         month: "short",
-  //       })}`,
-  //       t_min: minDayTemp[ind],
-  //       t_max: maxDayTemp[ind],
-  //     })
-  //   );
+  const { dataTemperature, dataAirPressure }: any = setDataForChart();
 
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
@@ -97,8 +80,9 @@ export default function Chart() {
           </Box>
         </Box>
 
-        {/* CHART */}
-        <ChartTemperature dataTemp={dataTemp} />
+        {/* CHART Max and Min temperature */}
+        <ChartTemperature dataTemp={dataTemperature} />
+        <ChartAirPressure dataPres={dataAirPressure} />
       </Box>
     </ThemeProvider>
   );

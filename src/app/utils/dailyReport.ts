@@ -65,8 +65,10 @@ export default function dailyReport(weatherData: YrWeather) {
       //============================================================================
       // давление
       pres.push(
-        weatherData.properties.timeseries[i].data.instant.details
-          .air_pressure_at_sea_level
+        Math.round(
+          weatherData.properties.timeseries[i].data.instant.details
+            .air_pressure_at_sea_level * 0.75
+        )
       );
     } else {
       //============================================================================
