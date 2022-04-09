@@ -2,37 +2,36 @@ import Typography from '@mui/material/Typography';
 import React from 'react';
 import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
-type DataPres = {
-  dataPres: any[];
+type DataPrecip = {
+  dataPrecip: any[];
 };
 
-export default function ChartAirPressure({ dataPres }: DataPres) {
+export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
   function minMax() {
-    let min = 2000;
     let max = 0;
-    for (let i = 0; i < dataPres.length; i++) {
-      if (min > dataPres[i].pressure) min = dataPres[i].pressure;
-      if (max < dataPres[i].pressure) max = dataPres[i].pressure;
+    for (let i = 0; i < dataPrecip.length; i++) {
+      if (max < dataPrecip[i].precipitation) max = dataPrecip[i].precipitation;
     }
-    return { min, max };
+    return { max };
   }
-  const { min, max } = minMax();
-
+  const { max } = minMax();
+  const yMax = Math.ceil(max);
   return (
     <React.Fragment>
       <Typography variant="subtitle2" align="center">
-        Среднесуточное атмосферное давление мм
+        Суточное количество осадков мм
       </Typography>
       <ResponsiveContainer width="100%" aspect={3}>
         <LineChart
-          data={dataPres}
+          data={dataPrecip}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
           <XAxis dataKey="day" tick={{ fontSize: 12 }} />
           <YAxis
             type="number"
-            domain={[min - 5, max + 5]}
+            domain={[0, yMax]}
+            allowDecimals={true}
             tick={{ fontSize: 12 }}
             // tickCount={20}
             // allowDecimals={false}
@@ -43,16 +42,10 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="pressure"
+            dataKey="precipitation"
             stroke="blue"
             activeDot={{ r: 6 }}
           />
-          {/* <Line
-            type="monotone"
-            dataKey="t_max"
-            stroke="red"
-            activeDot={{ r: 6 }}
-          /> */}
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>

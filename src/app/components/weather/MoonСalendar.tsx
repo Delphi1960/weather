@@ -1,4 +1,4 @@
-import { Expand, ExpandMore } from '@mui/icons-material';
+import { Expand, ExpandLess } from '@mui/icons-material';
 import { Collapse, Hidden, IconButton, Link, TableBody, TableCell, TableHead } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
@@ -15,7 +15,7 @@ export default function MoonСalendar() {
   const handleClick = () => {
     setOpen(!open);
     if (open !== true) {
-      setHeader("Закрыть календарь");
+      setHeader("Закрыть");
     } else {
       setHeader("Лунный календарь (для 00h 00m 00s)");
     }
@@ -42,7 +42,7 @@ export default function MoonСalendar() {
                   size="small"
                   onClick={handleClick}
                 >
-                  {open ? <Expand /> : <ExpandMore />}
+                  {open ? <ExpandLess /> : <Expand />}
                 </IconButton>
               </TableCell>
             </TableRow>
@@ -112,6 +112,29 @@ export default function MoonСalendar() {
                 </Collapse>
               </TableCell>
             </TableRow>
+            {/* Иконка "Закрыть" в конце раскрывающейся таблицы*/}
+            {open ? (
+              <TableRow>
+                <TableCell colSpan={7} align="center">
+                  <Link
+                    underline="none"
+                    component="button"
+                    variant="body2"
+                    onClick={handleClick}
+                  >
+                    Закрыть
+                  </Link>
+                  <IconButton
+                    sx={{ width: 20 }}
+                    aria-label="expand row"
+                    size="small"
+                    onClick={handleClick}
+                  >
+                    {open ? <ExpandLess /> : <Expand />}
+                  </IconButton>{" "}
+                </TableCell>
+              </TableRow>
+            ) : null}
 
             {/*  */}
           </React.Fragment>

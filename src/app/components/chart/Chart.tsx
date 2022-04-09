@@ -5,13 +5,15 @@ import { useRecoilValue } from 'recoil';
 import { nameLocation } from '../../recoil/location.state';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 import dailyReport from '../../utils/dailyReport';
+import ChartPrecipitationAmount from '../weather/ChartPrecipitationAmount';
 import ChartAirPressure from './ChartAirPressure';
 import ChartTemperature from './ChartTemperature';
 
 export default function Chart() {
   const place = useRecoilValue(nameLocation);
   const weatherData = useRecoilValue(yrWeatherState)!;
-  const { minDayTemp, maxDayTemp, averagePres } = dailyReport(weatherData);
+  const { minDayTemp, maxDayTemp, averagePres, maxDayPrecip } =
+    dailyReport(weatherData);
 
   function getDate() {
     let dat = weatherData.properties.timeseries[0].time.slice(0, 10);
@@ -34,6 +36,7 @@ export default function Chart() {
   function setDataForChart() {
     let dataTemperature = [];
     let dataAirPressure = [];
+    let dataPrecip = [];
     for (let i = 0; i < arDate.length - 1; i++) {
       dataTemperature.push({
         day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
@@ -49,13 +52,22 @@ export default function Chart() {
           day: "numeric",
           month: "short",
         })}`,
-        pres: Math.round(averagePres[i]),
+        pressure: Math.round(averagePres[i]),
+      });
+
+      dataPrecip.push({
+        day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
+          day: "numeric",
+          month: "short",
+        })}`,
+        precipitation: maxDayPrecip[i].toFixed(1),
       });
     }
-    return { dataTemperature, dataAirPressure };
+    return { dataTemperature, dataAirPressure, dataPrecip };
   }
-  console.log(setDataForChart());
-  const { dataTemperature, dataAirPressure }: any = setDataForChart();
+
+  const { dataTemperature, dataAirPressure, dataPrecip }: any =
+    setDataForChart();
 
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
@@ -83,6 +95,7 @@ export default function Chart() {
         {/* CHART Max and Min temperature */}
         <ChartTemperature dataTemp={dataTemperature} />
         <ChartAirPressure dataPres={dataAirPressure} />
+        <ChartPrecipitationAmount dataPrecip={dataPrecip} />
       </Box>
     </ThemeProvider>
   );

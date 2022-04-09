@@ -20,7 +20,7 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
 
   return (
     <React.Fragment>
-      <Typography variant="body2" align="center">
+      <Typography variant="subtitle2" align="center">
         Минимальная и максимальная суточная температура С°
       </Typography>
       <ResponsiveContainer width="100%" aspect={3}>
@@ -29,8 +29,12 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
-          <YAxis type="number" domain={[min - 2, max + 2]} />
+          <XAxis dataKey="day" tick={{ fontSize: 12 }} />
+          <YAxis
+            type="number"
+            tick={{ fontSize: 12 }}
+            domain={[min - 2, max + 2]}
+          />
           <Legend layout="horizontal" verticalAlign="bottom" align="center" />
           <Tooltip />
           <Line
