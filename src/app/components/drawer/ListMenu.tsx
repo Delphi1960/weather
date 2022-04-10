@@ -101,6 +101,22 @@ export default function ListMenu(): ReactElement {
       </ListItem>
 
       {/* =============================================================================== */}
+      <ListItem
+        button
+        selected={location.pathname === "/geosatellite"}
+        component={Link}
+        to="/geosatellite"
+      >
+        <ListItemIcon>
+          <LocationOn color={isActive("/geosatellite")} />
+        </ListItemIcon>
+        <ListItemText
+          primary={"Геоспутник"}
+          sx={{ color: isActiveFontColor("/geosatellite") }}
+        />
+      </ListItem>
+
+      {/* =============================================================================== */}
 
       {/* =============================================================================== */}
     </List>
