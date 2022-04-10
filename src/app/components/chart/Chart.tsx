@@ -5,8 +5,8 @@ import { useRecoilValue } from 'recoil';
 import { nameLocation } from '../../recoil/location.state';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 import dailyReport from '../../utils/dailyReport';
-import ChartPrecipitationAmount from '../weather/ChartPrecipitationAmount';
 import ChartAirPressure from './ChartAirPressure';
+import ChartPrecipitationAmount from './ChartPrecipitationAmount';
 import ChartTemperature from './ChartTemperature';
 
 export default function Chart() {
