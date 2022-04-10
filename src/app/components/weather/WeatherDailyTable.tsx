@@ -34,6 +34,7 @@ export default function WeatherDailyTable({
     setHeader("Подробно");
   };
 
+  // console.log(hoursCount);
   // console.log(date, dayForecast);
   return (
     <React.Fragment>
@@ -46,8 +47,8 @@ export default function WeatherDailyTable({
           <SunriseSunset date={date} />
 
           {hoursCount > 4 ||
-          (new Date(date).toLocaleDateString(),
-          new Date().toLocaleDateString()) ? (
+          new Date(date).toLocaleDateString() ===
+            new Date().toLocaleDateString() ? (
             <TableRow>
               <TableCell colSpan={7} align="center">
                 <Link

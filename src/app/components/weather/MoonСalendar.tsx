@@ -1,4 +1,4 @@
-import { Expand, ExpandLess } from '@mui/icons-material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { Collapse, Hidden, IconButton, Link, TableBody, TableCell, TableHead } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
@@ -31,7 +31,7 @@ export default function MoonСalendar() {
                 <Link
                   underline="none"
                   component="button"
-                  variant="body1"
+                  variant="body2"
                   onClick={handleClick}
                 >
                   {header}
@@ -42,7 +42,7 @@ export default function MoonСalendar() {
                   size="small"
                   onClick={handleClick}
                 >
-                  {open ? <ExpandLess /> : <Expand />}
+                  {open ? <ExpandLess /> : <ExpandMore />}
                 </IconButton>
               </TableCell>
             </TableRow>
@@ -130,7 +130,7 @@ export default function MoonСalendar() {
                     size="small"
                     onClick={handleClick}
                   >
-                    {open ? <ExpandLess /> : <Expand />}
+                    {open ? <ExpandLess /> : <ExpandMore />}
                   </IconButton>{" "}
                 </TableCell>
               </TableRow>

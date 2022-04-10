@@ -4,7 +4,6 @@ import Paper from '@mui/material/Paper';
 import { toNumber } from 'lodash';
 import { useRecoilValue } from 'recoil';
 
-import { nameLocation } from '../../recoil/location.state';
 import { yrSunriseState } from '../../recoil/yr_sunrise.state';
 import DisplayLocation from './DisplayLocation';
 import MoonPhaseIcon from './MoonPhaseIcon';
@@ -13,7 +12,7 @@ import MoonCalendar from './MoonСalendar';
 
 export default function MoonPhase() {
   // const navigate = useNavigate();
-  const place = useRecoilValue(nameLocation);
+  // const place = useRecoilValue(nameLocation);
   const astroData = useRecoilValue(yrSunriseState)!;
   const phaseMoon = astroData[0].location.time[0].moonphase.value;
 
