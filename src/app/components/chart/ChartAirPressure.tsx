@@ -1,6 +1,6 @@
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import React from 'react';
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 type DataPres = {
   dataPres: any[];
@@ -11,8 +11,9 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
     let min = 2000;
     let max = 0;
     for (let i = 0; i < dataPres.length; i++) {
-      if (min > dataPres[i].pressure) min = dataPres[i].pressure;
-      if (max < dataPres[i].pressure) max = dataPres[i].pressure;
+      let press = Number(dataPres[i].pressure);
+      if (min > press) min = press;
+      if (max < press) max = press;
     }
     return { min, max };
   }
@@ -20,10 +21,18 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
 
   return (
     <React.Fragment>
-      <Typography variant="subtitle2" align="center">
+      <Box
+        component="span"
+        sx={{
+          display: "block",
+          textAlign: "center",
+          fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+        }}
+      >
         Среднесуточное атмосферное давление мм
-      </Typography>
-      <ResponsiveContainer width="100%" aspect={3}>
+      </Box>
+      {/* aspect={2} соотношение осей */}
+      <ResponsiveContainer width="100%" aspect={2.5}>
         <LineChart
           data={dataPres}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
@@ -39,7 +48,7 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
             // domain={["auto", "auto"]}
             // allowDataOverflow={true}
           />
-          <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+          {/* <Legend layout="horizontal" verticalAlign="bottom" align="center" /> */}
           <Tooltip />
           <Line
             type="monotone"

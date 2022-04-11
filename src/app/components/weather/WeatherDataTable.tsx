@@ -16,9 +16,7 @@ type CellProps = {
 
 function CellStyle({
   value,
-  fontValue = 12,
   unit = "",
-  fontUnit = 12,
   color = "black",
   fontWeight = "normal",
 }: CellProps) {
@@ -28,13 +26,20 @@ function CellStyle({
         component="span"
         sx={{
           color: { color },
-          fontSize: fontValue,
+          fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
           fontWeight: { fontWeight },
         }}
       >
         {value}{" "}
       </Box>
-      <Box component="span" sx={{ fontSize: fontUnit, color: "black" }}>
+      <Box
+        component="span"
+        sx={{
+          ml: -0.2,
+          fontSize: { xs: 11, sm: 13, md: 15, lg: 17 },
+          color: "black",
+        }}
+      >
         {unit}
       </Box>
     </TableCell>
@@ -61,37 +66,31 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
           {item.air_temperature > 0 ? (
             <CellStyle
               value={item.air_temperature}
-              fontValue={14}
               fontWeight={"bold"}
-              // width={30}
               unit={"°"}
-              fontUnit={16}
               color={"red"}
             />
           ) : (
             <CellStyle
               value={item.air_temperature}
               fontWeight={"bold"}
-              // width={30}
               unit={"°"}
-              fontUnit={16}
               color={"blue"}
             />
           )}
           {/* Осадки */}
-          <CellStyle
-            value={item.pricip}
-            // fontValue={14}
-            // width={50}
-            unit={"мм"}
-            fontUnit={10}
-            color={"blue"}
-          />
+          <CellStyle value={item.pricip} unit={"мм"} color={"blue"} />
           {/* Скорость и направление ветра */}
           <TableCell align="left">
-            <Box component="span" sx={{ color: "blue", fontSize: 12 }}>
+            <Box
+              component="span"
+              sx={{
+                color: "blue",
+                fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+              }}
+            >
               {item.wind_speed}
-              <Box sx={{ ml: 1, mt: -2.2 }}>
+              <Box sx={{ ml: { xs: 1.5, md: 3 }, mt: { xs: -2, md: -2.5 } }}>
                 <GetDirectionOfTheWind
                   windDirection={item.wind_from_direction}
                 />
@@ -102,10 +101,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
           <Hidden smDown={true}>
             <CellStyle
               value={item.relative_humidity}
-              // fontValue={14}
-              // width={50}
               unit={"%"}
-              fontUnit={10}
               color={"blue"}
             />
           </Hidden>
@@ -113,10 +109,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
           <Hidden smDown={true}>
             <CellStyle
               value={item.air_pressure_at_sea_level}
-              // fontValue={14}
-              // width={50}
               unit={"мм"}
-              fontUnit={10}
               color={"blue"}
             />
           </Hidden>

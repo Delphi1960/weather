@@ -1,6 +1,6 @@
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 import React from 'react';
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
 
 type DataTemp = {
   dataTemp: any[];
@@ -11,8 +11,10 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
     let min = 200;
     let max = -200;
     for (let i = 0; i < dataTemp.length; i++) {
-      if (min > dataTemp[i].t_min) min = dataTemp[i].t_min;
-      if (max < dataTemp[i].t_max) max = dataTemp[i].t_max;
+      let tMin = Number(dataTemp[i].t_min);
+      let tMax = Number(dataTemp[i].t_max);
+      if (min > tMin) min = tMin;
+      if (max < tMax) max = tMax;
     }
     return { min, max };
   }
@@ -20,10 +22,18 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
 
   return (
     <React.Fragment>
-      <Typography variant="subtitle2" align="center">
-        Минимальная и максимальная суточная температура С°
-      </Typography>
-      <ResponsiveContainer width="100%" aspect={3}>
+      <Box
+        component="span"
+        sx={{
+          display: "block",
+          textAlign: "center",
+          fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+        }}
+      >
+        Min и Max суточная температура С°
+      </Box>
+      {/* aspect={2} соотношение осей */}
+      <ResponsiveContainer width="100%" aspect={2}>
         <LineChart
           data={dataTemp}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
@@ -35,7 +45,12 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
             tick={{ fontSize: 12 }}
             domain={[min - 2, max + 2]}
           />
-          <Legend layout="horizontal" verticalAlign="bottom" align="center" />
+          {/* <Legend
+            layout="horizontal"
+            verticalAlign="top"
+            align="center"
+            fontSize={12}
+          /> */}
           <Tooltip />
           <Line
             type="monotone"

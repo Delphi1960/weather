@@ -28,7 +28,11 @@ export default function SunriseSunset({ date }: Props) {
     // Восход и заход Солнца
 
     <TableRow>
-      <TableCell colSpan={7} align="center" sx={{ fontSize: 12 }}>
+      <TableCell
+        colSpan={7}
+        align="center"
+        sx={{ fontSize: { xs: 12, sm: 14, md: 16, lg: 18 } }}
+      >
         <Box sx={{ flexGrow: 1 }}>
           <Grid
             container

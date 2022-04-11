@@ -75,7 +75,7 @@ export default function Chart() {
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <Box component="div" sx={{ ml: 2, textAlign: "left" }}>
+        <Box component="div" sx={{ ml: 2, mt: -1, mb: 1, textAlign: "left" }}>
           <Box component="span" sx={{ textAlign: "left", color: "black" }}>
             Location:{" "}
           </Box>
