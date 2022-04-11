@@ -31,7 +31,7 @@ export default function SunriseSunset({ date }: Props) {
       <TableCell
         colSpan={7}
         align="center"
-        sx={{ fontSize: { xs: 12, sm: 14, md: 16, lg: 18 } }}
+        sx={{ fontSize: { xs: 12, sm: 14, md: 16 } }}
       >
         <Box sx={{ flexGrow: 1 }}>
           <Grid

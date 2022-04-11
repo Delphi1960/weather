@@ -7,9 +7,7 @@ import GetDirectionOfTheWind from './GetDirectionOfTheWind';
 
 type CellProps = {
   value: number | string;
-  fontValue?: number;
   unit?: string;
-  fontUnit?: number;
   color?: string;
   fontWeight?: string;
 };
@@ -26,7 +24,7 @@ function CellStyle({
         component="span"
         sx={{
           color: { color },
-          fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+          fontSize: { xs: 12, sm: 14, md: 16 },
           fontWeight: { fontWeight },
         }}
       >
@@ -36,7 +34,7 @@ function CellStyle({
         component="span"
         sx={{
           ml: -0.2,
-          fontSize: { xs: 11, sm: 13, md: 15, lg: 17 },
+          fontSize: { xs: 11, sm: 13, md: 15 },
           color: "black",
         }}
       >
@@ -86,7 +84,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
               component="span"
               sx={{
                 color: "blue",
-                fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+                fontSize: { xs: 12, sm: 14, md: 16 },
               }}
             >
               {item.wind_speed}
