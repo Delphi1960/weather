@@ -1,9 +1,26 @@
-import { Hidden, TableCell, TableRow } from '@mui/material';
+import { Box, Hidden, TableCell, TableRow } from '@mui/material';
 import TableHead from '@mui/material/TableHead';
 import React from 'react';
 
 import { Icons } from '../../../assets/icons';
 import { IconsKey } from '../../types/icon.type';
+
+type Src = {
+  iconSrc: string;
+};
+
+function HeaderIcon({ iconSrc }: Src) {
+  return (
+    <TableCell align="left">
+      <Box
+        component="img"
+        sx={{ width: { xs: 25, md: 35, lg: 40 } }}
+        alt="icon"
+        src={iconSrc}
+      ></Box>
+    </TableCell>
+  );
+}
 
 export default function WeatherHeaderTable() {
   return (
@@ -14,46 +31,16 @@ export default function WeatherHeaderTable() {
             background: "#e3fbd7",
           }}
         >
-          <TableCell align="left">
-            <img width={20} alt="icon" src={Icons["time" as IconsKey]} />
-          </TableCell>
-          <TableCell align="left">
-            <img
-              width={30}
-              alt="icon"
-              src={Icons["clearsky_day" as IconsKey]}
-            />
-          </TableCell>
-
-          <TableCell align="left">
-            <img width={25} alt="icon" src={Icons["tplus" as IconsKey]} />
-          </TableCell>
-
-          <TableCell align="left">
-            <img
-              width={30}
-              alt="icon"
-              src={Icons["rainandthunder" as IconsKey]}
-            />
-          </TableCell>
-
-          <TableCell align="left">
-            <img width={25} alt="icon" src={Icons["wind" as IconsKey]} />
-          </TableCell>
-
+          <HeaderIcon iconSrc={Icons["time" as IconsKey]} />
+          <HeaderIcon iconSrc={Icons["clearsky_day" as IconsKey]} />
+          <HeaderIcon iconSrc={Icons["tplus" as IconsKey]} />
+          <HeaderIcon iconSrc={Icons["rainandthunder" as IconsKey]} />
+          <HeaderIcon iconSrc={Icons["wind" as IconsKey]} />
           <Hidden smDown={true}>
-            <TableCell align="left">
-              <img width={25} alt="icon" src={Icons["humidity" as IconsKey]} />
-            </TableCell>
+            <HeaderIcon iconSrc={Icons["humidity" as IconsKey]} />
           </Hidden>
           <Hidden smDown={true}>
-            <TableCell align="left">
-              <img
-                width={25}
-                alt="icon"
-                src={Icons["air_pressure" as IconsKey]}
-              />
-            </TableCell>
+            <HeaderIcon iconSrc={Icons["air_pressure" as IconsKey]} />
           </Hidden>
         </TableRow>
       </TableHead>

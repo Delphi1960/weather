@@ -63,7 +63,7 @@ export default function ListMenu(): ReactElement {
           <StackedLineChart color={isActive("/chart")} />
         </ListItemIcon>
         <ListItemText
-          primary={"График температур"}
+          primary={"Графики"}
           sx={{ color: isActiveFontColor("/chart") }}
         />
       </ListItem>
