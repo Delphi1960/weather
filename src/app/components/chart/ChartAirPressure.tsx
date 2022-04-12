@@ -38,11 +38,18 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-          <XAxis dataKey="day" tick={{ fontSize: 12 }} />
+          <XAxis
+            dataKey="day"
+            tick={{ fontSize: 12 }}
+            tickCount={10}
+            interval={0}
+          />
           <YAxis
             type="number"
-            domain={[min - 5, max + 5]}
+            domain={[min - 2, max + 2]}
             tick={{ fontSize: 12 }}
+            tickCount={10}
+            interval={0}
             // tickCount={20}
             // allowDecimals={false}
             // domain={["auto", "auto"]}
@@ -53,7 +60,7 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
           <Line
             type="monotone"
             dataKey="pressure"
-            stroke="blue"
+            stroke="black"
             activeDot={{ r: 6 }}
           />
           {/* <Line

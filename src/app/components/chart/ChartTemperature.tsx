@@ -39,11 +39,19 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-          <XAxis dataKey="day" tick={{ fontSize: 12 }} />
+          <XAxis
+            dataKey="day"
+            tick={{ fontSize: 12 }}
+            tickCount={10}
+            interval={0}
+          />
           <YAxis
             type="number"
             tick={{ fontSize: 12 }}
             domain={[min - 2, max + 2]}
+            tickCount={10}
+            interval={0}
+            // allowDecimals={false}
           />
           {/* <Legend
             layout="horizontal"

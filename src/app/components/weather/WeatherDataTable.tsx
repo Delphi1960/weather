@@ -58,7 +58,6 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
 
           {/* Иконка */}
           <TableCell>
-            {/* <img width={30} alt="icon" src={Icons[item.icon as IconsKey]} /> */}
             <Box
               component="img"
               sx={{ width: { xs: 30, md: 35, lg: 40 } }}

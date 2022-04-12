@@ -36,14 +36,19 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-          <XAxis dataKey="day" tick={{ fontSize: 12 }} />
+          <XAxis
+            dataKey="day"
+            tick={{ fontSize: 12 }}
+            tickCount={10}
+            interval={0}
+          />
           <YAxis
             type="number"
             domain={[0, yMax]}
-            allowDecimals={true}
             tick={{ fontSize: 12 }}
-            // tickCount={20}
-            // allowDecimals={false}
+            tickCount={10}
+            interval={0}
+            allowDecimals={false}
             // domain={["auto", "auto"]}
             // allowDataOverflow={true}
           />

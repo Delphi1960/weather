@@ -1,3 +1,4 @@
+import { Storm } from '@mui/icons-material';
 import LocationOn from '@mui/icons-material/LocationOn';
 import ModeNight from '@mui/icons-material/ModeNight';
 import StackedLineChart from '@mui/icons-material/StackedLineChart';
@@ -108,7 +109,7 @@ export default function ListMenu(): ReactElement {
         to="/geosatellite"
       >
         <ListItemIcon>
-          <LocationOn color={isActive("/geosatellite")} />
+          <Storm color={isActive("/geosatellite")} />
         </ListItemIcon>
         <ListItemText
           primary={"Геоспутник"}

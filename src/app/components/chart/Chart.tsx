@@ -41,7 +41,7 @@ export default function Chart() {
       dataTemperature.push({
         day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
           day: "numeric",
-          month: "short",
+          month: "2-digit",
         })}`,
         t_min: minDayTemp[i],
         t_max: maxDayTemp[i],
@@ -50,7 +50,7 @@ export default function Chart() {
       dataAirPressure.push({
         day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
           day: "numeric",
-          month: "short",
+          month: "2-digit",
         })}`,
         pressure: Math.round(averagePres[i]),
       });
@@ -58,7 +58,7 @@ export default function Chart() {
       dataPrecip.push({
         day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
           day: "numeric",
-          month: "short",
+          month: "2-digit",
         })}`,
         precipitation: maxDayPrecip[i].toFixed(1),
       });
