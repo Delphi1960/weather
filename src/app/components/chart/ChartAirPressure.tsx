@@ -27,6 +27,7 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
           display: "block",
           textAlign: "center",
           fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+          color: "#164c03",
         }}
       >
         Среднесуточное атмосферное давление мм
@@ -37,21 +38,21 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
           data={dataPres}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
-          <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+          <CartesianGrid stroke="#ccc" strokeDasharray="3 3" strokeWidth={1} />
           <XAxis
             dataKey="day"
+            angle={-30}
             tick={{ fontSize: 12 }}
             tickCount={10}
             interval={0}
           />
           <YAxis
             type="number"
-            domain={[min - 2, max + 2]}
+            domain={[min - 1, max + 1]}
             tick={{ fontSize: 12 }}
             tickCount={10}
             interval={0}
-            // tickCount={20}
-            // allowDecimals={false}
+            allowDecimals={false}
             // domain={["auto", "auto"]}
             // allowDataOverflow={true}
           />
@@ -60,7 +61,8 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
           <Line
             type="monotone"
             dataKey="pressure"
-            stroke="black"
+            stroke="#1f6c01"
+            strokeWidth={1.3}
             activeDot={{ r: 6 }}
           />
           {/* <Line

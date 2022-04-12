@@ -25,6 +25,7 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
           display: "block",
           textAlign: "center",
           fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+          color: "#164c03",
         }}
       >
         Суточное количество осадков мм
@@ -38,6 +39,7 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
           <XAxis
             dataKey="day"
+            angle={-30}
             tick={{ fontSize: 12 }}
             tickCount={10}
             interval={0}
@@ -58,6 +60,7 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
             type="monotone"
             dataKey="precipitation"
             stroke="blue"
+            strokeWidth={1.3}
             activeDot={{ r: 6 }}
           />
         </LineChart>

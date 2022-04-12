@@ -28,6 +28,7 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
           display: "block",
           textAlign: "center",
           fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+          color: "#164c03",
         }}
       >
         Min и Max суточная температура С°
@@ -41,6 +42,7 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
           <XAxis
             dataKey="day"
+            angle={-30}
             tick={{ fontSize: 12 }}
             tickCount={10}
             interval={0}
@@ -51,7 +53,11 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
             domain={[min - 2, max + 2]}
             tickCount={10}
             interval={0}
-            // allowDecimals={false}
+            allowDecimals={false}
+            style={{
+              fontSize: "0.8rem",
+              // fontFamily: "Arial",
+            }}
           />
           {/* <Legend
             layout="horizontal"
@@ -63,13 +69,15 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
           <Line
             type="monotone"
             dataKey="t_min"
-            stroke="blue"
+            stroke="#026297"
+            strokeWidth={1.3}
             activeDot={{ r: 6 }}
           />
           <Line
             type="monotone"
             dataKey="t_max"
             stroke="red"
+            strokeWidth={1.3}
             activeDot={{ r: 6 }}
           />
         </LineChart>

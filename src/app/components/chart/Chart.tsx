@@ -94,7 +94,9 @@ export default function Chart() {
 
         {/* CHART Max and Min temperature */}
         <ChartTemperature dataTemp={dataTemperature} />
+        {/* Атмосферное давление */}
         <ChartAirPressure dataPres={dataAirPressure} />
+        {/* Осадки */}
         <ChartPrecipitationAmount dataPrecip={dataPrecip} />
       </Box>
     </ThemeProvider>
