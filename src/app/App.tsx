@@ -1,4 +1,3 @@
-import { Drawer } from '@mui/material';
 import { Route, Routes } from 'react-router-dom';
 
 import Bootstrap from './Bootstrap';
@@ -16,7 +15,7 @@ export default function App() {
     <div className="App">
       <Bootstrap>
         <AppBar />
-        <Drawer />
+        {/* <Drawer /> */}
         <Routes>
           <Route path="/" element={<WeatherNow />} />
           <Route path="/weathertable" element={<WeatherMainTable />} />

@@ -22,9 +22,9 @@ export default function WeatherMainTable() {
   // console.log(dataForecast);
   return (
     <Box>
+      <DisplayLocation />
       <TableContainer component={Paper}>
         {/* Отрисуем location */}
-        <DisplayLocation />
 
         {dataForecast.map((item, ind) => (
           <Paper

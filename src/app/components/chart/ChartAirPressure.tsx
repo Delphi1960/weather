@@ -32,7 +32,8 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
       >
         Среднесуточное атмосферное давление мм
       </Box>
-      {/* aspect={2} соотношение осей */}
+
+      {/* aspect={2.5} соотношение осей */}
       <ResponsiveContainer width="100%" aspect={2.5}>
         <LineChart
           data={dataPres}

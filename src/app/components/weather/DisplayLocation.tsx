@@ -9,7 +9,7 @@ export default function DisplayLocation() {
   const place = useRecoilValue(nameLocation);
   const weatherData = useRecoilValue(yrWeatherState)!;
   return (
-    <Box component="div" sx={{ ml: 2, textAlign: "left", fontSize: 16 }}>
+    <Box sx={{ ml: 2, mt: -2, mb: 1, textAlign: "left", fontSize: 16 }}>
       <Box component="span" sx={{ textAlign: "left", color: "black" }}>
         Location:{" "}
       </Box>

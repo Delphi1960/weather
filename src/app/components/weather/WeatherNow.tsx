@@ -29,6 +29,7 @@ export default function WeatherNow() {
 
   return (
     <Box>
+      <DisplayLocation />
       <Paper
         sx={{
           margin: "auto",
@@ -36,7 +37,6 @@ export default function WeatherNow() {
           flexGrow: 1,
         }}
       >
-        <DisplayLocation />
         <Grid
           container
           spacing={0}
@@ -77,7 +77,7 @@ export default function WeatherNow() {
               spacing={0}
             >
               <Grid item xs>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" gutterBottom color={"blue"}>
                   {dt}
                 </Typography>
               </Grid>

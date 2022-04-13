@@ -1,16 +1,14 @@
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
-import Box from '@mui/material/Box';
 import { useRecoilValue } from 'recoil';
 
-import { nameLocation } from '../../recoil/location.state';
 import { yrWeatherState } from '../../recoil/yr_weather.state';
 import dailyReport from '../../utils/dailyReport';
+import DisplayLocation from '../weather/DisplayLocation';
 import ChartAirPressure from './ChartAirPressure';
 import ChartPrecipitationAmount from './ChartPrecipitationAmount';
 import ChartTemperature from './ChartTemperature';
 
 export default function Chart() {
-  const place = useRecoilValue(nameLocation);
   const weatherData = useRecoilValue(yrWeatherState)!;
   const { minDayTemp, maxDayTemp, averagePres, maxDayPrecip } =
     dailyReport(weatherData);
@@ -74,31 +72,15 @@ export default function Chart() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box>
-        <Box component="div" sx={{ ml: 2, mt: -1, mb: 1, textAlign: "left" }}>
-          <Box component="span" sx={{ textAlign: "left", color: "black" }}>
-            Location:{" "}
-          </Box>
-          <Box
-            component="span"
-            sx={{
-              textAlign: "left",
-              color: "blue",
-              fontWeight: "bold",
-              fontStyle: "italic",
-            }}
-          >
-            {place}
-          </Box>
-        </Box>
+      {/* Показать место */}
+      <DisplayLocation />
 
-        {/* CHART Max and Min temperature */}
-        <ChartTemperature dataTemp={dataTemperature} />
-        {/* Атмосферное давление */}
-        <ChartAirPressure dataPres={dataAirPressure} />
-        {/* Осадки */}
-        <ChartPrecipitationAmount dataPrecip={dataPrecip} />
-      </Box>
+      {/* CHART Max and Min temperature */}
+      <ChartTemperature dataTemp={dataTemperature} />
+      {/* Атмосферное давление */}
+      <ChartAirPressure dataPres={dataAirPressure} />
+      {/* Осадки */}
+      <ChartPrecipitationAmount dataPrecip={dataPrecip} />
     </ThemeProvider>
   );
 }
