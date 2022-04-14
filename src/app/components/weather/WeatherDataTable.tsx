@@ -49,10 +49,25 @@ type DataForecast = {
 };
 
 export default function WeatherDataTable({ dataForecast }: DataForecast) {
+  type ItemProps = {
+    itemData: any;
+  };
+  function RowData({ itemData }: ItemProps) {
+    let data = [];
+    for (let key in itemData) {
+      if (key !== "cloud_area_fraction") data.push({ [key]: itemData[key] });
+    }
+    data.splice(3, 0, data[7]);
+    data.splice(8, 1);
+    console.log(data);
+    return <TableCell></TableCell>;
+  }
   return (
     <React.Fragment>
       {dataForecast.map((item, ind) => (
         <TableRow key={ind}>
+          {/* <RowData itemData={item} /> */}
+
           {/* Время */}
           <CellStyle value={item.time} />
 
@@ -65,6 +80,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
               src={Icons[item.icon as IconsKey]}
             ></Box>
           </TableCell>
+
           {/* Температура */}
           {item.air_temperature > 0 ? (
             <CellStyle
@@ -83,6 +99,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
           )}
           {/* Осадки */}
           <CellStyle value={item.pricip} unit={"мм"} color={"blue"} />
+
           {/* Скорость и направление ветра */}
           <TableCell align="left">
             <Box
@@ -100,6 +117,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
               </Box>
             </Box>
           </TableCell>
+
           {/* Влажнось */}
           <Hidden smDown={true}>
             <CellStyle
@@ -108,6 +126,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
               color={"blue"}
             />
           </Hidden>
+
           {/* Давление */}
           <Hidden smDown={true}>
             <CellStyle

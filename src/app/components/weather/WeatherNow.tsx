@@ -16,6 +16,36 @@ const Img = styled("img")({
   align: "center",
 });
 
+type RowDataProps = {
+  cell1: any;
+  cell2: any;
+  ind: number;
+};
+function RowData({ cell1, cell2, ind }: RowDataProps) {
+  return (
+    <TableRow style={{ backgroundColor: ind % 2 ? "aliceblue" : "" }}>
+      <TableCell align="left">
+        <Box component="span" sx={{ textAlign: "left", fontSize: 16 }}>
+          {cell1}
+        </Box>
+      </TableCell>
+      <TableCell align="left">
+        <Box
+          component="span"
+          sx={{ textAlign: "left", fontSize: 16, fontWeight: "bold" }}
+        >
+          {cell2}
+          {ind === 3 ? (
+            <Box sx={{ ml: 5, mt: -2.7 }}>
+              <GetDirectionOfTheWind windDirection={cell2.slice(0, -1)} />
+            </Box>
+          ) : null}
+        </Box>
+      </TableCell>
+    </TableRow>
+  );
+}
+
 export default function WeatherNow() {
   const weatherData = useRecoilValue(yrWeatherState)!;
 
@@ -27,6 +57,27 @@ export default function WeatherNow() {
     weekday: "long",
   });
 
+  const arTableHead = [
+    "Облачность",
+    "Температура",
+    "Скорость ветра",
+    "Направление ветра",
+    "Осадки",
+    "Относительная влажность",
+    "Атмосферное давление",
+  ];
+
+  const data = weatherData!.properties.timeseries[0].data.next_1_hours;
+  const details = weatherData!.properties.timeseries[0].data.instant.details;
+  const arTableData = [
+    Math.round(details.cloud_area_fraction) + " %",
+    Math.round(details.air_temperature) + "°",
+    Math.round(details.wind_speed) + " м/сек",
+    Math.round(details.wind_from_direction) + "°",
+    data.details.precipitation_amount + " мм",
+    Math.round(details.relative_humidity) + " %",
+    Math.round(details.air_pressure_at_sea_level * 0.75) + " мм",
+  ];
   return (
     <Box>
       <DisplayLocation />
@@ -57,12 +108,7 @@ export default function WeatherNow() {
               <Img
                 alt="wether"
                 width={250}
-                src={
-                  Icons[
-                    weatherData!.properties.timeseries[0].data.next_1_hours
-                      .summary.symbol_code as IconsKey
-                  ]
-                }
+                src={Icons[data.summary.symbol_code as IconsKey]}
               />
             </Grid>
           </Grid>
@@ -84,177 +130,15 @@ export default function WeatherNow() {
               <Grid item>
                 <Table size="small">
                   <TableBody>
-                    <TableRow style={{ backgroundColor: "aliceblue" }}>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          Облачность:
-                        </Box>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          {Math.round(
-                            weatherData!.properties.timeseries[0].data.instant
-                              .details.cloud_area_fraction
-                          ) + " %"}
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          Температура:
-                        </Box>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{
-                            textAlign: "left",
-                            fontSize: 16,
-                            color: "red",
-                          }}
-                        >
-                          {Math.round(
-                            weatherData!.properties.timeseries[0].data.instant
-                              .details.air_temperature
-                          ) + "°"}
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-
-                    <TableRow style={{ backgroundColor: "aliceblue" }}>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          Скорость ветра:
-                        </Box>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{
-                            textAlign: "left",
-                            fontSize: 16,
-                            color: "blue",
-                          }}
-                        >
-                          {Math.round(
-                            weatherData!.properties.timeseries[0].data.instant
-                              .details.wind_speed
-                          ) + " м/сек"}
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-
-                    <TableRow>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          Направление ветра:
-                        </Box>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          {Math.round(
-                            weatherData!.properties.timeseries[0].data.instant
-                              .details.wind_from_direction
-                          ) + "°"}
-                          <Box sx={{ ml: 5, mt: -2.7 }}>
-                            <GetDirectionOfTheWind
-                              windDirection={Math.round(
-                                weatherData!.properties.timeseries[0].data
-                                  .instant.details.wind_from_direction
-                              )}
-                            />
-                          </Box>
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-
-                    <TableRow style={{ backgroundColor: "aliceblue" }}>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          Осадки:
-                        </Box>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{
-                            textAlign: "left",
-                            fontSize: 16,
-                            color: "blue",
-                          }}
-                        >
-                          {weatherData?.properties.timeseries[0].data
-                            .next_1_hours.details.precipitation_amount + " мм"}
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-                    <TableRow>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          Относительная влажность:
-                        </Box>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          {Math.round(
-                            weatherData!.properties.timeseries[0].data.instant
-                              .details.relative_humidity
-                          ) + " %"}
-                        </Box>
-                      </TableCell>
-                    </TableRow>
-
-                    <TableRow style={{ backgroundColor: "aliceblue" }}>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          Давление:
-                        </Box>
-                      </TableCell>
-                      <TableCell align="left">
-                        <Box
-                          component="span"
-                          sx={{ textAlign: "left", fontSize: 16 }}
-                        >
-                          {Math.round(
-                            weatherData!.properties.timeseries[0].data.instant
-                              .details.air_pressure_at_sea_level * 0.75
-                          )}{" "}
-                          мм
-                        </Box>
-                      </TableCell>
-                    </TableRow>
+                    {/* Таблица погоды */}
+                    {arTableHead.map((item, ind) => (
+                      <RowData
+                        key={ind}
+                        cell1={item}
+                        cell2={arTableData[ind]}
+                        ind={ind}
+                      />
+                    ))}
                   </TableBody>
                 </Table>
               </Grid>

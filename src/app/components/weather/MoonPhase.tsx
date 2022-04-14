@@ -1,4 +1,4 @@
-import { Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
+import { Box, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import { toNumber } from 'lodash';
@@ -9,6 +9,31 @@ import DisplayLocation from './DisplayLocation';
 import MoonPhaseIcon from './MoonPhaseIcon';
 import MoonPhaseState from './MoonPhaseState';
 import MoonCalendar from './MoonСalendar';
+
+type RowDataProps = {
+  cell1: any;
+  cell2: any;
+  ind: number;
+};
+function RowData({ cell1, cell2, ind }: RowDataProps) {
+  return (
+    <TableRow style={{ backgroundColor: ind % 2 ? "aliceblue" : "" }}>
+      <TableCell align="left">
+        <Box component="span" sx={{ textAlign: "left", fontSize: 16 }}>
+          {cell1}
+        </Box>
+      </TableCell>
+      <TableCell align="left">
+        <Box
+          component="span"
+          sx={{ textAlign: "left", fontSize: 16, fontWeight: "bold" }}
+        >
+          {cell2}
+        </Box>
+      </TableCell>
+    </TableRow>
+  );
+}
 
 export default function MoonPhase() {
   // const navigate = useNavigate();
@@ -24,21 +49,29 @@ export default function MoonPhase() {
     weekday: "long",
   });
 
-  type CellStyle = {
-    value: string;
-    value1?: any;
-  };
-  function TableCellStyle({ value, value1 = "" }: CellStyle) {
-    return (
-      <TableCell align="left" sx={{ textAlign: "left", fontSize: 16 }}>
-        {value}
-        {value1}
-      </TableCell>
-    );
-  }
-
-  const phase = astroData[0].location.time[0].moonphase.value;
+  // const phase = astroData[0].location.time[0].moonphase.value;
   const moonData = astroData[0].location.time[0];
+  const arTableHead = [
+    "Фаза",
+    "Состояние",
+    "Восход",
+    "Заход",
+    "Расстояние",
+    "Высота",
+    "Азимут",
+  ];
+
+  const arTableData = [
+    toNumber(phaseMoon).toFixed(1),
+    MoonPhaseState(phaseMoon),
+    moonData.moonrise?.time.slice(11, -6) + " h",
+    moonData.moonset?.time.slice(11, -6) + " h",
+    toNumber(moonData.moonposition.range).toFixed(0) + " km",
+    toNumber(moonData.moonposition.elevation).toFixed(0) + "°",
+    toNumber(astroData[0].location.time[0].moonposition.azimuth).toFixed(0) +
+      "°",
+  ];
+
   return (
     <Paper
       sx={{
@@ -66,7 +99,7 @@ export default function MoonPhase() {
             alignItems="center"
             spacing={0}
           >
-            <MoonPhaseIcon moonPhase={phase} sizeIcon={200} />
+            <MoonPhaseIcon moonPhase={phaseMoon} sizeIcon={200} />
           </Grid>
         </Grid>
 
@@ -95,56 +128,15 @@ export default function MoonPhase() {
             <Grid item>
               <Table size="small">
                 <TableBody>
-                  <TableRow style={{ backgroundColor: "aliceblue" }}>
-                    <TableCellStyle value={"Фаза:"} />
-                    <TableCellStyle
-                      value={toNumber(phase).toFixed(1) + " "}
-                      value1={MoonPhaseState(phaseMoon)}
+                  {/* Лунная таблица */}
+                  {arTableHead.map((item, ind) => (
+                    <RowData
+                      key={ind}
+                      cell1={item}
+                      cell2={arTableData[ind]}
+                      ind={ind}
                     />
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCellStyle value={"Восход:"} />
-                    <TableCellStyle
-                      value={moonData.moonrise?.time.slice(11, -6)}
-                      value1={" h"}
-                    />
-                  </TableRow>
-
-                  <TableRow style={{ backgroundColor: "aliceblue" }}>
-                    <TableCellStyle value={"Заход:"} />
-                    <TableCellStyle
-                      value={moonData.moonset?.time.slice(11, -6)}
-                      value1={" h"}
-                    />
-                  </TableRow>
-
-                  <TableRow>
-                    <TableCellStyle value={"Расстояние:"} />
-                    <TableCellStyle
-                      value={toNumber(moonData.moonposition.range).toFixed(0)}
-                      value1={" км"}
-                    />
-                  </TableRow>
-
-                  <TableRow style={{ backgroundColor: "aliceblue" }}>
-                    <TableCellStyle value={"Высота:"} />
-                    <TableCellStyle
-                      value={toNumber(moonData.moonposition.elevation).toFixed(
-                        0
-                      )}
-                      value1={"°"}
-                    />
-                  </TableRow>
-                  <TableRow>
-                    <TableCellStyle value={"Азимут:"} />
-                    <TableCellStyle
-                      value={toNumber(
-                        astroData[0].location.time[0].moonposition.azimuth
-                      ).toFixed(0)}
-                      value1={"°"}
-                    />
-                  </TableRow>
+                  ))}
                 </TableBody>
               </Table>
             </Grid>
