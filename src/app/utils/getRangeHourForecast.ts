@@ -1,5 +1,5 @@
 // import _ from 'lodash';
-import { YrWeather } from '../types/yr_weather.type';
+import { YrWeather } from '../types/yr_weather.type'
 
 export default function getRangeHourForecast(weatherData: YrWeather) {
   // ===================================================

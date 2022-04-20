@@ -1,6 +1,6 @@
-import _ from 'lodash';
+import _ from 'lodash'
 
-import { YrWeather } from '../types/yr_weather.type';
+import { YrWeather } from '../types/yr_weather.type'
 
 export default function dailyReport(weatherData: YrWeather) {
   const minDayTemp: any[] = [];
@@ -19,20 +19,16 @@ export default function dailyReport(weatherData: YrWeather) {
   let pres = [];
   let precip = 0;
 
-  let dt = weatherData.properties.timeseries[0].time.slice(0, 10);
+  let dt = new Date(weatherData.properties.timeseries[0].time)
+    .toLocaleString("ru-RU")
+    .slice(0, 10);
 
   for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
     //============================================================================
-    //определим переменные отвечающие за осадки
-    let precip_next_1_hours =
-      weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
-        ?.precipitation_amount;
-    let precip_next_6_hours =
-      weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
-        ?.precipitation_amount;
-    //============================================================================
 
-    let dt1 = weatherData.properties.timeseries[i].time.slice(0, 10);
+    let dt1 = new Date(weatherData.properties.timeseries[i].time)
+      .toLocaleString("ru-RU")
+      .slice(0, 10);
     if (dt === dt1) {
       //============================================================================
       // температура
@@ -52,9 +48,12 @@ export default function dailyReport(weatherData: YrWeather) {
       //============================================================================
       // Подсчитаем количество осадков за день
       precip +=
-        precip_next_1_hours !== undefined
-          ? precip_next_1_hours
-          : precip_next_6_hours;
+        weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+          ?.precipitation_amount !== undefined
+          ? weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+              ?.precipitation_amount
+          : weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
+              ?.precipitation_amount;
 
       //============================================================================
       //относительная влажность
@@ -79,6 +78,7 @@ export default function dailyReport(weatherData: YrWeather) {
       // minDayWind.push(_.min(wind));
       //найдем максимумы и минимумы количества осадков
       maxDayPrecip.push(precip);
+      // console.log("precip", precip);
 
       averageHumidity.push(_.mean(humidity));
       averagePres.push(_.mean(pres));
@@ -87,16 +87,21 @@ export default function dailyReport(weatherData: YrWeather) {
       //Подсчитаем количество осадков за день - начало нового дня
       precip = 0;
       precip +=
-        precip_next_1_hours !== undefined
-          ? precip_next_1_hours
-          : precip_next_6_hours;
+        weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+          ?.precipitation_amount !== undefined
+          ? weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+              ?.precipitation_amount
+          : weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
+              ?.precipitation_amount;
       //============================================================================
 
       temp = [];
       wind = [];
       humidity = [];
       pres = [];
-      dt = weatherData.properties.timeseries[i].time.slice(0, 10);
+      dt = new Date(weatherData.properties.timeseries[i].time)
+        .toLocaleString("ru-RU")
+        .slice(0, 10);
     }
 
     //============================================================================

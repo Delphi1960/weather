@@ -1,6 +1,6 @@
-import Box from '@mui/material/Box';
-import React from 'react';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import Box from '@mui/material/Box'
+import React from 'react'
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 type DataPrecip = {
   dataPrecip: any[];
@@ -13,8 +13,10 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
       let precip = Number(dataPrecip[i].precipitation);
       if (max < precip) max = precip;
     }
+
     return { max };
   }
+
   const { max } = minMax();
   const yMax = Math.ceil(max);
   return (

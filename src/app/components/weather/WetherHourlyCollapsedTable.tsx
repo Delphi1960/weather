@@ -1,13 +1,13 @@
-import Box from '@mui/material/Box';
-import Collapse from '@mui/material/Collapse';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import { useRecoilValue } from 'recoil';
+import Box from '@mui/material/Box'
+import Collapse from '@mui/material/Collapse'
+import Table from '@mui/material/Table'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import TableRow from '@mui/material/TableRow'
+import { useRecoilValue } from 'recoil'
 
-import { yrWeatherState } from '../../recoil/yr_weather.state';
-import WeatherDataTable from './WeatherDataTable';
+import { yrWeatherState } from '../../recoil/yr_weather.state'
+import WeatherDataTable from './WeatherDataTable'
 
 type PropsHourly = {
   open: boolean;

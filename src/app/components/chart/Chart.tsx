@@ -1,12 +1,12 @@
-import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
-import { useRecoilValue } from 'recoil';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material'
+import { useRecoilValue } from 'recoil'
 
-import { yrWeatherState } from '../../recoil/yr_weather.state';
-import dailyReport from '../../utils/dailyReport';
-import DisplayLocation from '../weather/DisplayLocation';
-import ChartAirPressure from './ChartAirPressure';
-import ChartPrecipitationAmount from './ChartPrecipitationAmount';
-import ChartTemperature from './ChartTemperature';
+import { yrWeatherState } from '../../recoil/yr_weather.state'
+import dailyReport from '../../utils/dailyReport'
+import DisplayLocation from '../weather/DisplayLocation'
+import ChartAirPressure from './ChartAirPressure'
+import ChartPrecipitationAmount from './ChartPrecipitationAmount'
+import ChartTemperature from './ChartTemperature'
 
 export default function Chart() {
   const weatherData = useRecoilValue(yrWeatherState)!;
@@ -60,6 +60,7 @@ export default function Chart() {
         })}`,
         precipitation: maxDayPrecip[i].toFixed(1),
       });
+      // console.log(maxDayPrecip[i]);
     }
     return { dataTemperature, dataAirPressure, dataPrecip };
   }

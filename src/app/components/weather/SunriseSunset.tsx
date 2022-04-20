@@ -1,10 +1,10 @@
-import { Box, Grid, TableCell, TableRow } from '@mui/material';
-import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { Box, Grid, TableCell, TableRow } from '@mui/material'
+import React from 'react'
+import { useRecoilValue } from 'recoil'
 
-import { Icons } from '../../../assets/icons';
-import { yrSunriseState } from '../../recoil/yr_sunrise.state';
-import { IconsKey } from '../../types/icon.type';
+import { Icons } from '../../../assets/icons'
+import { yrSunriseState } from '../../recoil/yr_sunrise.state'
+import { IconsKey } from '../../types/icon.type'
 
 type Props = {
   date: string;
@@ -31,7 +31,7 @@ export default function SunriseSunset({ date }: Props) {
       <TableCell
         colSpan={7}
         align="center"
-        sx={{ fontSize: { xs: 12, sm: 14, md: 16 } }}
+        sx={{ fontSize: { xs: 14, sm: 16 } }}
       >
         <Box sx={{ flexGrow: 1 }}>
           <Grid

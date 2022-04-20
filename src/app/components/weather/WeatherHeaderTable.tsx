@@ -1,9 +1,9 @@
-import { Box, Hidden, TableCell, TableRow } from '@mui/material';
-import TableHead from '@mui/material/TableHead';
-import React from 'react';
+import { Box, Hidden, TableCell, TableRow } from '@mui/material'
+import TableHead from '@mui/material/TableHead'
+import React from 'react'
 
-import { Icons } from '../../../assets/icons';
-import { IconsKey } from '../../types/icon.type';
+import { Icons } from '../../../assets/icons'
+import { IconsKey } from '../../types/icon.type'
 
 type Src = {
   iconSrc: string;
@@ -11,7 +11,7 @@ type Src = {
 
 function HeaderIcon({ iconSrc }: Src) {
   return (
-    <TableCell align="left">
+    <TableCell align="center">
       <Box
         component="img"
         sx={{ width: { xs: 25, md: 35, lg: 40 } }}
