@@ -51,8 +51,8 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
             domain={[0, yMax]}
             tick={{ fontSize: 12 }}
             tickCount={10}
-            interval={0}
-            allowDecimals={false}
+            // interval={0}
+            allowDecimals={true}
             // domain={["auto", "auto"]}
             // allowDataOverflow={true}
           />

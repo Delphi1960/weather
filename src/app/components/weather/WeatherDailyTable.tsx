@@ -1,11 +1,11 @@
-import { Expand, ExpandLess, ExpandMore } from '@mui/icons-material';
-import { IconButton, Link, Table, TableBody, TableCell, TableRow } from '@mui/material';
-import React from 'react';
+import { Expand, ExpandLess, ExpandMore } from '@mui/icons-material'
+import { IconButton, Link, Table, TableBody, TableCell, TableRow } from '@mui/material'
+import React from 'react'
 
-import SunriseSunset from './SunriseSunset';
-import WeatherDataTable from './WeatherDataTable';
-import WeatherHeaderTable from './WeatherHeaderTable';
-import WetherHourlyCollapsedTable from './WetherHourlyCollapsedTable';
+import SunriseSunset from './SunriseSunset'
+import WeatherDataTable from './WeatherDataTable'
+import WeatherHeaderTable from './WeatherHeaderTable'
+import WetherHourlyCollapsedTable from './WetherHourlyCollapsedTable'
 
 type DayForecast = {
   dayForecast: any[];
