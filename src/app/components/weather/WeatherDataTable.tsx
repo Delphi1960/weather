@@ -81,8 +81,13 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
           </TableCell>
 
           {/* Скорость и направление ветра */}
-          <TableCell align="left">
-            <Grid container>
+          <TableCell align="center">
+            <Grid
+              container
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
               <Grid item>
                 <Box
                   component="span"
@@ -96,8 +101,7 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
                 </Box>
               </Grid>
               <Grid item>
-                {/* <Box sx={{ ml: { xs: 1.5 }, mt: { xs: -2.5 } }}> */}
-                <Box sx={{ mt: 0.3 }}>
+                <Box sx={{ mt: -0.3 }}>
                   <GetDirectionOfTheWind
                     windDirection={item.wind_from_direction}
                   />
