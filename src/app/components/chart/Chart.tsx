@@ -5,13 +5,23 @@ import { yrWeatherState } from '../../recoil/yr_weather.state'
 import dailyReport from '../../utils/dailyReport'
 import DisplayLocation from '../weather/DisplayLocation'
 import ChartAirPressure from './ChartAirPressure'
+import ChartCloud from './ChartCloud'
 import ChartPrecipitationAmount from './ChartPrecipitationAmount'
 import ChartTemperature from './ChartTemperature'
+import ChartWind from './ChartWind'
 
 export default function Chart() {
   const weatherData = useRecoilValue(yrWeatherState)!;
-  const { minDayTemp, maxDayTemp, averagePres, maxDayPrecip } =
-    dailyReport(weatherData);
+  const {
+    minDayTemp,
+    maxDayTemp,
+    averagePres,
+    maxDayPrecip,
+    cloudiness,
+    maxDayWind,
+  } = dailyReport(weatherData);
+
+  // console.log(cloudiness);
 
   function getDate() {
     let dat = weatherData.properties.timeseries[0].time.slice(0, 10);
@@ -35,6 +45,8 @@ export default function Chart() {
     let dataTemperature = [];
     let dataAirPressure = [];
     let dataPrecip = [];
+    let dataWind = [];
+    let dataCloud = [];
     for (let i = 0; i < arDate.length - 1; i++) {
       dataTemperature.push({
         day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
@@ -61,12 +73,39 @@ export default function Chart() {
         precipitation: maxDayPrecip[i].toFixed(1),
       });
       // console.log(maxDayPrecip[i]);
+
+      dataWind.push({
+        day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
+          day: "numeric",
+          month: "2-digit",
+        })}`,
+        wind: maxDayWind[i],
+      });
+
+      dataCloud.push({
+        day: `${new Date(arDate[i]).toLocaleString("ru-RU", {
+          day: "numeric",
+          month: "2-digit",
+        })}`,
+        cloud: cloudiness[i],
+      });
     }
-    return { dataTemperature, dataAirPressure, dataPrecip };
+    return {
+      dataTemperature,
+      dataAirPressure,
+      dataPrecip,
+      dataWind,
+      dataCloud,
+    };
   }
 
-  const { dataTemperature, dataAirPressure, dataPrecip }: any =
-    setDataForChart();
+  const {
+    dataTemperature,
+    dataAirPressure,
+    dataPrecip,
+    dataWind,
+    dataCloud,
+  }: any = setDataForChart();
 
   let theme = createTheme();
   theme = responsiveFontSizes(theme);
@@ -82,6 +121,10 @@ export default function Chart() {
       <ChartPrecipitationAmount dataPrecip={dataPrecip} />
       {/* Атмосферное давление */}
       <ChartAirPressure dataPres={dataAirPressure} />
+      {/* Ветер */}
+      <ChartWind dataWind={dataWind} />
+      {/* Облачность */}
+      <ChartCloud dataCloud={dataCloud} />
     </ThemeProvider>
   );
 }

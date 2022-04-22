@@ -2,24 +2,11 @@ import Box from '@mui/material/Box'
 import React from 'react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
-type DataTemp = {
-  dataTemp: any[];
+type DataCloud = {
+  dataCloud: any[];
 };
 
-export default function ChartTemperature({ dataTemp }: DataTemp) {
-  function minMax() {
-    let min = 200;
-    let max = -200;
-    for (let i = 0; i < dataTemp.length; i++) {
-      let tMin = Number(dataTemp[i].t_min);
-      let tMax = Number(dataTemp[i].t_max);
-      if (min > tMin) min = tMin;
-      if (max < tMax) max = tMax;
-    }
-    return { min, max };
-  }
-  const { min, max } = minMax();
-
+export default function ChartCloud({ dataCloud }: DataCloud) {
   return (
     <React.Fragment>
       <Box
@@ -31,15 +18,16 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
           color: "#164c03",
         }}
       >
-        Min и Max суточная температура С°
+        Средняя дневная облачность %
       </Box>
-      {/* aspect={2} соотношение осей */}
+
+      {/* aspect={2.5} соотношение осей */}
       <ResponsiveContainer width="100%" aspect={2.5}>
         <LineChart
-          data={dataTemp}
+          data={dataCloud}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
-          <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+          <CartesianGrid stroke="#ccc" strokeDasharray="3 3" strokeWidth={1} />
           <XAxis
             dataKey="day"
             angle={-30}
@@ -49,37 +37,29 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
           />
           <YAxis
             type="number"
+            domain={[0, 100]}
             tick={{ fontSize: 12 }}
-            domain={[min - 2, max + 2]}
             tickCount={10}
             interval={0}
             allowDecimals={false}
-            style={{
-              fontSize: "0.8rem",
-              // fontFamily: "Arial",
-            }}
+            // domain={["auto", "auto"]}
+            // allowDataOverflow={true}
           />
-          {/* <Legend
-            layout="horizontal"
-            verticalAlign="top"
-            align="center"
-            fontSize={12}
-          /> */}
+          {/* <Legend layout="horizontal" verticalAlign="bottom" align="center" /> */}
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="t_min"
-            stroke="#026297"
+            dataKey="cloud"
+            stroke="#a06a02"
             strokeWidth={1.3}
             activeDot={{ r: 6 }}
           />
-          <Line
+          {/* <Line
             type="monotone"
             dataKey="t_max"
             stroke="red"
-            strokeWidth={1.3}
             activeDot={{ r: 6 }}
-          />
+          /> */}
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>

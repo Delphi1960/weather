@@ -33,7 +33,7 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
         Суточное количество осадков мм
       </Box>
       {/* aspect={2} соотношение осей */}
-      <ResponsiveContainer width="100%" aspect={2}>
+      <ResponsiveContainer width="100%" aspect={2.5}>
         <LineChart
           data={dataPrecip}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}

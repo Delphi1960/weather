@@ -9,6 +9,7 @@ export default function dailyReport(weatherData: YrWeather) {
   const averageHumidity: any = [];
   const maxDayPrecip: any = [];
   const averagePres: any = [];
+  const cloudiness: any = [];
   let ico00: any = [];
   let ico06: any = [];
   let ico12: any = [];
@@ -18,6 +19,7 @@ export default function dailyReport(weatherData: YrWeather) {
   let humidity = [];
   let pres = [];
   let precip = 0;
+  let cloud = [];
 
   let dt = new Date(weatherData.properties.timeseries[0].time)
     .toLocaleString("ru-RU")
@@ -69,6 +71,16 @@ export default function dailyReport(weatherData: YrWeather) {
             .air_pressure_at_sea_level * 0.75
         )
       );
+      //============================================================================
+      // Облачность
+      let dayTime = new Date(weatherData.properties.timeseries[i].time)
+        .toLocaleString("ru-RU")
+        .slice(12, 14);
+      if (dayTime > "06" && dayTime < "20")
+        cloud.push(
+          weatherData.properties.timeseries[i].data.instant.details
+            .cloud_area_fraction
+        );
     } else {
       //============================================================================
       minDayTemp.push(_.min(temp));
@@ -82,6 +94,7 @@ export default function dailyReport(weatherData: YrWeather) {
 
       averageHumidity.push(_.mean(humidity));
       averagePres.push(_.mean(pres));
+      cloudiness.push(Math.round(_.mean(cloud)));
 
       //============================================================================
       //Подсчитаем количество осадков за день - начало нового дня
@@ -99,6 +112,7 @@ export default function dailyReport(weatherData: YrWeather) {
       wind = [];
       humidity = [];
       pres = [];
+      cloud = [];
       dt = new Date(weatherData.properties.timeseries[i].time)
         .toLocaleString("ru-RU")
         .slice(0, 10);
@@ -160,6 +174,7 @@ export default function dailyReport(weatherData: YrWeather) {
   // minDayWind.push(_.min(wind));
   averageHumidity.push(_.mean(humidity));
   averagePres.push(_.mean(pres));
+  cloudiness.push(_.mean(cloud));
 
   return {
     minDayTemp,
@@ -169,6 +184,7 @@ export default function dailyReport(weatherData: YrWeather) {
     maxDayPrecip,
     averageHumidity,
     averagePres,
+    cloudiness,
     ico00,
     ico06,
     ico12,
