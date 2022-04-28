@@ -117,12 +117,16 @@ export default function Chart() {
 
       {/* CHART Max and Min temperature */}
       <ChartTemperature dataTemp={dataTemperature} />
-      {/* Осадки */}
-      <ChartPrecipitationAmount dataPrecip={dataPrecip} />
-      {/* Атмосферное давление */}
-      <ChartAirPressure dataPres={dataAirPressure} />
+
       {/* Ветер */}
       <ChartWind dataWind={dataWind} />
+
+      {/* Осадки */}
+      <ChartPrecipitationAmount dataPrecip={dataPrecip} />
+
+      {/* Атмосферное давление */}
+      <ChartAirPressure dataPres={dataAirPressure} />
+
       {/* Облачность */}
       <ChartCloud dataCloud={dataCloud} />
     </ThemeProvider>

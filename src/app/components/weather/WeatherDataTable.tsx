@@ -101,11 +101,11 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
                 </Box>
               </Grid>
               <Grid item>
-                <Box sx={{ mt: -0.3 }}>
-                  <GetDirectionOfTheWind
-                    windDirection={item.wind_from_direction}
-                  />
-                </Box>
+                {/* <Box sx={{ mt: -0.3 }}> */}
+                <GetDirectionOfTheWind
+                  windDirection={item.wind_from_direction}
+                />
+                {/* </Box> */}
               </Grid>
             </Grid>
           </TableCell>

@@ -1,12 +1,49 @@
 import Box from '@mui/material/Box'
 import React from 'react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
+import { useRecoilValue } from 'recoil'
+
+import { yrWeatherState } from '../../recoil/yr_weather.state'
+import { IconsKey } from '../../types/icon.type'
+import dailyReport from '../../utils/dailyReport'
+import GetIconWindDirection from '../weather/GetIconWindDirection'
 
 type DataWind = {
   dataWind: any[];
 };
 
+let i = 0;
+let k = 0;
 export default function ChartWind({ dataWind }: DataWind) {
+  const weatherData = useRecoilValue(yrWeatherState)!;
+  const { averageWindDir } = dailyReport(weatherData);
+  // console.log(averageWindDir);
+
+  const CustomizedDot = (props: any) => {
+    const { cx, cy, value } = props;
+    if (i - k === 2) {
+      i = i - 1;
+      k++;
+      if (i > 9) {
+        i = 0;
+        k = 0;
+      }
+    }
+    const icon = GetIconWindDirection(averageWindDir[k]);
+    // console.log(i, k, icon, value);
+    i++;
+
+    return (
+      <image
+        x={cx - 10}
+        y={cy - 10}
+        width={20}
+        height={20}
+        xlinkHref={icon as IconsKey}
+      />
+    );
+  };
+
   function minMax() {
     let min = 2000;
     let max = 0;
@@ -65,13 +102,8 @@ export default function ChartWind({ dataWind }: DataWind) {
             stroke="#03334d"
             strokeWidth={1.3}
             activeDot={{ r: 6 }}
+            dot={<CustomizedDot />}
           />
-          {/* <Line
-            type="monotone"
-            dataKey="t_max"
-            stroke="red"
-            activeDot={{ r: 6 }}
-          /> */}
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Creator: CorelDRAW -->
+<?xml-stylesheet href="w330.css" type="text/css"?>
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="71.4808mm" height="121.142mm" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 2168.54 3675.13"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+ <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="-1880.23" y1="2690.46" x2="795.52" y2="14.7166">
+  <stop offset="0" style="stop-color:#FFAF22"/>
+  <stop offset="1" style="stop-color:#F09900"/>
+ </linearGradient>
+ <radialGradient id="id1" gradientUnits="userSpaceOnUse" cx="-537.635" cy="1352.66" r="2612.04" fx="-537.635" fy="1352.66">
+  <stop offset="0" style="stop-color:#D6B849"/>
+  <stop offset="0.541176" style="stop-color:#D6B849"/>
+  <stop offset="0.670588" style="stop-color:#FFCE47"/>
+  <stop offset="1" style="stop-color:#FFDB73"/>
+  <stop offset="1" style="stop-color:#FFDB73"/>
+ </radialGradient>
+ </defs>
+<symbol id="sun" viewBox="-3149.68 -1259.38 5224.09 5224.09">
+ <polygon class="fil0" points="1095.85,1789.7 2074.41,1352.66 1095.85,914.346 1722.74,44.0892 657.534,156.216 765.838,-910.899 -100.596,-280.823 -537.635,-1259.38 -975.949,-280.823 -1846.21,-907.714 -1734.08,157.49 -2801.19,49.1859 -2171.12,915.62 -3149.68,1352.66 -2171.12,1787.79 -2798.01,2661.23 -1732.8,2549.1 -1841.11,3616.22 -974.674,2986.14 -537.635,3964.7 -102.507,2986.14 767.75,3613.03 658.808,2547.83 1725.92,2655.5 "/>
+ <path class="fil1" d="M-1921.38 2149.01c284.525,492.36 810.307,795.891 1379.06,795.891 879.479,0 1592.71,-713.227 1592.71,-1592.71 0,-879.482 -713.227,-1592.71 -1592.71,-1592.71 -279.419,0 -554.172,73.6954 -796.063,213.308 -492.727,284.279 -796.646,810.452 -796.646,1379.4 0,279.613 73.8896,554.754 213.696,796.84l-0.0485397 -0.0212361z"/>
+ <path class="fil2" d="M-1700.95 2021.6c239.022,413.74 680.679,668.868 1158.6,668.868 738.759,0 1337.87,-599.114 1337.87,-1337.88 0,-738.762 -599.114,-1337.88 -1337.87,-1337.88 -234.711,0 -465.505,61.7395 -668.692,179.014 -414.056,238.797 -669.184,680.782 -669.184,1158.86 0,234.711 62.0671,465.83 179.342,669.02l-0.0637084 -0.0121349z"/>
+</symbol>
+<symbol id="s01d" viewBox="-2576.3 -686.009 5224.09 5224.09">
+ <use x="-2576.3" y="-686.009" width="5224.09" height="5224.09" xlink:href="#sun"/>
+</symbol>
+ <g id="Слой_x0020_1">
+  <metadata id="CorelCorpID_0Corel-Layer"/>
+  <polygon class="fil3" points="0.0121349,-0.0091012 1078.94,2745.47 606.895,2846.14 2121.86,3675.14 2168.54,1936.72 1827.75,2305.33 "/>
+ </g>
+</svg>

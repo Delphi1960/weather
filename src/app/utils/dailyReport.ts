@@ -9,6 +9,7 @@ export default function dailyReport(weatherData: YrWeather) {
   const averageHumidity: any = [];
   const maxDayPrecip: any = [];
   const averagePres: any = [];
+  const averageWindDir: any = [];
   const cloudiness: any = [];
   let ico00: any = [];
   let ico06: any = [];
@@ -20,6 +21,7 @@ export default function dailyReport(weatherData: YrWeather) {
   let pres = [];
   let precip = 0;
   let cloud = [];
+  let windDir = [];
 
   let dt = new Date(weatherData.properties.timeseries[0].time)
     .toLocaleString("ru-RU")
@@ -47,6 +49,12 @@ export default function dailyReport(weatherData: YrWeather) {
           weatherData.properties.timeseries[i].data.instant.details.wind_speed
         )
       );
+      // направление ветра
+      windDir.push(
+        weatherData.properties.timeseries[i].data.instant.details
+          .wind_from_direction
+      );
+
       //============================================================================
       // Подсчитаем количество осадков за день
       precip +=
@@ -76,18 +84,26 @@ export default function dailyReport(weatherData: YrWeather) {
       let dayTime = new Date(weatherData.properties.timeseries[i].time)
         .toLocaleString("ru-RU")
         .slice(12, 14);
-      if (dayTime > "06" && dayTime < "20")
+      if (dayTime > "06" && dayTime < "20") {
         cloud.push(
           weatherData.properties.timeseries[i].data.instant.details
             .cloud_area_fraction
         );
+      } else {
+        cloud.push(
+          weatherData.properties.timeseries[i].data.instant.details
+            .cloud_area_fraction
+        );
+      }
     } else {
       //============================================================================
       minDayTemp.push(_.min(temp));
       maxDayTemp.push(_.max(temp));
       //найдем максимумы и минимумы скорости ветра
       maxDayWind.push(_.max(wind));
-      // minDayWind.push(_.min(wind));
+
+      averageWindDir.push(Math.round(_.mean(windDir)));
+
       //найдем максимумы и минимумы количества осадков
       maxDayPrecip.push(precip);
       // console.log("precip", precip);
@@ -110,6 +126,7 @@ export default function dailyReport(weatherData: YrWeather) {
 
       temp = [];
       wind = [];
+      windDir = [];
       humidity = [];
       pres = [];
       cloud = [];
@@ -171,15 +188,17 @@ export default function dailyReport(weatherData: YrWeather) {
   minDayTemp.push(_.min(temp));
   maxDayTemp.push(_.max(temp));
   maxDayWind.push(_.max(wind));
+  averageWindDir.push(Math.round(_.mean(windDir)));
   // minDayWind.push(_.min(wind));
   averageHumidity.push(_.mean(humidity));
   averagePres.push(_.mean(pres));
   cloudiness.push(_.mean(cloud));
-
+  // console.log(averageWindDir);
   return {
     minDayTemp,
     maxDayTemp,
     maxDayWind,
+    averageWindDir,
     // minDayWind,
     maxDayPrecip,
     averageHumidity,

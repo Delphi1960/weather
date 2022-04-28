@@ -32,9 +32,9 @@ export default function WeatherHeaderTable() {
           }}
         >
           <HeaderIcon iconSrc={Icons["time" as IconsKey]} />
-          <HeaderIcon iconSrc={Icons["clearsky_day" as IconsKey]} />
+          <HeaderIcon iconSrc={Icons["sun_header" as IconsKey]} />
           <HeaderIcon iconSrc={Icons["tplus" as IconsKey]} />
-          <HeaderIcon iconSrc={Icons["rainandthunder" as IconsKey]} />
+          <HeaderIcon iconSrc={Icons["rain_header" as IconsKey]} />
           <HeaderIcon iconSrc={Icons["wind" as IconsKey]} />
           <Hidden smDown={true}>
             <HeaderIcon iconSrc={Icons["humidity" as IconsKey]} />
