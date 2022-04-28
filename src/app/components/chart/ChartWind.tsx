@@ -20,7 +20,7 @@ export default function ChartWind({ dataWind }: DataWind) {
   // console.log(averageWindDir);
 
   const CustomizedDot = (props: any) => {
-    const { cx, cy, value } = props;
+    const { cx, cy } = props;
     if (i - k === 2) {
       i = i - 1;
       k++;
