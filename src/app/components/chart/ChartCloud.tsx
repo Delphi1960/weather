@@ -80,13 +80,13 @@ export default function ChartCloud({ dataCloud }: DataCloud) {
         </Grid>
         <Grid>
           <Box sx={{ mt: 3 }}>
-            <img width={25} alt="icon" src={Icons.fair as IconsKey} />
+            <img width={25} alt="icon" src={Icons.sun_header as IconsKey} />
           </Box>
         </Grid>
       </Grid>
 
       {/* aspect={2.5} соотношение осей */}
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width={"100%"} aspect={2.5}>
         <LineChart
           data={dataCloud}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}

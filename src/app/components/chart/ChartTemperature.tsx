@@ -71,14 +71,40 @@ export default function ChartTemperature({ dataTemp }: DataTemp) {
             dataKey="t_min"
             stroke="#026297"
             strokeWidth={1.3}
-            activeDot={{ r: 6 }}
+            activeDot={{
+              fill: "#3F99F7",
+              stroke: "#fff",
+              strokeWidth: 3,
+              r: 11,
+              className: "boxShadow",
+            }}
+            dot={{
+              fill: "#3F99F7",
+              stroke: "#fff",
+              strokeWidth: 2,
+              r: 6,
+              className: "boxShadow",
+            }}
           />
           <Line
             type="monotone"
             dataKey="t_max"
             stroke="red"
             strokeWidth={1.3}
-            activeDot={{ r: 6 }}
+            activeDot={{
+              fill: "red",
+              stroke: "#fff",
+              strokeWidth: 3,
+              r: 11,
+              className: "boxShadow",
+            }}
+            dot={{
+              fill: "red",
+              stroke: "#fff",
+              strokeWidth: 2,
+              r: 6,
+              className: "boxShadow",
+            }}
           />
         </LineChart>
       </ResponsiveContainer>
