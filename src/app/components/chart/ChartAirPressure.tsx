@@ -1,12 +1,13 @@
-import Box from '@mui/material/Box';
-import React from 'react';
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
+import Box from '@mui/material/Box'
+import React from 'react'
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 type DataPres = {
   dataPres: any[];
+  detail: boolean;
 };
 
-export default function ChartAirPressure({ dataPres }: DataPres) {
+export default function ChartAirPressure({ dataPres, detail }: DataPres) {
   function minMax() {
     let min = 2000;
     let max = 0;
@@ -30,27 +31,39 @@ export default function ChartAirPressure({ dataPres }: DataPres) {
           color: "#164c03",
         }}
       >
-        Среднесуточное атмосферное давление мм
+        {detail
+          ? " Атмосферное давление мм"
+          : " Среднесуточное атмосферное давление мм"}
       </Box>
 
       {/* aspect={2.5} соотношение осей */}
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" aspect={2}>
         <LineChart
           data={dataPres}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" strokeWidth={1} />
-          <XAxis
-            dataKey="day"
-            angle={-30}
-            tick={{ fontSize: 12 }}
-            tickCount={10}
-            interval={0}
-          />
+          {detail ? (
+            <>
+              <XAxis xAxisId="0" dataKey="time" tick={{ fontSize: 10 }} />
+              <XAxis
+                xAxisId="1"
+                dataKey="day"
+                allowDuplicatedCategory={false}
+                tick={{ fontSize: 10 }}
+              />
+            </>
+          ) : (
+            <XAxis
+              dataKey="day"
+              allowDuplicatedCategory={false}
+              tick={{ fontSize: 10 }}
+            />
+          )}
           <YAxis
             type="number"
             domain={[min - 1, max + 1]}
-            tick={{ fontSize: 12 }}
+            tick={{ fontSize: 10 }}
             tickCount={10}
             interval={0}
             allowDecimals={false}

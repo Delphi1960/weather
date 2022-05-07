@@ -1,59 +1,57 @@
 import { Grid } from '@mui/material'
 import Box from '@mui/material/Box'
-import React, { FunctionComponent } from 'react'
+import React from 'react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { Icons } from '../../../assets/icons'
 import { IconsKey } from '../../types/icon.type'
+import GetCloudIcon from './GetCloudIcon'
 
 type DataCloud = {
   dataCloud: any[];
+  dataCloudIcon: any[];
+  detail: boolean;
 };
+// let i = 0;
+// let k = 0;
 
-export default function ChartCloud({ dataCloud }: DataCloud) {
-  const CustomizedDot: FunctionComponent<any> = (props: any) => {
-    const { cx, cy, value } = props;
+export default function ChartCloud({
+  dataCloud,
+  dataCloudIcon,
+  detail,
+}: DataCloud) {
+  // console.log(dataCloud, dataCloudIcon);
 
-    if (value < 30) {
+  const CustomizedDot = (props: any) => {
+    let icon;
+    const { cx, cy, value, payload } = props;
+
+    if (!detail) {
+      if (value < 30) icon = Icons.clearsky_day as IconsKey;
+      else if (value >= 30 && value < 50) icon = Icons.fair_day as IconsKey;
+      else if (value >= 50 && value < 95)
+        icon = Icons.partlycloudy_day as IconsKey;
+      else icon = Icons.cloudy as IconsKey;
       return (
         <image
-          x={cx - 15}
-          y={cy - 15}
-          width={30}
-          height={30}
-          xlinkHref={Icons.sun as IconsKey}
+          x={cx - 10}
+          y={cy - 10}
+          width={20}
+          height={20}
+          xlinkHref={icon}
         />
-        // <svg
-        //   x={cx - 10}
-        //   y={cy - 10}
-        //   width={20}
-        //   height={20}
-        //   fill="orange"
-        //   viewBox="0 0 20 20"
-        // >
-        //   <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" />
-        // </svg>
       );
-    } else if (value >= 30 && value < 70)
+    } else {
       return (
         <image
-          x={cx - 15}
-          y={cy - 15}
-          width={30}
-          height={30}
-          xlinkHref={Icons.fair_d as IconsKey}
+          x={cx - 10}
+          y={cy - 10}
+          width={20}
+          height={20}
+          xlinkHref={GetCloudIcon(payload.time)}
         />
       );
-    else
-      return (
-        <image
-          x={cx - 15}
-          y={cy - 15}
-          width={30}
-          height={30}
-          xlinkHref={Icons.cloud as IconsKey}
-        />
-      );
+    }
   };
 
   return (
@@ -75,7 +73,7 @@ export default function ChartCloud({ dataCloud }: DataCloud) {
               color: "#164c03",
             }}
           >
-            Средняя дневная облачность %
+            {detail ? "Суточная облачность %" : "Средняя дневная облачность %"}
           </Box>
         </Grid>
         <Grid>
@@ -86,23 +84,34 @@ export default function ChartCloud({ dataCloud }: DataCloud) {
       </Grid>
 
       {/* aspect={2.5} соотношение осей */}
-      <ResponsiveContainer width={"100%"} aspect={2.5}>
+      <ResponsiveContainer width={"100%"} aspect={2}>
         <LineChart
           data={dataCloud}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" strokeWidth={1} />
-          <XAxis
-            dataKey="day"
-            angle={-30}
-            tick={{ fontSize: 12 }}
-            tickCount={10}
-            interval={0}
-          />
+          {detail ? (
+            <>
+              <XAxis xAxisId="0" dataKey="time" tick={{ fontSize: 10 }} />
+              <XAxis
+                xAxisId="1"
+                dataKey="day"
+                allowDuplicatedCategory={false}
+                tick={{ fontSize: 10 }}
+              />
+            </>
+          ) : (
+            <XAxis
+              dataKey="day"
+              allowDuplicatedCategory={false}
+              tick={{ fontSize: 10 }}
+            />
+          )}
+
           <YAxis
             type="number"
             domain={[0, 100]}
-            tick={{ fontSize: 12 }}
+            tick={{ fontSize: 10 }}
             tickCount={10}
             interval={0}
             allowDecimals={false}

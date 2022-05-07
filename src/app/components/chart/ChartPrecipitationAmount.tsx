@@ -4,9 +4,13 @@ import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YA
 
 type DataPrecip = {
   dataPrecip: any[];
+  detail: boolean;
 };
 
-export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
+export default function ChartPrecipitationAmount({
+  dataPrecip,
+  detail,
+}: DataPrecip) {
   function minMax() {
     let max = 0;
     for (let i = 0; i < dataPrecip.length; i++) {
@@ -30,26 +34,37 @@ export default function ChartPrecipitationAmount({ dataPrecip }: DataPrecip) {
           color: "#164c03",
         }}
       >
-        Суточное количество осадков мм
+        {detail ? "Количество осадков мм" : "Суточное количество осадков мм"}
       </Box>
       {/* aspect={2} соотношение осей */}
-      <ResponsiveContainer width="100%" aspect={2.5}>
+      <ResponsiveContainer width="100%" aspect={2}>
         <LineChart
           data={dataPrecip}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
           <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
-          <XAxis
-            dataKey="day"
-            angle={-30}
-            tick={{ fontSize: 12 }}
-            tickCount={10}
-            interval={0}
-          />
+          {detail ? (
+            <>
+              <XAxis xAxisId="0" dataKey="time" tick={{ fontSize: 10 }} />
+              <XAxis
+                xAxisId="1"
+                dataKey="day"
+                allowDuplicatedCategory={false}
+                tick={{ fontSize: 10 }}
+              />
+            </>
+          ) : (
+            <XAxis
+              dataKey="day"
+              allowDuplicatedCategory={false}
+              tick={{ fontSize: 10 }}
+            />
+          )}
+
           <YAxis
             type="number"
             domain={[0, yMax]}
-            tick={{ fontSize: 12 }}
+            tick={{ fontSize: 10 }}
             tickCount={10}
             // interval={0}
             allowDecimals={true}

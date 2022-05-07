@@ -96,9 +96,6 @@ import snowshowers_day from './snowshowers_day.svg'
 import snowshowers_night from './snowshowers_night.svg'
 import snowshowersandthunder_day from './snowshowersandthunder_day.svg'
 import snowshowersandthunder_night from './snowshowersandthunder_night.svg'
-import cloud from './svg/cloud.svg'
-import fair_d from './svg/fair_d.svg'
-import sun from './svg/sun.svg'
 import w000 from './wind/w000.svg'
 import w010 from './wind/w010.svg'
 import w020 from './wind/w020.svg'
@@ -137,9 +134,6 @@ import w340 from './wind/w340.svg'
 import w350 from './wind/w350.svg'
 
 export const Icons = {
-  fair_d,
-  sun,
-
   w000,
   w010,
   w020,
@@ -186,7 +180,6 @@ export const Icons = {
   clearsky_day,
   clearsky_night,
   cloudy,
-  cloud,
   fair_day,
   fair_night,
   fog,
