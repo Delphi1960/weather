@@ -12,16 +12,12 @@ type DataCloud = {
   dataCloudIcon: any[];
   detail: boolean;
 };
-// let i = 0;
-// let k = 0;
 
 export default function ChartCloud({
   dataCloud,
   dataCloudIcon,
   detail,
 }: DataCloud) {
-  // console.log(dataCloud, dataCloudIcon);
-
   const CustomizedDot = (props: any) => {
     let icon;
     const { cx, cy, value, payload } = props;
@@ -69,16 +65,11 @@ export default function ChartCloud({
             sx={{
               display: "block",
               textAlign: "center",
-              fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+              fontSize: { xs: 12, sm: 14, md: 16 },
               color: "#164c03",
             }}
           >
             {detail ? "Суточная облачность %" : "Средняя дневная облачность %"}
-          </Box>
-        </Grid>
-        <Grid>
-          <Box sx={{ mt: 3 }}>
-            <img width={25} alt="icon" src={Icons.sun_header as IconsKey} />
           </Box>
         </Grid>
       </Grid>

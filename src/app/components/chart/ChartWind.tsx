@@ -46,7 +46,7 @@ export default function ChartWind({ dataWind, detail }: DataWind) {
         sx={{
           display: "block",
           textAlign: "center",
-          fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+          fontSize: { xs: 12, sm: 14, md: 16 },
           color: "#164c03",
         }}
       >

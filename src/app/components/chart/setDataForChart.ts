@@ -10,6 +10,7 @@ export default function setDataForChart(weatherData: YrWeather) {
     cloudiness,
     maxDayWind,
     averageWindDir,
+    averageHumidity,
   } = dailyReport(weatherData);
 
   // console.log(cloudiness);
@@ -35,8 +36,9 @@ export default function setDataForChart(weatherData: YrWeather) {
   let dataTemperature = [];
   let dataAirPressure = [];
   let dataPrecip = [];
-  let dataWind = [];
+  let dataWindSpeed = [];
   let dataCloud = [];
+  let dataAverageHumidity = [];
   // let dataCloudIcon = [];
   for (let i = 0; i < arDate.length - 1; i++) {
     let dtDay = `${new Date(arDate[i]).toLocaleString("ru-RU", {
@@ -60,7 +62,7 @@ export default function setDataForChart(weatherData: YrWeather) {
       precipitation: maxDayPrecip[i].toFixed(1),
     });
 
-    dataWind.push({
+    dataWindSpeed.push({
       day: dtDay,
       windSpeed: maxDayWind[i],
       windDirection: averageWindDir[i],
@@ -70,12 +72,18 @@ export default function setDataForChart(weatherData: YrWeather) {
       day: dtDay,
       cloud: cloudiness[i],
     });
+
+    dataAverageHumidity.push({
+      day: dtDay,
+      humidity: averageHumidity[i],
+    });
   }
   return {
     dataTemperature,
     dataAirPressure,
     dataPrecip,
-    dataWind,
+    dataWindSpeed,
     dataCloud,
+    dataAverageHumidity,
   };
 }

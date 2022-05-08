@@ -27,7 +27,7 @@ export default function ChartAirPressure({ dataPres, detail }: DataPres) {
         sx={{
           display: "block",
           textAlign: "center",
-          fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+          fontSize: { xs: 12, sm: 14, md: 16 },
           color: "#164c03",
         }}
       >
@@ -79,12 +79,6 @@ export default function ChartAirPressure({ dataPres, detail }: DataPres) {
             strokeWidth={1.3}
             activeDot={{ r: 6 }}
           />
-          {/* <Line
-            type="monotone"
-            dataKey="t_max"
-            stroke="red"
-            activeDot={{ r: 6 }}
-          /> */}
         </LineChart>
       </ResponsiveContainer>
     </React.Fragment>

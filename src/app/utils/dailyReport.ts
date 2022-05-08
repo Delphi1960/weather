@@ -84,17 +84,18 @@ export default function dailyReport(weatherData: YrWeather) {
       let dayTime = new Date(weatherData.properties.timeseries[i].time)
         .toLocaleString("ru-RU")
         .slice(12, 14);
-      if (dayTime > "06" && dayTime < "20") {
-        cloud.push(
-          weatherData.properties.timeseries[i].data.instant.details
-            .cloud_area_fraction
-        );
-      } else {
+      if (dayTime > "05" && dayTime < "21") {
         cloud.push(
           weatherData.properties.timeseries[i].data.instant.details
             .cloud_area_fraction
         );
       }
+      // else {
+      //   cloud.push(
+      //     weatherData.properties.timeseries[i].data.instant.details
+      //       .cloud_area_fraction
+      //   );
+      // }
     } else {
       //============================================================================
       minDayTemp.push(_.min(temp));
@@ -108,7 +109,7 @@ export default function dailyReport(weatherData: YrWeather) {
       maxDayPrecip.push(precip);
       // console.log("precip", precip);
 
-      averageHumidity.push(_.mean(humidity));
+      averageHumidity.push(Math.round(_.mean(humidity)));
       averagePres.push(_.mean(pres));
       cloudiness.push(Math.round(_.mean(cloud)));
 
@@ -190,7 +191,7 @@ export default function dailyReport(weatherData: YrWeather) {
   maxDayWind.push(_.max(wind));
   averageWindDir.push(Math.round(_.mean(windDir)));
   // minDayWind.push(_.min(wind));
-  averageHumidity.push(_.mean(humidity));
+  averageHumidity.push(Math.round(_.mean(humidity)));
   averagePres.push(_.mean(pres));
   cloudiness.push(_.mean(cloud));
   // console.log(averageWindDir);

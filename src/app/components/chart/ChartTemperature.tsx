@@ -14,9 +14,16 @@ export default function ChartTemperature({
   function minMax() {
     let min = 200;
     let max = -200;
+    let tMin;
+    let tMax;
     for (let i = 0; i < dataTemperature.length; i++) {
-      let tMin = Number(dataTemperature[i].t_min);
-      let tMax = Number(dataTemperature[i].t_max);
+      if (detail) {
+        tMin = Number(dataTemperature[i].temp);
+        tMax = Number(dataTemperature[i].temp);
+      } else {
+        tMin = Number(dataTemperature[i].t_min);
+        tMax = Number(dataTemperature[i].t_max);
+      }
       if (min > tMin) min = tMin;
       if (max < tMax) max = tMax;
     }
@@ -31,7 +38,7 @@ export default function ChartTemperature({
         sx={{
           display: "block",
           textAlign: "center",
-          fontSize: { xs: 12, sm: 14, md: 16, lg: 18 },
+          fontSize: { xs: 12, sm: 14, md: 16 },
           color: "#164c03",
         }}
       >

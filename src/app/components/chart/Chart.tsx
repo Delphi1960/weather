@@ -57,7 +57,7 @@ export default function Chart() {
         <Grid item>
           <IconButton
             color="inherit"
-            sx={{ ml: 2, fontSize: 12 }}
+            sx={{ ml: 2, fontSize: 14 }}
             aria-label="expand row"
             // size="small"
             onClick={handleClick}
@@ -68,7 +68,7 @@ export default function Chart() {
         </Grid>
         <Grid item>
           {!briefly ? (
-            <Box sx={{ fontSize: 14 }}>
+            <Box sx={{ fontSize: 14, fontWeight: "bold" }}>
               <IconButton
                 color="inherit"
                 // sx={{ fontSize: 10 }}
@@ -78,6 +78,7 @@ export default function Chart() {
                 <ArrowLeft />
               </IconButton>
               {dateChart}
+
               <IconButton
                 color="inherit"
                 // sx={{ fontSize: 10 }}

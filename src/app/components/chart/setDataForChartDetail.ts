@@ -9,6 +9,7 @@ export default function setDataForChartDetail(
   const dataCloud = [];
   const dataPrecip = [];
   const dataAirPressure = [];
+  const dataAverageHumidity = [];
 
   for (let i = 0; i < weatherData?.properties.timeseries.length; i++) {
     let dt1 = new Date(
@@ -81,6 +82,16 @@ export default function setDataForChartDetail(
             .air_pressure_at_sea_level * 0.75
         ),
       });
+
+      // Влажность
+      dataAverageHumidity.push({
+        day: dtDay,
+        time: dtTime + "h",
+        humidity: Math.round(
+          weatherData.properties.timeseries[i].data.instant.details
+            .relative_humidity
+        ),
+      });
     }
   }
 
@@ -90,5 +101,6 @@ export default function setDataForChartDetail(
     dataCloud,
     dataPrecip,
     dataAirPressure,
+    dataAverageHumidity,
   };
 }

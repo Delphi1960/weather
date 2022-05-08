@@ -2,27 +2,28 @@ import Box from '@mui/material/Box'
 import React from 'react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
-type DataPrecip = {
-  dataPrecip: any[];
+import { Icons } from '../../../assets/icons'
+import { IconsKey } from '../../types/icon.type'
+
+type Props = {
+  dataAverageHumidity: any[];
   detail: boolean;
 };
 
-export default function ChartPrecipitationAmount({
-  dataPrecip,
-  detail,
-}: DataPrecip) {
-  function minMax() {
-    let max = 0;
-    for (let i = 0; i < dataPrecip.length; i++) {
-      let precip = Number(dataPrecip[i].precipitation);
-      if (max < precip) max = precip;
-    }
+export default function ChartHumidity({ dataAverageHumidity, detail }: Props) {
+  const CustomizedDot = (props: any) => {
+    const { cx, cy } = props;
 
-    return { max };
-  }
-
-  const { max } = minMax();
-  const yMax = Math.ceil(max);
+    return (
+      <image
+        x={cx - 5}
+        y={cy - 5}
+        width={10}
+        height={10}
+        xlinkHref={Icons.humidity as IconsKey}
+      />
+    );
+  };
   return (
     <React.Fragment>
       <Box
@@ -34,15 +35,17 @@ export default function ChartPrecipitationAmount({
           color: "#164c03",
         }}
       >
-        {detail ? "Количество осадков мм" : "Суточное количество осадков мм"}
+        {detail
+          ? " Относительная влажность %"
+          : " Среднесуточная относительная влажность %"}
       </Box>
-      {/* aspect={2} соотношение осей */}
+
       <ResponsiveContainer width="100%" aspect={2}>
         <LineChart
-          data={dataPrecip}
+          data={dataAverageHumidity}
           margin={{ top: 5, right: 20, left: 0, bottom: 5 }}
         >
-          <CartesianGrid stroke="#ccc" strokeDasharray="3 3" />
+          <CartesianGrid stroke="#ccc" strokeDasharray="3 3" strokeWidth={1} />
           {detail ? (
             <>
               <XAxis xAxisId="0" dataKey="time" tick={{ fontSize: 10 }} />
@@ -60,25 +63,31 @@ export default function ChartPrecipitationAmount({
               tick={{ fontSize: 10 }}
             />
           )}
-
           <YAxis
             type="number"
-            domain={[0, yMax]}
+            // domain={[min - 1, max + 1]}
             tick={{ fontSize: 10 }}
             tickCount={10}
-            // interval={0}
-            allowDecimals={true}
-            // domain={["auto", "auto"]}
+            interval={0}
+            allowDecimals={false}
+            domain={["auto", "auto"]}
             // allowDataOverflow={true}
           />
           {/* <Legend layout="horizontal" verticalAlign="bottom" align="center" /> */}
           <Tooltip />
           <Line
             type="monotone"
-            dataKey="precipitation"
-            stroke="blue"
+            dataKey="humidity"
+            stroke="#069cef"
             strokeWidth={1.3}
-            activeDot={{ r: 6 }}
+            activeDot={{
+              fill: "red",
+              stroke: "#fff",
+              strokeWidth: 3,
+              r: 8,
+              className: "boxShadow",
+            }}
+            dot={<CustomizedDot />}
           />
         </LineChart>
       </ResponsiveContainer>
