@@ -28,16 +28,15 @@ export default function ChartWind({ dataWind, detail }: DataWind) {
   };
 
   function minMax() {
-    let min = 2000;
     let max = 0;
     for (let i = 0; i < dataWind.length; i++) {
       let wind = Number(dataWind[i].windSpeed);
-      if (min > wind) min = wind;
+
       if (max < wind) max = wind;
     }
-    return { min, max };
+    return max;
   }
-  const { min, max } = minMax();
+  const max = minMax();
 
   return (
     <React.Fragment>
@@ -79,7 +78,7 @@ export default function ChartWind({ dataWind, detail }: DataWind) {
           )}
           <YAxis
             type="number"
-            domain={[min - 1, max + 1]}
+            domain={[0, max + 1]}
             tick={{ fontSize: 10 }}
             tickCount={10}
             interval={0}

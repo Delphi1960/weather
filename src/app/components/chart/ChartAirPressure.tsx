@@ -78,6 +78,7 @@ export default function ChartAirPressure({ dataPres, detail }: DataPres) {
             stroke="#1f6c01"
             strokeWidth={1.3}
             activeDot={{ r: 6 }}
+            dot={{ r: 2 }}
           />
         </LineChart>
       </ResponsiveContainer>

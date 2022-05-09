@@ -22,7 +22,7 @@ export default function ChartPrecipitationAmount({
   }
 
   const { max } = minMax();
-  const yMax = Math.ceil(max);
+
   return (
     <React.Fragment>
       <Box
@@ -63,7 +63,7 @@ export default function ChartPrecipitationAmount({
 
           <YAxis
             type="number"
-            domain={[0, yMax]}
+            domain={[0, max]}
             tick={{ fontSize: 10 }}
             tickCount={10}
             // interval={0}
@@ -79,6 +79,7 @@ export default function ChartPrecipitationAmount({
             stroke="blue"
             strokeWidth={1.3}
             activeDot={{ r: 6 }}
+            dot={{ r: 2 }}
           />
         </LineChart>
       </ResponsiveContainer>

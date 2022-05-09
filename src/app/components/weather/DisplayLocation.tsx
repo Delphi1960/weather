@@ -1,5 +1,6 @@
 import Box from '@mui/material/Box'
-import React, { useState } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 
 import { nameLocation } from '../../recoil/location.state'
@@ -23,7 +24,7 @@ export default function DisplayLocation() {
           fontStyle: "italic",
         }}
       >
-        {place}
+        <Link to="/selectlocation"> {place}</Link>
       </Box>{" "}
       <Box
         component="span"

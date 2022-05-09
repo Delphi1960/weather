@@ -18,7 +18,10 @@ export default function WeatherDataTable({ dataForecast }: DataForecast) {
   return (
     <React.Fragment>
       {dataForecast.map((item, ind) => (
-        <TableRow key={ind}>
+        <TableRow
+          key={ind}
+          sx={{ backgroundColor: ind % 2 ? "aliceblue" : "" }}
+        >
           {/* Время */}
           <TableCell align="center">
             <Box
