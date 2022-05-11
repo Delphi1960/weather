@@ -68,7 +68,7 @@ export default function SelectLocation1({ place }: Place) {
         PaperProps={{
           style: {
             height: "auto",
-            width: "20ch",
+            width: "auto",
           },
         }}
       >

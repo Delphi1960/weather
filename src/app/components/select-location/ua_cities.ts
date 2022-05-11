@@ -31,8 +31,13 @@ export const searchLocation = [
     url: "2-709930/Ukraine/Dnipropetrovsk_Oblast/DnipropetrovsтАЩka_MisтАЩkrada/Dnipropetrovsk",
   },
   {
-    location: "Мира. Португалия",
+    location: "Мира (Португалия)",
     coord: "lat=40.4312&lon=-8.7385&altitude=22",
+    url: "",
+  },
+  {
+    location: "Академик Вернадский (Антарктида)",
+    coord: "lat=-65.2428&lon=-64.2568&altitude=30",
     url: "",
   },
 ];

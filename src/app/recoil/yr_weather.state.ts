@@ -6,17 +6,17 @@ import { LocalStorageManager } from '../utils'
 
 function getDefaultWeatherState() {
   const weather = LocalStorageManager.getItem("weather");
-  const coord = LocalStorageManager.getItem("coord");
-  const lon = weather.geometry.coordinates[0];
-  const lat = weather.geometry.coordinates[1];
-  const altitude = weather.geometry.coordinates[2];
-  const oldCoord = "lat=" + lat + "&lon=" + lon + "&altitude=" + altitude;
-  console.log(coord, oldCoord);
+  // const coord = LocalStorageManager.getItem("coord");
+  // const lon = weather.geometry.coordinates[0];
+  // const lat = weather.geometry.coordinates[1];
+  // const altitude = weather.geometry.coordinates[2];
+  // const oldCoord = "lat=" + lat + "&lon=" + lon + "&altitude=" + altitude;
+  // console.log(coord, oldCoord);
 
   const lastUpdated = LocalStorageManager.getItem("lastUpdated");
   if (
     lastUpdated !== null &&
-    coord === oldCoord &&
+    // coord === oldCoord &&
     differenceInMinutes(Date.now(), lastUpdated) < 60
   ) {
     return weather;
