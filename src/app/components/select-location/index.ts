@@ -1,3 +1,3 @@
-import SelectLocation from './SelectLocation'
+import SelectLocationMenu from './SelectLocationMenu'
 
-export default SelectLocation;
+export default SelectLocationMenu;

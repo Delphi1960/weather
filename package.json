@@ -1,5 +1,5 @@
 {
-  "name": "wether",
+  "name": "weather",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -29,6 +29,7 @@
     "react-scripts": "5.0.0",
     "react-svg": "^14.1.10",
     "react-transition-group": "^4.4.2",
+    "react-window": "^1.8.7",
     "recharts": "^2.1.9",
     "recoil": "^0.6.1",
     "styled-components": "^5.3.3",
@@ -61,6 +62,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.178",
-    "@types/react-numeric-input": "^2.2.4"
+    "@types/react-numeric-input": "^2.2.4",
+    "@types/react-window": "^1.8.5"
   }
 }

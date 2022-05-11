@@ -1,15 +1,15 @@
-import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
-import { Button, Tooltip } from '@mui/material';
-import MuiAppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Toolbar from '@mui/material/Toolbar';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
+import MenuIcon from '@mui/icons-material/Menu'
+import { Button } from '@mui/material'
+import MuiAppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
+import Toolbar from '@mui/material/Toolbar'
+import { useLocation, useNavigate } from 'react-router-dom'
+import { useRecoilState } from 'recoil'
 
-import { drawerState } from '../../recoil/drawer.state';
-import Drawer from '../drawer/Drawer';
+import { drawerState } from '../../recoil/drawer.state'
+import Drawer from '../drawer/Drawer'
+import SelectLocationMenu from '../select-location/SelectLocationMenu'
 
 export default function AppBar() {
   const [isDrawerOpen, setDrawerIsOpen] = useRecoilState(drawerState);
@@ -30,10 +30,6 @@ export default function AppBar() {
   const isActiveFontColor = (path: string) =>
     location.pathname === path ? "yellow" : "white";
 
-  const handleClickLocation = () => {
-    navigate("/selectlocation");
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <MuiAppBar position="static">
@@ -48,7 +44,6 @@ export default function AppBar() {
           >
             <MenuIcon />
           </IconButton>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "flex" } }}>
             <Button
               onClick={handleCurrentClick}
@@ -78,16 +73,8 @@ export default function AppBar() {
               график
             </Button>
           </Box>
-          <Tooltip title="Select location">
-            <IconButton
-              size="large"
-              aria-label="search"
-              color="inherit"
-              onClick={handleClickLocation}
-            >
-              <SearchIcon />
-            </IconButton>
-          </Tooltip>
+          {/* ВЫБОР ЛОКАЦИИ */}
+          <SelectLocationMenu place={""} />
         </Toolbar>
       </MuiAppBar>
       <Drawer />

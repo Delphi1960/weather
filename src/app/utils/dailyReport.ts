@@ -89,13 +89,13 @@ export default function dailyReport(weatherData: YrWeather) {
           weatherData.properties.timeseries[i].data.instant.details
             .cloud_area_fraction
         );
+      } else {
+        // Если на сегодня уже ночь и нет данных. Ставим что-нибуть
+        cloud.push(
+          weatherData.properties.timeseries[i].data.instant.details
+            .cloud_area_fraction
+        );
       }
-      // else {
-      //   cloud.push(
-      //     weatherData.properties.timeseries[i].data.instant.details
-      //       .cloud_area_fraction
-      //   );
-      // }
     } else {
       //============================================================================
       minDayTemp.push(_.min(temp));

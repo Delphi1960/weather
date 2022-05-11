@@ -1,12 +1,12 @@
-import styled from '@emotion/styled';
-import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material';
-import { useRecoilValue } from 'recoil';
+import styled from '@emotion/styled'
+import { Box, Grid, Paper, Table, TableBody, TableCell, TableRow, Typography } from '@mui/material'
+import { useRecoilValue } from 'recoil'
 
-import { Icons } from '../../../assets/icons';
-import { yrWeatherState } from '../../recoil/yr_weather.state';
-import { IconsKey } from '../../types/icon.type';
-import DisplayLocation from './DisplayLocation';
-import GetDirectionOfTheWind from './GetDirectionOfTheWind';
+import { Icons } from '../../../assets/icons'
+import { yrWeatherState } from '../../recoil/yr_weather.state'
+import { IconsKey } from '../../types/icon.type'
+import DisplayLocation from './DisplayLocation'
+import GetDirectionOfTheWind from './GetDirectionOfTheWind'
 
 const Img = styled("img")({
   margin: "auto",

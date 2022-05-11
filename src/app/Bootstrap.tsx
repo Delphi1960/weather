@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import React, { useEffect, useState } from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 
-import { WeatherApi } from './api/weather';
-import Loading from './components/load/Loading';
-import { astroForecastCount, yrSunriseState } from './recoil/yr_sunrise.state';
-import { coordLocation, yrWeatherState } from './recoil/yr_weather.state';
+import { WeatherApi } from './api/weather'
+import Loading from './components/load/Loading'
+import { astroForecastCount, yrSunriseState } from './recoil/yr_sunrise.state'
+import { coordLocation, yrWeatherState } from './recoil/yr_weather.state'
 
 type Props = {
   children: React.ReactNode;
@@ -12,22 +12,26 @@ type Props = {
 
 export default function Bootstrap({ children }: Props) {
   const [isWeatherLoading, setIsWeatherLoading] = useState(true);
-  const [currentWeather, setWeatherData] = useRecoilState(yrWeatherState);
+  // const [currentWeather, setWeatherData] = useRecoilState(yrWeatherState);
+  const setWeatherData = useSetRecoilState(yrWeatherState);
+  const currentWeather = useRecoilValue(yrWeatherState);
   const setSunriseData = useSetRecoilState(yrSunriseState);
   const coord = useRecoilValue(coordLocation);
   const dayCount = useRecoilValue(astroForecastCount);
+  // const place = useRecoilValue(nameLocation);
 
   useEffect(() => {
     // console.clear();
     // console.info("🌐 Requesting initial data from the API");
     const loadInitialData = async () => {
       setIsWeatherLoading(true);
+      console.log(coord, currentWeather);
       try {
-        if (currentWeather === null) {
-          const weather = await WeatherApi.loadWeather(coord);
-          setWeatherData(weather);
-          // console.info("⛅ Weather data loaded");
-        }
+        // if (currentWeather === null) {
+        const weather = await WeatherApi.loadWeather(coord);
+        setWeatherData(weather);
+        // console.info("⛅ Weather data loaded");
+        // }
         const sunrise = await WeatherApi.loadSunrise(coord, dayCount);
         setSunriseData(sunrise);
         // console.log(sunrise);

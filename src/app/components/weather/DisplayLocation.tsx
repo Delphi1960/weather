@@ -1,20 +1,21 @@
 import Box from '@mui/material/Box'
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 
 import { nameLocation } from '../../recoil/location.state'
 import { yrWeatherState } from '../../recoil/yr_weather.state'
+import SelectLocationMenu from '../select-location/SelectLocationMenu'
 
 export default function DisplayLocation() {
   const place = useRecoilValue(nameLocation);
+  // const coord = useRecoilValue(coordLocation);
   const weatherData = useRecoilValue(yrWeatherState)!;
-
+  // console.log(coord, place);
   return (
-    <Box sx={{ ml: 2, mt: -2, mb: 1, textAlign: "left", fontSize: 16 }}>
-      <Box component="span" sx={{ textAlign: "left", color: "black" }}>
+    <Box sx={{ ml: 2, mt: -2, mb: 1, textAlign: "left" }}>
+      {/* <Box component="span" sx={{ textAlign: "left", color: "black" }}>
         Location:{" "}
-      </Box>
+      </Box> */}
       <Box
         component="span"
         sx={{
@@ -24,8 +25,8 @@ export default function DisplayLocation() {
           fontStyle: "italic",
         }}
       >
-        <Link to="/selectlocation"> {place}</Link>
-      </Box>{" "}
+        <SelectLocationMenu place={place} />
+      </Box>
       <Box
         component="span"
         sx={{

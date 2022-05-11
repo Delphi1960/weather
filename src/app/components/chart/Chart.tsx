@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight, CloseFullscreen, OpenInFull } from '@mui/icons-material'
-import { Box, createTheme, Grid, IconButton, responsiveFontSizes, ThemeProvider } from '@mui/material'
+import { Box, createTheme, Grid, IconButton, responsiveFontSizes, ThemeProvider, Tooltip } from '@mui/material'
 import { useState } from 'react'
 import { useRecoilState } from 'recoil'
 
@@ -75,7 +75,9 @@ export default function Chart() {
                 onClick={handleLeftClick}
                 size="large"
               >
-                <ArrowLeft />
+                <Tooltip title="На день назад">
+                  <ArrowLeft />
+                </Tooltip>
               </IconButton>
               {dateChart}
 
@@ -85,7 +87,9 @@ export default function Chart() {
                 onClick={handleRightClick}
                 size="large"
               >
-                <ArrowRight />
+                <Tooltip title="На день вперед">
+                  <ArrowRight />
+                </Tooltip>
               </IconButton>
             </Box>
           ) : null}
