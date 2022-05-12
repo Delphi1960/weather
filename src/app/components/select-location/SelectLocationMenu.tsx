@@ -30,7 +30,7 @@ export default function SelectLocation1({ place }: Place) {
     console.log();
     setAnchorEl(null);
   };
-  const addMap = (event: React.MouseEvent<HTMLElement>, value: string) => {
+  const addMap = (event: React.MouseEvent<HTMLElement>, value: any) => {
     setItemValue(value);
     LocalStorageManager.setItem("location", value);
     handleClose();
@@ -41,8 +41,11 @@ export default function SelectLocation1({ place }: Place) {
       navigate("/");
     }
   };
-
-  const options = searchLocation.map((city) => city.location);
+  const sortLocation = searchLocation.sort((a, b) =>
+    a.location > b.location ? 1 : -1
+  );
+  // console.log(sortLocation);
+  const options = sortLocation.map((city) => city.location);
 
   return (
     <>

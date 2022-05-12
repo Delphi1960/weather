@@ -25,7 +25,7 @@ export default function Bootstrap({ children }: Props) {
     // console.info("🌐 Requesting initial data from the API");
     const loadInitialData = async () => {
       setIsWeatherLoading(true);
-      console.log(coord, currentWeather);
+      // console.log(coord, currentWeather);
       try {
         // if (currentWeather === null) {
         const weather = await WeatherApi.loadWeather(coord);

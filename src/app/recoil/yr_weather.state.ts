@@ -10,21 +10,24 @@ function getDefaultWeatherState() {
   // const lon = weather.geometry.coordinates[0];
   // const lat = weather.geometry.coordinates[1];
   // const altitude = weather.geometry.coordinates[2];
-  // const oldCoord = "lat=" + lat + "&lon=" + lon + "&altitude=" + altitude;
-  // console.log(coord, oldCoord);
+  // const lat1 = Number(coord.slice(4, 10));
+  // const lon1 = Number(coord.slice(16, 23));
+  // const altitude1 = Number(coord.slice(33));
+  // const coordOk = lat === lat1 && lon === lon1 && altitude === altitude1;
+  // console.log(lat, lon, altitude);
+  // console.log(lat1, lon1, altitude1);
+  // console.log(coordOk);
 
   const lastUpdated = LocalStorageManager.getItem("lastUpdated");
   if (
     lastUpdated !== null &&
-    // coord === oldCoord &&
+    // coordOk &&
     differenceInMinutes(Date.now(), lastUpdated) < 60
   ) {
     return weather;
   }
   return null;
 }
-
-console.log(getDefaultWeatherState());
 
 export const yrWeatherState = atom<YrWeather | null>({
   key: "yrWeatherState",
