@@ -71,6 +71,7 @@ export default function setDataForChart(weatherData: YrWeather) {
     dataCloud.push({
       day: dtDay,
       cloud: cloudiness[i],
+      // precipitation: maxDayPrecip[i].toFixed(1),
     });
 
     dataAverageHumidity.push({

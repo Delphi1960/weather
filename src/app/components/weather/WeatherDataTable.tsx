@@ -10,6 +10,7 @@ type DataForecast = {
 };
 
 export default function WeatherDataTable({ dataForecast }: DataForecast) {
+  // console.log(dataForecast);
   // let sum = 0;
   // for (let i = 0; i < dataForecast.length; i++) {
   //   sum = sum + dataForecast[i].pricip;

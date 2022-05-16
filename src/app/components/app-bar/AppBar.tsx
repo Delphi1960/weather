@@ -74,7 +74,9 @@ export default function AppBar() {
             </Button>
           </Box>
           {/* ВЫБОР ЛОКАЦИИ */}
-          <SelectLocationMenu place={""} />
+          <Box sx={{ ml: 2, mt: 1 }}>
+            <SelectLocationMenu place={""} />
+          </Box>
         </Toolbar>
       </MuiAppBar>
       <Drawer />

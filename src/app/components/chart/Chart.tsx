@@ -53,6 +53,7 @@ export default function Chart() {
     <ThemeProvider theme={theme}>
       {/* Показать место */}
       <DisplayLocation />
+
       <Grid container>
         <Grid item>
           <IconButton

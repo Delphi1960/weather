@@ -48,7 +48,7 @@ export default function SelectLocation1({ place }: Place) {
   const options = sortLocation.map((city) => city.location);
 
   return (
-    <>
+    <Box sx={{ ml: -2, mt: -1 }}>
       <Tooltip title="Select location">
         <IconButton
           size="large"
@@ -85,6 +85,6 @@ export default function SelectLocation1({ place }: Place) {
           </MenuItem>
         ))}
       </Menu>
-    </>
+    </Box>
   );
 }

@@ -13,20 +13,6 @@ export default function DisplayLocation() {
   // console.log(coord, place);
   return (
     <Box sx={{ ml: 2, mt: -2, mb: 1, textAlign: "left" }}>
-      {/* <Box component="span" sx={{ textAlign: "left", color: "black" }}>
-        Location:{" "}
-      </Box> */}
-      <Box
-        component="span"
-        sx={{
-          textAlign: "left",
-          color: "blue",
-          fontWeight: "bold",
-          fontStyle: "italic",
-        }}
-      >
-        <SelectLocationMenu place={place} />
-      </Box>
       <Box
         component="span"
         sx={{
@@ -42,7 +28,19 @@ export default function DisplayLocation() {
             minute: "numeric",
           }
         )}
-        ){"  "}
+        )
+      </Box>
+
+      <Box
+        component="span"
+        sx={{
+          textAlign: "left",
+          color: "blue",
+          fontWeight: "bold",
+          fontStyle: "italic",
+        }}
+      >
+        <SelectLocationMenu place={place} />
       </Box>
     </Box>
   );

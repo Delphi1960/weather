@@ -18,6 +18,19 @@ export default function WeatherDailyTable({
   hoursCount,
   date,
 }: DayForecast) {
+  // const weatherData = useRecoilValue(yrWeatherState);
+  // let dt = new Date(date);
+
+  // const dataDay = weatherData?.properties.timeseries.filter((item) => {
+  //   let dt1 = new Date(item.time);
+  //   return dt1.toLocaleDateString() === dt.toLocaleDateString();
+  // });
+  // for(let i=0; i<dataDay!.length; i++){
+
+  // }
+  // console.log(date, dayForecast);
+  // console.log(dataDay);
+
   const [open, setOpen] = React.useState(false);
   const [header, setHeader] = React.useState("Подробно");
   const handleClick = () => {
@@ -35,7 +48,7 @@ export default function WeatherDailyTable({
   };
 
   // console.log(hoursCount);
-  // console.log(date, dayForecast);
+  // console.log(date, hoursCount, dayForecast);
   return (
     <React.Fragment>
       <Table size="small" sx={{ ml: 0, mr: -2 }}>

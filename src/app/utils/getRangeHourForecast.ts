@@ -1,7 +1,7 @@
 // import _ from 'lodash';
 import { YrWeather } from '../types/yr_weather.type'
 
-export default function getRangeHourForecast(weatherData: YrWeather) {
+export default function getRangeTimeHourForecast(weatherData: YrWeather) {
   // ===================================================
   function expandedTime(weatherData: YrWeather) {
     let tmp: any = [];
@@ -95,21 +95,47 @@ export default function getRangeHourForecast(weatherData: YrWeather) {
       hours.unshift(arHours[i].date);
       days.push(hours);
     }
-    let getRange = days;
-    return { getRange, hoursCount };
+    let getRangeTime = days;
+    return { getRangeTime, hoursCount };
   }
   // ===================================================
-  function getDayForecast(weatherData: YrWeather, dtISO: string) {
+  function getDayForecast(
+    weatherData: YrWeather,
+    dateIso: string,
+    dateIso1: string
+  ) {
     let data;
+    // Подсчитаем количество осадков в диапазоне времени
+    let precipitation = 0;
     for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
-      if (weatherData.properties.timeseries[i].time === dtISO) {
+      if (
+        weatherData.properties.timeseries[i].time >= dateIso &&
+        weatherData.properties.timeseries[i].time < dateIso1
+      ) {
+        weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+          ?.precipitation_amount !== undefined
+          ? (precipitation =
+              precipitation +
+              weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+                ?.precipitation_amount)
+          : (precipitation =
+              precipitation +
+              weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
+                ?.precipitation_amount);
+      }
+    }
+    // console.log(precipitation);
+
+    for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
+      if (weatherData.properties.timeseries[i].time === dateIso) {
         data = weatherData.properties.timeseries[i].data.instant.details;
-        let precip_next_1_hours =
-          weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
-            ?.precipitation_amount;
-        let precip_next_6_hours =
-          weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
-            ?.precipitation_amount;
+
+        // let precip_next_1_hours =
+        //   weatherData?.properties?.timeseries[i]?.data.next_1_hours?.details
+        //     ?.precipitation_amount;
+        // let precip_next_6_hours =
+        //   weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
+        //     ?.precipitation_amount;
 
         return {
           icon:
@@ -128,10 +154,10 @@ export default function getRangeHourForecast(weatherData: YrWeather) {
             data?.air_pressure_at_sea_level * 0.75
           ),
 
-          pricip:
-            precip_next_1_hours !== undefined
-              ? precip_next_1_hours
-              : precip_next_6_hours,
+          pricip: precipitation.toFixed(1),
+          // precip_next_1_hours !== undefined
+          //   ? precip_next_1_hours
+          //   : precip_next_6_hours,
         };
       }
     }
@@ -145,21 +171,27 @@ export default function getRangeHourForecast(weatherData: YrWeather) {
   }
   // ===================================================
   const resultWeather: any[] = [];
-  const { getRange, hoursCount } = getRangeHours(expandedTime(weatherData));
-  let dateISO;
+  const { getRangeTime, hoursCount } = getRangeHours(expandedTime(weatherData));
+  let dateIso, dateIso1;
   let arDateTime: any = [];
 
-  for (let i = 0; i < getRange.length; i++) {
-    let dt = convertDate(getRange[i][0]);
+  for (let i = 0; i < getRangeTime.length; i++) {
+    let dt = convertDate(getRangeTime[i][0]);
+    // console.log(getRangeTime[i][0]);
+    for (let j = 1; j < getRangeTime[i].length; j++) {
+      // console.log(getRangeTime[i][j]);
 
-    for (let j = 1; j < getRange[i].length; j++) {
-      let tm = getRange[i][j].slice(0, 2);
+      let tm = getRangeTime[i][j].slice(0, 2);
+      let tm1 = getRangeTime[i][j].slice(3);
       let date = new Date(dt + " " + tm + ":00:00");
+      let date1 = new Date(dt + " " + tm1 + ":00:00");
 
-      dateISO = date.toISOString().slice(0, 19) + "Z";
-      let data = getDayForecast(weatherData, dateISO);
+      dateIso = date.toISOString().slice(0, 19) + "Z";
+      dateIso1 = date1.toISOString().slice(0, 19) + "Z";
+      // console.log(dateIso, dateIso1);
+      let data = getDayForecast(weatherData, dateIso, dateIso1);
       let dataWeather = {
-        time: getRange[i][j],
+        time: getRangeTime[i][j],
         icon: data?.icon,
         cloud_area_fraction: data?.cloud_area_fraction,
         air_temperature: data?.air_temperature,
@@ -169,12 +201,13 @@ export default function getRangeHourForecast(weatherData: YrWeather) {
         air_pressure_at_sea_level: data?.air_pressure_at_sea_level,
         pricip: data?.pricip,
       };
-
+      // console.log(dataWeather);
       arDateTime.push(dataWeather);
     }
     let forecast = {
       date:
-        new Date(convertDate(getRange[i][0])).toISOString().slice(0, 19) + "Z",
+        new Date(convertDate(getRangeTime[i][0])).toISOString().slice(0, 19) +
+        "Z",
       dataTime: arDateTime,
       hoursCount: hoursCount[i],
     };

@@ -12,8 +12,6 @@ import WeatherDataTable from './WeatherDataTable'
 type PropsHourly = {
   open: boolean;
   dtDaily: string;
-  // sunrise: string;
-  // sunset: string;
 };
 
 // Формируем строки с часовым прогнозом
@@ -71,7 +69,15 @@ export default function WetherHourlyCollapsedTable({
       <TableCell colSpan={7}>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <Box sx={{ mt: 1 }}>
-            <Table size="small" aria-label="purchases">
+            <Table
+              size="small"
+              aria-label="purchases"
+              style={{
+                borderWidth: "1px",
+                borderColor: "#aaaaaa",
+                borderStyle: "solid",
+              }}
+            >
               <TableBody>
                 {/* Формируем строки с часовым прогнозом для даты dt = new Date(dtDaily) */}
                 <WeatherDataTable dataForecast={dataHourlyForecast} />
