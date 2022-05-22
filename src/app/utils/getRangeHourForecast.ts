@@ -1,4 +1,5 @@
-// import _ from 'lodash';
+import _ from 'lodash'
+
 import { YrWeather } from '../types/yr_weather.type'
 
 export default function getRangeTimeHourForecast(weatherData: YrWeather) {
@@ -105,6 +106,10 @@ export default function getRangeTimeHourForecast(weatherData: YrWeather) {
     dateIso1: string
   ) {
     let data;
+    let windSpeed = [];
+    let maxWindSpeed;
+    let temperature = [];
+    let averageTemp;
     // Подсчитаем количество осадков в диапазоне времени
     let precipitation = 0;
     for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
@@ -122,9 +127,21 @@ export default function getRangeTimeHourForecast(weatherData: YrWeather) {
               precipitation +
               weatherData?.properties?.timeseries[i]?.data.next_6_hours?.details
                 ?.precipitation_amount);
+        // Подсчитаем max скорость ветра в диапазоне времени
+        windSpeed.push(
+          weatherData?.properties?.timeseries[i]?.data.instant.details
+            .wind_speed
+        );
+        temperature.push(
+          weatherData?.properties?.timeseries[i]?.data.instant.details
+            .air_temperature
+        );
       }
     }
-    // console.log(precipitation);
+    averageTemp = _.mean(temperature);
+    // Подсчитаем max скорость ветра в диапазоне времени
+    maxWindSpeed = _.max(windSpeed);
+    // console.log(dateIso + "-" + dateIso1, maxWindSpeed);
 
     for (let i = 0; i < weatherData.properties.timeseries.length; i++) {
       if (weatherData.properties.timeseries[i].time === dateIso) {
@@ -146,8 +163,10 @@ export default function getRangeTimeHourForecast(weatherData: YrWeather) {
             "noicon",
 
           cloud_area_fraction: Math.round(data?.cloud_area_fraction),
-          air_temperature: Math.round(data?.air_temperature),
-          wind_speed: Math.round(data?.wind_speed),
+          air_temperature: Math.round(averageTemp),
+          // air_temperature: Math.round(data?.air_temperature),
+          // wind_speed: Math.round(data?.wind_speed),
+          wind_speed: Math.round(maxWindSpeed!),
           wind_from_direction: Math.round(data?.wind_from_direction),
           relative_humidity: Math.round(data?.relative_humidity),
           air_pressure_at_sea_level: Math.round(

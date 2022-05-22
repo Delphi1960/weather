@@ -2,6 +2,8 @@ import Box from '@mui/material/Box'
 import React from 'react'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
+import GetCloudIcon from './GetCloudIcon'
+
 type DataTemp = {
   dataTemperature: any[];
   detail: boolean;
@@ -30,6 +32,22 @@ export default function ChartTemperature({
     return { min, max };
   }
   const { min, max } = minMax();
+
+  const CustomizedDot = (props: any) => {
+    const { cx, cy, payload } = props;
+
+    if (detail) {
+      return (
+        <image
+          x={cx - 10}
+          y={cy - 25}
+          width={20}
+          height={20}
+          xlinkHref={GetCloudIcon(payload.time)}
+        />
+      );
+    } else return null;
+  };
 
   return (
     <React.Fragment>
@@ -92,14 +110,27 @@ export default function ChartTemperature({
           <Tooltip />
 
           {detail ? (
-            <Line
-              type="monotone"
-              dataKey="temp"
-              stroke="red"
-              strokeWidth={1.3}
-              activeDot={{ r: 6 }}
-              dot={{ r: 2 }}
-            />
+            <>
+              {/* Линия с точками */}
+              <Line
+                type="monotone"
+                dataKey="temp"
+                stroke="red"
+                strokeWidth={1.3}
+                activeDot={{ r: 6 }}
+                dot={{ r: 2 }}
+              />
+              {/* Линия с иконками */}
+
+              <Line
+                type="monotone"
+                dataKey="temp"
+                stroke="red"
+                strokeWidth={1.3}
+                activeDot={{ r: 6 }}
+                dot={<CustomizedDot />}
+              />
+            </>
           ) : (
             <>
               <Line
